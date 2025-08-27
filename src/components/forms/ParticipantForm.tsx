@@ -31,7 +31,7 @@ const ParticipantForm = ({ onAddParticipant }: Props) => {
 
     return (
         <div>
-            <h6>Add team</h6>
+            <p>Add team</p>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div style={{ display: 'flex' }}>
                     <Input
