@@ -1,5 +1,5 @@
 export type ParticipantType = {
-    id?: string;
+    id: string;
     name: string;
-    tournamentId?: string;
+    tournamentId: string;
 }

@@ -2,9 +2,11 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { persistReducer, persistStore } from 'redux-persist';
 import participantsReducer from './features/participantSlice';
+import scoresReducer from './features/scoreSlice';
 
 const rootReducer = combineReducers({
     participants: participantsReducer,
+    scores: scoresReducer
 });
 
 const persistConfig = {

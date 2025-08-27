@@ -1,13 +1,18 @@
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    text: string;
+    children: React.ReactNode;
     icon?: string;
+    loading?: boolean;
 }
 
-export const Button = ({ onClick, text, icon, ...rest }: ButtonProps) => {
+export const Button = ({ loading, onClick, children, ...rest }: ButtonProps) => {
     return (
-        <button onClick={onClick} {...rest} className="button-base">
-            {icon}
-            {text}
+        <button
+            style={{
+                opacity: loading ? 0.7 : 1,
+            }}
+            onClick={onClick} {...rest} className="button-base">
+            {children}
         </button>
     );
 }

@@ -56,15 +56,13 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
 
     };
 
-
-
     const onSubmit = (data: ParticipantFormValues) => {
         handleAddParticipant?.(data.participantName);
     };
 
     return (
         <div>
-            <p>Add participant</p>
+            <h3>Add participant</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div style={{ display: 'flex' }}>
                     <Input
@@ -72,7 +70,9 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
                         {...register('participantName')}
                         error={error ?? errors.participantName?.message}
                     />
-                    <Button text='Add' type='submit' />
+                    <Button type='submit'>
+                        Add
+                    </Button>
                 </div>
             </form>
         </div>

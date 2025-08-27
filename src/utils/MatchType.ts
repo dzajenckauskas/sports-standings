@@ -1,6 +1,8 @@
 export type MatchType = {
-    teamA: string;
-    teamB: string;
-    scoreA: number;
-    scoreB: number;
-}
+    id: string;
+    tournamentId: string;
+    homeParticipantId: string;
+    awayParticipantId: string;
+    homeParticipantScore: number;
+    awayParticipantScore: number;
+};
