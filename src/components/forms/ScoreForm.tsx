@@ -49,7 +49,7 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <h3>Add participant</h3>
+            <h3>Add score</h3>
             <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
                 <div style={{ flex: 1 }}>
                     <Controller
