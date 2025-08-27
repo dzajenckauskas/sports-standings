@@ -11,7 +11,7 @@ const Card = ({ children, title, icon }: Props) => {
         <div>
             <header>
                 {icon}
-                {title}
+                <h2>{title}</h2>
             </header>
             {children}
         </div>
