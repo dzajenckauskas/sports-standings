@@ -16,8 +16,6 @@ type Props = {
     primaryColor?: string;
 };
 
-
-
 const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryColor }: Props) => {
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons)
     const [showScoreForm, setShowScoreForm] = useState(!showFormToggleButtons)
@@ -55,13 +53,13 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
             const away = base[m.awayParticipantId];
             if (!home || !away) continue; // ignore matches with participants not in this list
 
+            home.games += 1;
+            away.games += 1;
+
             // Scoring system:
             // - Win: 3 pts
             // - Draw: 1 pt
             // - Loss: 0 pts
-
-            home.games += 1;
-            away.games += 1;
 
             if (m.homeParticipantScore > m.awayParticipantScore) {
                 home.wins += 1; home.points += 3;

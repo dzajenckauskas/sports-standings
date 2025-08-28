@@ -68,11 +68,13 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div style={{ display: 'flex', gap: 8 }}>
                     <Input
+                        fieldSize='md'
                         placeHolder='Participant name'
                         {...register('participantName')}
                         error={error ?? errors.participantName?.message}
                     />
-                    <Button type='submit'>
+                    <Button
+                        type='submit' size='md'>
                         Add
                     </Button>
                 </div>

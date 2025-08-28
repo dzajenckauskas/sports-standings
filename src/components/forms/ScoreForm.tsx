@@ -6,6 +6,7 @@ import { ParticipantType } from "../../utils/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import { useEffect, useMemo } from "react";
+import ErrorMessage from "../shared/ErrorMessage";
 
 type Props = {
     participants: ParticipantType[];
@@ -36,7 +37,6 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
         }
         return s;
     }, [matches]);
-    console.log(playedPairs, "playedPairs");
 
     const hasPlayed = (a?: string, b?: string) => {
         if (!a || !b) return false;
@@ -112,9 +112,9 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     name="homeParticipantId"
                     control={control}
                     render={({ field }) => (
-                        <select {...field} style={{ width: '100%' }}
+                        <select {...field} style={{ width: '100%', height: '34px', }}
                             disabled={disabled}>
-                            <option value="">Select home participant</option>
+                            <option value="" disabled>Select home participant</option>
                             {participants
                                 ?.filter((v) => v.id !== awayParticipantId)
                                 // prevent choosing a home participant that already played with selected away participant
@@ -136,9 +136,9 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     name="awayParticipantId"
                     control={control}
                     render={({ field }) => (
-                        <select {...field} style={{ width: '100%' }}
+                        <select {...field} style={{ width: '100%', height: '34px', }}
                             disabled={disabled || !homeParticipantId}>
-                            <option value="">Select away participant</option>
+                            <option value="" disabled>Select away participant</option>
                             {participants
                                 ?.filter((p) => p.id !== homeParticipantId)
                                 // hide participants who already played with selected home participant
@@ -169,7 +169,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             inputMode="numeric" // mobile keyboards show numbers only
                             pattern="[0-9]*"
                             disabled={disabled || !homeParticipantId}
-                            placeholder="Home Score"
+                            placeHolder="Home Score"
                             onChange={(e) => {
                                 const raw = e.target.value;
                                 // only digits allowed
@@ -190,7 +190,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             inputMode="numeric"
                             pattern="[0-9]*"
                             disabled={disabled || !awayParticipantId}
-                            placeholder="Away Score"
+                            placeHolder="Away Score"
                             onChange={(e) => {
                                 const raw = e.target.value;
                                 const cleaned = raw.replace(/\D/g, "");
