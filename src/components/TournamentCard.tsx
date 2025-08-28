@@ -110,9 +110,9 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
                 {showScoreForm &&
                     <ScoreForm disabled={participants?.length === 0} participants={participants} tournamentId={tournamentId} />}
 
+                <h3>Past matches</h3>
                 {matches?.length > 0 ? (
                     <>
-                        <h3>Past matches</h3>
                         {matches.map((m) => (
                             <div key={m.id} style={{
                                 display: 'flex', width: '100%', justifyContent: 'space-between'
@@ -122,7 +122,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
                                     <div>{'vs'}</div>
                                     <div>{getParticipantName(m.awayParticipantId)}</div>
                                 </div>
-                                <div style={{ display: 'flex', gap: 10, fontWeight: 700 }}>
+                                <div style={{ display: 'flex', width: 'min-content', fontWeight: 700, justifyContent: 'space-between' }}>
                                     <div>{m.homeParticipantScore}</div>
                                     <div>{'-'}</div>
                                     <div>{m.awayParticipantScore}</div>
@@ -131,9 +131,12 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
                         ))}
                     </>
                 ) : (
-                    <p>No matches yet.</p>
+                    <div style={{ fontSize: 14, padding: "4px 0px" }}>
+                        <i>No matches yet.</i>
+                    </div>
                 )}
 
+                <h3>Standings</h3>
                 {participants.length > 0 ? (
                     <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
                         <thead>
@@ -160,7 +163,9 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
                         </tbody>
                     </table>
                 ) : (
-                    <p>No participants yet.</p>
+                    <div style={{ fontSize: 14, padding: "4px 0px" }}>
+                        <i>No participants yet.</i>
+                    </div>
                 )}
             </Card>
         </div>

@@ -10,7 +10,7 @@ export const Button = ({ loading, onClick, children, active, ...rest }: ButtonPr
     return (
         <button
             style={{
-                opacity: active ? 0.7 : 1,
+                opacity: active ? 0.5 : 1,
             }}
             disabled={loading}
             onClick={onClick} {...rest} className="button-base">
