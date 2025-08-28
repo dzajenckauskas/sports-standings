@@ -56,6 +56,8 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
 
     };
 
+
+
     const onSubmit = (data: ParticipantFormValues) => {
         handleAddParticipant?.(data.participantName);
     };

@@ -94,21 +94,21 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
     }
     return (
         <div style={{
-            padding: "10px 20px",
-            border: `10px solid ${primaryColor}`,
+            border: `1px solid ${primaryColor}`,
             borderRadius: '8px',
+            overflow: 'hidden',
             boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px;'
         }}>
-            <Card title={title}>
+            <Card title={title} primaryColor={primaryColor}>
                 {showFormToggleButtons &&
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                        <Button onClick={toggleParticipantForm}>+ Add Participant</Button>
-                        <Button onClick={toggleScoreForm}>+ Add Scrore</Button>
+                        <Button active={showParticipantForm} onClick={toggleParticipantForm}>+ Add Participant</Button>
+                        <Button disabled={participants?.length === 0} active={showScoreForm} onClick={toggleScoreForm}>+ Add Scrore</Button>
                     </div>}
                 {showParticipantForm &&
                     <ParticipantForm participants={participants} tournamentId={tournamentId} />}
                 {showScoreForm &&
-                    <ScoreForm participants={participants} tournamentId={tournamentId} />}
+                    <ScoreForm disabled={participants?.length === 0} participants={participants} tournamentId={tournamentId} />}
 
                 {matches?.length > 0 ? (
                     <>

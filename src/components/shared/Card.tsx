@@ -3,17 +3,20 @@ import React from 'react'
 type Props = {
     children: React.ReactNode;
     title: string;
+    primaryColor?: string;
     icon?: React.ReactNode;
 }
 
-const Card = ({ children, title, icon }: Props) => {
+const Card = ({ children, title, icon, primaryColor }: Props) => {
     return (
         <div>
-            <header>
+            <header style={{ backgroundColor: primaryColor ?? '#000', color: '#fff' }}>
                 {icon}
-                <h2>{title}</h2>
+                <h2 style={{ margin: 0, padding: 10 }}>{title}</h2>
             </header>
-            {children}
+            <div style={{ padding: '20px 20px 20px 20px' }}>
+                {children}
+            </div>
         </div>
     )
 }

@@ -9,6 +9,7 @@ import { Input } from "../shared/Input";
 type Props = {
     participants: ParticipantType[];
     tournamentId: string;
+    disabled?: boolean;
 };
 
 type FormValues = {
@@ -18,7 +19,7 @@ type FormValues = {
     awayParticipantScore: number | string;
 };
 
-const ScoreForm = ({ participants, tournamentId }: Props) => {
+const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     const dispatch = useDispatch<AppDispatch>();
     // const matches = useSelector((state: RootState) =>
     //     state.scores.filter((m) => m.tournamentId === tournamentId)
@@ -61,7 +62,7 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
                         name="homeParticipantId"
                         control={control}
                         render={({ field }) => (
-                            <select {...field}>
+                            <select {...field} disabled={disabled}>
                                 <option value="">Home Team</option>
                                 {participants.map((p) => (
                                     <option
@@ -81,7 +82,7 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
                         name="awayParticipantId"
                         control={control}
                         render={({ field }) => (
-                            <select {...field}>
+                            <select {...field} disabled={disabled}>
                                 <option value="">Away Team</option>
                                 {participants.map((p) => (
                                     <option
@@ -104,6 +105,7 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
                         control={control}
                         render={({ field }) => (
                             <Input {...field} type="number"
+                                disabled={disabled}
                                 placeholder="Home Score"
                                 inputMode="numeric" />
                         )}
@@ -115,6 +117,7 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
                         control={control}
                         render={({ field }) => (
                             <Input {...field} type="number"
+                                disabled={disabled}
                                 placeholder="Away Score"
                                 inputMode="numeric" />
                         )}
@@ -122,7 +125,7 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
                 </div>
             </div>
 
-            <Button type="submit">Add Score</Button>
+            <Button type="submit" disabled={disabled}>Add Score</Button>
         </form>
     );
 };
