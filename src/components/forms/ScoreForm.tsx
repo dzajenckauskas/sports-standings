@@ -7,6 +7,7 @@ import { ParticipantType } from "../../utils/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import { Select } from "../shared/Select";
+import { Option } from "../shared/Option";
 
 type Props = {
     participants: ParticipantType[];
@@ -123,9 +124,9 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                                 ?.filter((v) => v.id !== awayParticipantId)
                                 .filter((p) => (awayParticipantId ? !hasPlayed(p.id, awayParticipantId) : true))
                                 .map((p) => (
-                                    <option key={p.id} value={p.id}>
+                                    <Option key={p.id} value={p.id}>
                                         {p.name}
-                                    </option>
+                                    </Option>
                                 ))}
                         </Select>
                     )}
@@ -146,9 +147,9 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                                 ?.filter((p) => p.id !== homeParticipantId)
                                 .filter((p) => !hasPlayed(homeParticipantId, p.id))
                                 .map((p) => (
-                                    <option key={p.id} value={p.id}>
+                                    <Option key={p.id} value={p.id}>
                                         {p.name}
-                                    </option>
+                                    </Option>
                                 ))}
                         </Select>
                     )}
