@@ -1,7 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
-import { AppDispatch } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 import { ParticipantType } from "../../utils/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
@@ -21,14 +21,16 @@ type FormValues = {
 
 const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     const dispatch = useDispatch<AppDispatch>();
-    // const matches = useSelector((state: RootState) =>
-    //     state.scores.filter((m) => m.tournamentId === tournamentId)
-    // );
+    const matches = useSelector((state: RootState) =>
+        state.scores.filter((m) => m.tournamentId === tournamentId)
+    );
+    console.log(matches, "matches");
 
     const {
         control,
         handleSubmit,
         reset,
+        watch
     } = useForm<FormValues>({
         defaultValues: {
             homeParticipantId: "",
@@ -38,7 +40,10 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
         },
     });
 
-
+    const homeParticipantId = watch('homeParticipantId')
+    const awayParticipantId = watch('awayParticipantId')
+    const homeParticipantScore = watch('homeParticipantScore')
+    const awayParticipantScore = watch('awayParticipantScore')
 
     const onSubmit = (data: FormValues) => {
         dispatch(
@@ -64,14 +69,16 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                         <select {...field} style={{ width: '100%' }}
                             disabled={disabled}>
                             <option value="">Home Team</option>
-                            {participants.map((p) => (
-                                <option
-                                    key={p.id}
-                                    value={p.id}
-                                >
-                                    {p.name}
-                                </option>
-                            ))}
+                            {participants
+                                ?.filter((v) => v.id !== awayParticipantId)
+                                ?.map((p) => (
+                                    <option
+                                        key={p.id}
+                                        value={p.id}
+                                    >
+                                        {p.name}
+                                    </option>
+                                ))}
                         </select>
                     )}
                 />
@@ -81,22 +88,26 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     control={control}
                     render={({ field }) => (
                         <select {...field} style={{ width: '100%' }}
-                            disabled={disabled}>
+                            disabled={disabled || !homeParticipantId}>
                             <option value="">Away Team</option>
-                            {participants.map((p) => (
-                                <option
-                                    key={p.id}
-                                    value={p.id}
-                                >
-                                    {p.name}
-                                </option>
-                            ))}
+                            {participants
+                                ?.filter((v) => v.id !== homeParticipantId)
+                                ?.map((p) => (
+                                    <option
+                                        key={p.id}
+                                        value={p.id}
+                                    >
+                                        {p.name}
+                                    </option>
+                                ))}
                         </select>
                     )}
                 />
             </div>
 
-            <div style={{ display: "flex", marginBottom: 8, gap: 8, width: '100%' }}>
+            <div style={{
+                display: "flex", marginBottom: 8, gap: 8, width: '100%'
+            }}>
                 <Controller
                     name="homeParticipantScore"
                     control={control}
@@ -104,7 +115,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                         <Input {...field}
                             type="number"
                             min={0}
-                            disabled={disabled}
+                            disabled={disabled || !homeParticipantId}
                             placeholder="Home Score"
                         />
                     )}
@@ -116,14 +127,19 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                         <Input {...field}
                             type="number"
                             min={0}
-                            disabled={disabled}
+                            disabled={disabled || !awayParticipantId}
                             placeholder="Away Score"
                         />
                     )}
                 />
             </div>
 
-            <Button type="submit" disabled={disabled}>Add Score</Button>
+            <Button type="submit"
+                disabled={
+                    disabled || !homeParticipantId || !awayParticipantId ||
+                    !awayParticipantScore || !homeParticipantScore
+                }>
+                Add Score</Button>
         </form>
     );
 };
