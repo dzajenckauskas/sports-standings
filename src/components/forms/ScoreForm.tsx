@@ -56,73 +56,71 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <h3>Add score</h3>
-            <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                <div style={{ flex: 1 }}>
-                    <Controller
-                        name="homeParticipantId"
-                        control={control}
-                        render={({ field }) => (
-                            <select {...field} disabled={disabled}>
-                                <option value="">Home Team</option>
-                                {participants.map((p) => (
-                                    <option
-                                        key={p.id}
-                                        value={p.id}
-                                    >
-                                        {p.name}
-                                    </option>
-                                ))}
-                            </select>
-                        )}
-                    />
-                </div>
+            <div style={{ display: "flex", marginBottom: 8, gap: 8, width: '100%' }}>
+                <Controller
+                    name="homeParticipantId"
+                    control={control}
+                    render={({ field }) => (
+                        <select {...field} style={{ width: '100%' }}
+                            disabled={disabled}>
+                            <option value="">Home Team</option>
+                            {participants.map((p) => (
+                                <option
+                                    key={p.id}
+                                    value={p.id}
+                                >
+                                    {p.name}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                />
 
-                <div style={{ flex: 1 }}>
-                    <Controller
-                        name="awayParticipantId"
-                        control={control}
-                        render={({ field }) => (
-                            <select {...field} disabled={disabled}>
-                                <option value="">Away Team</option>
-                                {participants.map((p) => (
-                                    <option
-                                        key={p.id}
-                                        value={p.id}
-                                    >
-                                        {p.name}
-                                    </option>
-                                ))}
-                            </select>
-                        )}
-                    />
-                </div>
+                <Controller
+                    name="awayParticipantId"
+                    control={control}
+                    render={({ field }) => (
+                        <select {...field} style={{ width: '100%' }}
+                            disabled={disabled}>
+                            <option value="">Away Team</option>
+                            {participants.map((p) => (
+                                <option
+                                    key={p.id}
+                                    value={p.id}
+                                >
+                                    {p.name}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                />
             </div>
 
-            <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                <div style={{ flex: 1 }}>
-                    <Controller
-                        name="homeParticipantScore"
-                        control={control}
-                        render={({ field }) => (
-                            <Input {...field} type="number"
-                                disabled={disabled}
-                                placeholder="Home Score"
-                                inputMode="numeric" />
-                        )}
-                    />
-                </div>
-                <div style={{ flex: 1 }}>
-                    <Controller
-                        name="awayParticipantScore"
-                        control={control}
-                        render={({ field }) => (
-                            <Input {...field} type="number"
-                                disabled={disabled}
-                                placeholder="Away Score"
-                                inputMode="numeric" />
-                        )}
-                    />
-                </div>
+            <div style={{ display: "flex", marginBottom: 8, gap: 8, width: '100%' }}>
+                <Controller
+                    name="homeParticipantScore"
+                    control={control}
+                    render={({ field }) => (
+                        <Input {...field}
+                            type="number"
+                            min={0}
+                            disabled={disabled}
+                            placeholder="Home Score"
+                        />
+                    )}
+                />
+                <Controller
+                    name="awayParticipantScore"
+                    control={control}
+                    render={({ field }) => (
+                        <Input {...field}
+                            type="number"
+                            min={0}
+                            disabled={disabled}
+                            placeholder="Away Score"
+                        />
+                    )}
+                />
             </div>
 
             <Button type="submit" disabled={disabled}>Add Score</Button>

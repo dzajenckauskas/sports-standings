@@ -36,7 +36,7 @@ and view a dynamically updated standings table.
 • Layout: 2 columns – Add buttons, Standings
 • Style: Cool neutrals, monospace font (Space Mono), icons for win/loss
 
-All designs must be responsive and support auto-scroll if many teams.
+- All designs must be responsive and support auto-scroll if many teams.
 
 ## Bonus
 • TypeScript

@@ -7,10 +7,11 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ error, placeHolder, ...rest }, ref) => {
     return (
-        <div>
+        <div style={{ width: '100%' }}>
             <input
                 ref={ref}
                 placeholder={placeHolder}
+                style={{ width: 'calc(100% - 8px)' }}
                 {...rest}
             />
             {error &&
