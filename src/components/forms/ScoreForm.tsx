@@ -168,6 +168,13 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             min={0}
                             disabled={disabled || !homeParticipantId}
                             placeholder="Home Score"
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                // score can't be less than 0
+                                if (value === "" || Number(value) >= 0) {
+                                    field.onChange(value);
+                                }
+                            }}
                         />
                     )}
                 />
@@ -180,6 +187,13 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             min={0}
                             disabled={disabled || !awayParticipantId}
                             placeholder="Away Score"
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                // score can't be less than 0
+                                if (value === "" || Number(value) >= 0) {
+                                    field.onChange(value);
+                                }
+                            }}
                         />
                     )}
                 />
