@@ -163,36 +163,38 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     name="homeParticipantScore"
                     control={control}
                     render={({ field }) => (
-                        <Input {...field}
-                            type="number"
-                            min={0}
+                        <Input
+                            {...field}
+                            type="text" // use text so we can fully control allowed chars
+                            inputMode="numeric" // mobile keyboards show numbers only
+                            pattern="[0-9]*"
                             disabled={disabled || !homeParticipantId}
                             placeholder="Home Score"
                             onChange={(e) => {
-                                const value = e.target.value;
-                                // score can't be less than 0
-                                if (value === "" || Number(value) >= 0) {
-                                    field.onChange(value);
-                                }
+                                const raw = e.target.value;
+                                // only digits allowed
+                                const cleaned = raw.replace(/\D/g, "");
+                                field.onChange(cleaned);
                             }}
                         />
                     )}
                 />
+
                 <Controller
                     name="awayParticipantScore"
                     control={control}
                     render={({ field }) => (
-                        <Input {...field}
-                            type="number"
-                            min={0}
+                        <Input
+                            {...field}
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
                             disabled={disabled || !awayParticipantId}
                             placeholder="Away Score"
                             onChange={(e) => {
-                                const value = e.target.value;
-                                // score can't be less than 0
-                                if (value === "" || Number(value) >= 0) {
-                                    field.onChange(value);
-                                }
+                                const raw = e.target.value;
+                                const cleaned = raw.replace(/\D/g, "");
+                                field.onChange(cleaned);
                             }}
                         />
                     )}
@@ -204,7 +206,8 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     disabled || !homeParticipantId || !awayParticipantId ||
                     !awayParticipantScore || !homeParticipantScore
                 }>
-                Add Score</Button>
+                Add Score
+            </Button>
         </form>
     );
 };
