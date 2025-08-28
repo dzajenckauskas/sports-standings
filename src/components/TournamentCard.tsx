@@ -9,6 +9,8 @@ import { Button } from './shared/Button';
 type Props = {
     title: string;
     tournamentId: string;
+    showFormToggleButtons?: boolean;
+    primaryColor?: string;
 };
 
 type StandingsRow = {
@@ -21,9 +23,9 @@ type StandingsRow = {
     points: number;
 };
 
-const TournamentCard = ({ title, tournamentId }: Props) => {
-    const [showParticipantForm, setShowParticipantForm] = useState(false)
-    const [showScoreForm, setShowScoreForm] = useState(false)
+const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryColor }: Props) => {
+    const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons)
+    const [showScoreForm, setShowScoreForm] = useState(!showFormToggleButtons)
 
     const toggleParticipantForm = () => {
         setShowParticipantForm(!showParticipantForm)
@@ -91,12 +93,18 @@ const TournamentCard = ({ title, tournamentId }: Props) => {
         return participants?.find((p) => p.id === id)?.name
     }
     return (
-        <div style={{ padding: 20 }}>
+        <div style={{
+            padding: "10px 20px",
+            border: `10px solid ${primaryColor}`,
+            borderRadius: '8px',
+            boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px;'
+        }}>
             <Card title={title}>
-                <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                    <Button onClick={toggleParticipantForm}>+ Add Participant</Button>
-                    <Button onClick={toggleScoreForm}>+ Add Scrore</Button>
-                </div>
+                {showFormToggleButtons &&
+                    <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                        <Button onClick={toggleParticipantForm}>+ Add Participant</Button>
+                        <Button onClick={toggleScoreForm}>+ Add Scrore</Button>
+                    </div>}
                 {showParticipantForm &&
                     <ParticipantForm participants={participants} tournamentId={tournamentId} />}
                 {showScoreForm &&
