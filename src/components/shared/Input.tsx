@@ -1,6 +1,6 @@
 import React from "react";
 import ErrorMessage from "./ErrorMessage";
-import { FieldSize, Variant } from "../../utils/CommonTypes";
+import { FieldSize, Variant, heights } from "../../utils/CommonTypes";
 
 interface InputProps
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
@@ -13,7 +13,6 @@ interface InputProps
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ({ error, label, variant = "light", fieldSize = "md", placeHolder, ...rest }, ref) => {
-        const heights: Record<FieldSize, number> = { sm: 32, md: 38, lg: 46 };
 
         const baseStyles: React.CSSProperties =
             variant === "dark"

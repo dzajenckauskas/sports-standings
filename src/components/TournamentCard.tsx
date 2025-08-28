@@ -8,6 +8,7 @@ import ParticipantForm from './forms/ParticipantForm';
 import ScoreForm from './forms/ScoreForm';
 import { Button } from './shared/Button';
 import Card from './shared/Card';
+import { PlusIcon } from './shared/icons/PlusIcon';
 
 type Props = {
     title: string;
@@ -98,13 +99,16 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
                         display: 'flex', width: '100%',
                         justifyContent: 'space-between'
                     }}>
-                        <Button active={showParticipantForm}
-                            onClick={toggleParticipantForm}>
-                            {'+ Add Participant'}
+                        <Button
+                            active={showParticipantForm}
+                            onClick={toggleParticipantForm}
+                            startIcon={<PlusIcon size={16} />}>
+                            {'Add Participant'}
                         </Button>
                         <Button disabled={participants?.length === 0} active={showScoreForm}
-                            onClick={toggleScoreForm}>
-                            {'+ Add Scrore'}
+                            onClick={toggleScoreForm}
+                            startIcon={<PlusIcon size={16} />}>
+                            {'Add Scrore'}
                         </Button>
                     </div>}
                 {showParticipantForm &&

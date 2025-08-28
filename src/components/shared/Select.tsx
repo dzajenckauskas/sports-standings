@@ -1,6 +1,6 @@
 import React from "react";
-import ErrorMessage from "./ErrorMessage";
-import { FieldSize, Variant } from "../../utils/CommonTypes";
+import { FieldSize, Variant, heights } from "../../utils/CommonTypes";
+
 
 interface SelectProps
     extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "size"> {
@@ -8,7 +8,7 @@ interface SelectProps
     error?: string;
     variant?: Variant;
     fieldSize?: FieldSize;
-    placeholder?: string; // renders a disabled first option
+    placeholder?: string;
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
@@ -25,7 +25,6 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         },
         ref
     ) => {
-        const heights: Record<FieldSize, number> = { sm: 32, md: 38, lg: 46 };
 
         const baseStyles: React.CSSProperties =
             variant === "dark"
@@ -35,40 +34,73 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         return (
             <div style={{ width: "100%" }}>
                 {label && (
-                    <label style={{ display: "block", marginBottom: 4, fontSize: 13, fontWeight: 600 }}>
+                    <label
+                        style={{
+                            display: "block",
+                            marginBottom: 4,
+                            fontSize: 13,
+                            fontWeight: 600,
+                        }}
+                    >
                         {label}
                     </label>
                 )}
 
-                <select
-                    ref={ref}
-                    {...rest}
-                    style={{
-                        width: "100%",
-                        boxSizing: "border-box",
-                        height: heights[fieldSize],
-                        borderRadius: 8,
-                        padding: "0 10px",
-                        outline: "none",
-                        display: "block",
-                        appearance: "none",
-                        backgroundImage:
-                            'linear-gradient(45deg, transparent 50%, rgba(0,0,0,.4) 50%), linear-gradient(135deg, rgba(0,0,0,.4) 50%, transparent 50%)',
-                        backgroundPosition: "calc(100% - 18px) 50%, calc(100% - 12px) 50%",
-                        backgroundSize: "6px 6px, 6px 6px",
-                        backgroundRepeat: "no-repeat",
-                        ...baseStyles,
-                        ...style,
-                    }}
-                >
-                    {placeholder && (
-                        <option value="" disabled>
-                            {placeholder}
-                        </option>
-                    )}
-                    {children}
-                </select>
-                {error && <ErrorMessage error={error} />}
+                <div style={{ position: "relative", width: "100%" }}>
+                    <select
+                        ref={ref}
+                        {...rest}
+                        style={{
+                            width: "100%",
+                            boxSizing: "border-box",
+                            height: heights[fieldSize],
+                            borderRadius: 8,
+                            padding: "0 32px 0 10px", // space for arrow
+                            outline: "none",
+                            display: "block",
+                            cursor: 'pointer',
+                            appearance: "none", // remove native arrow
+                            ...baseStyles,
+                            ...style,
+                        }}
+                    >
+                        {placeholder && (
+                            <option value="" disabled>
+                                {placeholder}
+                            </option>
+                        )}
+                        {children}
+                    </select>
+
+                    {/* custom arrow */}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        style={{
+                            position: "absolute",
+                            right: 10,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            pointerEvents: "none",
+                            color: variant === "dark" ? "#ddd" : "#555",
+                        }}
+                    >
+                        <path
+                            fillRule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.188l3.71-3.957a.75.75 0 111.08 1.04l-4.25 4.53a.75.75 0 01-1.08 0l-4.25-4.53a.75.75 0 01.02-1.06z"
+                            clipRule="evenodd"
+                        />
+                    </svg>
+                </div>
+
+                {error && (
+                    <div style={{ marginTop: 4, color: "#dc2626", fontSize: 12 }}>
+                        {error}
+                    </div>
+                )}
             </div>
         );
     }

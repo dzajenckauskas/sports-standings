@@ -9,6 +9,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     active?: boolean;
     variant?: Variant;
     size?: Size;
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -17,35 +19,92 @@ export const Button: React.FC<ButtonProps> = ({
     active = false,
     variant = "primary",
     size = "md",
+    startIcon,
+    endIcon,
     ...rest
 }) => {
-    const sizes: Record<Size, React.CSSProperties> = {
-        sm: { height: 34, fontSize: 13, padding: "0 10px" },
-        md: { height: 40, fontSize: 14, padding: "0 14px" },
-        lg: { height: 48, fontSize: 15, padding: "0 18px" },
-    };
-    const variants: Record<Variant, React.CSSProperties> = {
-        primary: { background: "#2563eb", color: "#fff" },   // blue
-        secondary: { background: "#6b7280", color: "#fff" }, // gray
-        danger: { background: "#dc2626", color: "#fff" },    // red
+    const sizes: Record<Size, string> = {
+        sm: "btn-sm",
+        md: "btn-md",
+        lg: "btn-lg",
     };
 
     return (
-        <button
-            disabled={loading}
-            {...rest}
-            style={{
-                border: "none",
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: loading ? "not-allowed" : "pointer",
-                opacity: active ? 0.6 : 1,
-                transition: "background 0.2s, opacity 0.2s",
-                ...sizes[size],
-                ...variants[variant],
-            }}
-        >
-            {loading ? "..." : children}
-        </button>
+        <>
+            <button
+                disabled={loading || rest.disabled}
+                {...rest}
+                className={`btn ${sizes[size]} btn-${variant} ${active ? "btn-active" : ""}`}
+            >
+                {loading ? (
+                    <span className="btn-spinner" />
+                ) : (
+                    <>
+                        {startIcon && <span className="btn-icon">{startIcon}</span>}
+                        {children}
+                        {endIcon && <span className="btn-icon">{endIcon}</span>}
+                    </>
+                )}
+            </button>
+            <style>{`
+        .btn {
+          border: none;
+          border-radius: 6px;
+          font-weight: 600;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          transition: background 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-sm { height: 34px; font-size: 13px; padding: 0 12px; }
+        .btn-md { height: 40px; font-size: 14px; padding: 0 16px; }
+        .btn-lg { height: 48px; font-size: 15px; padding: 0 20px; }
+
+        /* Variants */
+        .btn-primary { background: #2563eb; color: #fff; }
+        .btn-secondary { background: #6b7280; color: #fff; }
+        .btn-danger { background: #dc2626; color: #fff; }
+
+        /* Hover */
+        .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+        .btn-secondary:hover:not(:disabled) { background: #4b5563; }
+        .btn-danger:hover:not(:disabled) { background: #b91c1c; }
+
+        /* Active (clicked) */
+        .btn:active:not(:disabled) {
+          transform: scale(0.97);
+        }
+        .btn-active {
+          opacity: 0.7;
+        }
+
+        /* Disabled */
+        .btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        /* Spinner for loading state */
+        .btn-spinner {
+          width: 16px;
+          height: 16px;
+          border: 2px solid rgba(255,255,255,0.6);
+          border-top-color: white;
+          border-radius: 50%;
+          animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .btn-icon {
+          display: inline-flex;
+          align-items: center;
+        }
+      `}</style>
+        </>
     );
 };

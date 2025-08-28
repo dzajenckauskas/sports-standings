@@ -28,7 +28,7 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
     const [error, setError] = useState<string | undefined>()
 
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<ParticipantFormValues>({
+    const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<ParticipantFormValues>({
         resolver: yupResolver(validationSchema),
     });
 
@@ -61,7 +61,7 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
     const onSubmit = (data: ParticipantFormValues) => {
         handleAddParticipant?.(data.participantName);
     };
-
+    const participantName = watch('participantName')
     return (
         <div>
             <h3>Add participant</h3>
@@ -74,6 +74,7 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
                         error={error ?? errors.participantName?.message}
                     />
                     <Button
+                        disabled={!participantName}
                         type='submit' size='md'>
                         Add
                     </Button>
