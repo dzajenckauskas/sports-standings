@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../../store";
 import { ParticipantType } from "../../utils/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
+import { useEffect, useMemo } from "react";
 
 type Props = {
     participants: ParticipantType[];
@@ -24,13 +25,33 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     const matches = useSelector((state: RootState) =>
         state.scores.filter((m) => m.tournamentId === tournamentId)
     );
-    console.log(matches, "matches");
+
+    // create pair sets "A|B"
+    const playedPairs = useMemo(() => {
+        const s = new Set<string>();
+        for (const m of matches) {
+            const key =
+                [m.homeParticipantId, m.awayParticipantId].sort().join("|");
+            s.add(key);
+        }
+        return s;
+    }, [matches]);
+    console.log(playedPairs, "playedPairs");
+
+    const hasPlayed = (a?: string, b?: string) => {
+        if (!a || !b) return false;
+        const key = [a, b].sort().join("|");
+        return playedPairs.has(key);
+    };
 
     const {
         control,
         handleSubmit,
         reset,
-        watch
+        watch,
+        setValue,
+        setError,
+        clearErrors
     } = useForm<FormValues>({
         defaultValues: {
             homeParticipantId: "",
@@ -45,7 +66,32 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     const homeParticipantScore = watch('homeParticipantScore')
     const awayParticipantScore = watch('awayParticipantScore')
 
+    // detect unexpectedly invalid pairs
+    useEffect(() => {
+        if (
+            homeParticipantId &&
+            awayParticipantId &&
+            hasPlayed(homeParticipantId, awayParticipantId)
+        ) {
+            setValue("awayParticipantId", "");
+            setError("awayParticipantId", {
+                type: "manual",
+                message: "These teams have already played."
+            });
+        } else {
+            clearErrors("awayParticipantId");
+        }
+    }, [homeParticipantId, awayParticipantId, hasPlayed, setValue, setError, clearErrors]);
+
     const onSubmit = (data: FormValues) => {
+        // prevent submitting a duplicate pair
+        if (hasPlayed(data.homeParticipantId, data.awayParticipantId)) {
+            setError("awayParticipantId", {
+                type: "manual",
+                message: "These teams have already played."
+            });
+            return;
+        }
         dispatch(
             addMatch({
                 tournamentId,
@@ -68,9 +114,12 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     render={({ field }) => (
                         <select {...field} style={{ width: '100%' }}
                             disabled={disabled}>
-                            <option value="">Home Team</option>
+                            <option value="">Select home participant</option>
                             {participants
                                 ?.filter((v) => v.id !== awayParticipantId)
+                                // prevent choosing a home participant that already played with selected away participant
+                                .filter((p) =>
+                                    awayParticipantId ? !hasPlayed(p.id, awayParticipantId) : true)
                                 ?.map((p) => (
                                     <option
                                         key={p.id}
@@ -89,9 +138,11 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     render={({ field }) => (
                         <select {...field} style={{ width: '100%' }}
                             disabled={disabled || !homeParticipantId}>
-                            <option value="">Away Team</option>
+                            <option value="">Select away participant</option>
                             {participants
-                                ?.filter((v) => v.id !== homeParticipantId)
+                                ?.filter((p) => p.id !== homeParticipantId)
+                                // hide participants who already played with selected home participant
+                                .filter((p) => !hasPlayed(homeParticipantId, p.id))
                                 ?.map((p) => (
                                     <option
                                         key={p.id}
