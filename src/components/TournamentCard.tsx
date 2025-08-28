@@ -1,10 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { StandingsRowType } from '../utils/StandingsRowType';
+import PastMatchesList from './PastMatchesList';
+import StandingsTable from './StandingsTable';
 import ParticipantForm from './forms/ParticipantForm';
 import ScoreForm from './forms/ScoreForm';
-import Card from './shared/Card';
 import { Button } from './shared/Button';
+import Card from './shared/Card';
 
 type Props = {
     title: string;
@@ -13,15 +16,7 @@ type Props = {
     primaryColor?: string;
 };
 
-type StandingsRow = {
-    id: string;
-    name: string;
-    games: number;
-    wins: number;
-    losses: number;
-    draws: number;
-    points: number;
-};
+
 
 const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryColor }: Props) => {
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons)
@@ -40,11 +35,9 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
     const matches = useSelector((state: RootState) =>
         state.scores?.filter((m) => m.tournamentId === tournamentId) ?? []
     );
-    console.log(matches, "matches");
-    console.log(participants, "participants");
 
-    const standings: StandingsRow[] = useMemo(() => {
-        const base: Record<string, StandingsRow> = {};
+    const standings: StandingsRowType[] = useMemo(() => {
+        const base: Record<string, StandingsRowType> = {};
         for (const p of participants) {
             base[p.id] = {
                 id: p.id,
@@ -89,9 +82,11 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
             return a.name.localeCompare(b.name);
         });
     }, [participants, matches]);
+
     const getParticipantName = (id: string) => {
         return participants?.find((p) => p.id === id)?.name
     }
+
     return (
         <div style={{
             border: `1px solid ${primaryColor}`,
@@ -101,72 +96,35 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
         }}>
             <Card title={title} primaryColor={primaryColor}>
                 {showFormToggleButtons &&
-                    <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                        <Button active={showParticipantForm} onClick={toggleParticipantForm}>+ Add Participant</Button>
-                        <Button disabled={participants?.length === 0} active={showScoreForm} onClick={toggleScoreForm}>+ Add Scrore</Button>
+                    <div style={{
+                        display: 'flex', width: '100%',
+                        justifyContent: 'space-between'
+                    }}>
+                        <Button active={showParticipantForm}
+                            onClick={toggleParticipantForm}>
+                            {'+ Add Participant'}
+                        </Button>
+                        <Button disabled={participants?.length === 0} active={showScoreForm}
+                            onClick={toggleScoreForm}>
+                            {'+ Add Scrore'}
+                        </Button>
                     </div>}
                 {showParticipantForm &&
-                    <ParticipantForm participants={participants} tournamentId={tournamentId} />}
+                    <ParticipantForm participants={participants}
+                        tournamentId={tournamentId} />}
                 {showScoreForm &&
-                    <ScoreForm disabled={participants?.length === 0} participants={participants} tournamentId={tournamentId} />}
+                    <ScoreForm disabled={participants?.length === 0}
+                        participants={participants} tournamentId={tournamentId} />}
 
-                <h3>Past matches</h3>
-                {matches?.length > 0 ? (
-                    <>
-                        {matches.map((m) => (
-                            <div key={m.id} style={{
-                                display: 'flex', width: '100%', justifyContent: 'space-between'
-                            }}>
-                                <div style={{ display: 'flex', gap: 20 }}>
-                                    <div>{getParticipantName(m.homeParticipantId)}</div>
-                                    <div>{'vs'}</div>
-                                    <div>{getParticipantName(m.awayParticipantId)}</div>
-                                </div>
-                                <div style={{ display: 'flex', width: 'min-content', fontWeight: 700, justifyContent: 'space-between' }}>
-                                    <div>{m.homeParticipantScore}</div>
-                                    <div>{'-'}</div>
-                                    <div>{m.awayParticipantScore}</div>
-                                </div>
-                            </div>
-                        ))}
-                    </>
-                ) : (
-                    <div style={{ fontSize: 14, padding: "4px 0px" }}>
-                        <i>No matches yet.</i>
-                    </div>
-                )}
+                <PastMatchesList
+                    matches={matches}
+                    getParticipantName={getParticipantName}
+                />
 
-                <h3>Standings</h3>
-                {participants.length > 0 ? (
-                    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
-                        <thead>
-                            <tr>
-                                <th style={{ textAlign: 'left' }}>Participant</th>
-                                <th style={{ textAlign: 'center' }}>Games</th>
-                                <th style={{ textAlign: 'center' }}>Wins</th>
-                                <th style={{ textAlign: 'center' }}>Loses</th>
-                                <th style={{ textAlign: 'center' }}>Draws</th>
-                                <th style={{ textAlign: 'center' }}>Pts</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {standings.map((r) => (
-                                <tr key={r.id}>
-                                    <td style={{ textAlign: 'left' }}>{r.name}</td>
-                                    <td style={{ textAlign: 'center' }}>{r.games}</td>
-                                    <td style={{ textAlign: 'center' }}>{r.wins}</td>
-                                    <td style={{ textAlign: 'center' }}>{r.losses}</td>
-                                    <td style={{ textAlign: 'center' }}>{r.draws}</td>
-                                    <td style={{ textAlign: 'center' }}>{r.points}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <div style={{ fontSize: 14, padding: "4px 0px" }}>
-                        <i>No participants yet.</i>
-                    </div>
-                )}
+                <StandingsTable
+                    participants={participants}
+                    standings={standings}
+                />
             </Card>
         </div>
     );
