@@ -116,7 +116,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                         <Select
                             {...field}
                             variant="light"
-                            fieldSize="md"
+                            fieldSize="sm"
                             placeholder="Select home participant"
                             disabled={disabled}
                         >
@@ -139,7 +139,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                         <Select
                             {...field}
                             variant="light"
-                            fieldSize="md"
+                            fieldSize="sm"
                             placeholder="Select away participant"
                             disabled={disabled}
                         >
@@ -201,6 +201,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
             </div>
 
             <Button type="submit"
+                size="sm"
                 style={{ width: '100%' }}
                 disabled={
                     disabled || !homeParticipantId || !awayParticipantId ||

@@ -100,12 +100,14 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
                         justifyContent: 'space-between'
                     }}>
                         <Button
+                            size='sm'
                             active={showParticipantForm}
                             onClick={toggleParticipantForm}
                             startIcon={<PlusIcon size={16} />}>
                             {'Add Participant'}
                         </Button>
-                        <Button disabled={participants?.length === 0} active={showScoreForm}
+                        <Button
+                            size='sm' disabled={participants?.length === 0} active={showScoreForm}
                             onClick={toggleScoreForm}
                             startIcon={<PlusIcon size={16} />}>
                             {'Add Scrore'}

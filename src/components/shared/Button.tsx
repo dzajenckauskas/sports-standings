@@ -59,9 +59,9 @@ export const Button: React.FC<ButtonProps> = ({
     transition: background 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
   }
 
-  .btn-sm { height: 34px; font-size: 13px; padding: 0 12px; }
-  .btn-md { height: 40px; font-size: 14px; padding: 0 16px; }
-  .btn-lg { height: 48px; font-size: 15px; padding: 0 20px; }
+  .btn-sm { height: 34px; font-size: 13px; padding: 0 8px; }
+  .btn-md { height: 40px; font-size: 14px; padding: 0 12px; }
+  .btn-lg { height: 48px; font-size: 15px; padding: 0 26px; }
 
   /* Variants */
   .btn-primary { background: #2563eb; color: #fff; }
