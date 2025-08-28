@@ -201,6 +201,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
             </div>
 
             <Button type="submit"
+                style={{ width: '100%' }}
                 disabled={
                     disabled || !homeParticipantId || !awayParticipantId ||
                     !awayParticipantScore || !homeParticipantScore
