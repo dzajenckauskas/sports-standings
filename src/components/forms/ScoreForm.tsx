@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
@@ -5,8 +6,7 @@ import { AppDispatch, RootState } from "../../store";
 import { ParticipantType } from "../../utils/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
-import { useEffect, useMemo } from "react";
-import ErrorMessage from "../shared/ErrorMessage";
+import { Select } from "../shared/Select";
 
 type Props = {
     participants: ParticipantType[];
@@ -107,28 +107,27 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <h3>Add score</h3>
-            <div style={{ display: "flex", marginBottom: 8, gap: 8, width: '100%' }}>
+            <div style={{ display: "flex", marginBottom: 8, gap: 8, width: "100%" }}>
                 <Controller
                     name="homeParticipantId"
                     control={control}
                     render={({ field }) => (
-                        <select {...field} style={{ width: '100%', height: '34px', }}
-                            disabled={disabled}>
-                            <option value="" disabled>Select home participant</option>
+                        <Select
+                            {...field}
+                            variant="light"
+                            fieldSize="md"
+                            placeholder="Select home participant"
+                            disabled={disabled}
+                        >
                             {participants
                                 ?.filter((v) => v.id !== awayParticipantId)
-                                // prevent choosing a home participant that already played with selected away participant
-                                .filter((p) =>
-                                    awayParticipantId ? !hasPlayed(p.id, awayParticipantId) : true)
-                                ?.map((p) => (
-                                    <option
-                                        key={p.id}
-                                        value={p.id}
-                                    >
+                                .filter((p) => (awayParticipantId ? !hasPlayed(p.id, awayParticipantId) : true))
+                                .map((p) => (
+                                    <option key={p.id} value={p.id}>
                                         {p.name}
                                     </option>
                                 ))}
-                        </select>
+                        </Select>
                     )}
                 />
 
@@ -136,26 +135,25 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     name="awayParticipantId"
                     control={control}
                     render={({ field }) => (
-                        <select {...field} style={{ width: '100%', height: '34px', }}
-                            disabled={disabled || !homeParticipantId}>
-                            <option value="" disabled>Select away participant</option>
+                        <Select
+                            {...field}
+                            variant="light"
+                            fieldSize="md"
+                            placeholder="Select away participant"
+                            disabled={disabled}
+                        >
                             {participants
                                 ?.filter((p) => p.id !== homeParticipantId)
-                                // hide participants who already played with selected home participant
                                 .filter((p) => !hasPlayed(homeParticipantId, p.id))
-                                ?.map((p) => (
-                                    <option
-                                        key={p.id}
-                                        value={p.id}
-                                    >
+                                .map((p) => (
+                                    <option key={p.id} value={p.id}>
                                         {p.name}
                                     </option>
                                 ))}
-                        </select>
+                        </Select>
                     )}
                 />
             </div>
-
             <div style={{
                 display: "flex", marginBottom: 8, gap: 8, width: '100%'
             }}>
