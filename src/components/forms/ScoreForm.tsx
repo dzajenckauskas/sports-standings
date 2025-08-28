@@ -164,6 +164,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     render={({ field }) => (
                         <Input
                             {...field}
+                            fieldSize="sm"
                             type="text" // use text so we can fully control allowed chars
                             inputMode="numeric" // mobile keyboards show numbers only
                             pattern="[0-9]*"
@@ -185,6 +186,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                     render={({ field }) => (
                         <Input
                             {...field}
+                            fieldSize="sm"
                             type="text"
                             inputMode="numeric"
                             pattern="[0-9]*"

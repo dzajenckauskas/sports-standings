@@ -87,50 +87,44 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
     }
 
     return (
-        <div style={{
-            border: `1px solid ${primaryColor}`,
-            borderRadius: '8px',
-            overflow: 'hidden',
-            boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px;'
-        }}>
-            <Card title={title} primaryColor={primaryColor}>
-                {showFormToggleButtons &&
-                    <div style={{
-                        display: 'flex', width: '100%',
-                        justifyContent: 'space-between'
-                    }}>
-                        <Button
-                            size='sm'
-                            active={showParticipantForm}
-                            onClick={toggleParticipantForm}
-                            startIcon={<PlusIcon size={16} />}>
-                            {'Add Participant'}
-                        </Button>
-                        <Button
-                            size='sm' disabled={participants?.length === 0} active={showScoreForm}
-                            onClick={toggleScoreForm}
-                            startIcon={<PlusIcon size={16} />}>
-                            {'Add Scrore'}
-                        </Button>
-                    </div>}
-                {showParticipantForm &&
-                    <ParticipantForm participants={participants}
-                        tournamentId={tournamentId} />}
-                {showScoreForm &&
-                    <ScoreForm disabled={participants?.length === 0}
-                        participants={participants} tournamentId={tournamentId} />}
 
-                <PastMatchesList
-                    matches={matches}
-                    getParticipantName={getParticipantName}
-                />
+        <Card title={title} primaryColor={primaryColor}>
+            {showFormToggleButtons &&
+                <div style={{
+                    display: 'flex', width: '100%',
+                    justifyContent: 'space-between'
+                }}>
+                    <Button
+                        size='sm'
+                        active={showParticipantForm}
+                        onClick={toggleParticipantForm}
+                        startIcon={<PlusIcon size={16} />}>
+                        {'Add Participant'}
+                    </Button>
+                    <Button
+                        size='sm' disabled={participants?.length === 0} active={showScoreForm}
+                        onClick={toggleScoreForm}
+                        startIcon={<PlusIcon size={16} />}>
+                        {'Add Scrore'}
+                    </Button>
+                </div>}
+            {showParticipantForm &&
+                <ParticipantForm participants={participants}
+                    tournamentId={tournamentId} />}
+            {showScoreForm &&
+                <ScoreForm disabled={participants?.length === 0}
+                    participants={participants} tournamentId={tournamentId} />}
 
-                <StandingsTable
-                    participants={participants}
-                    standings={standings}
-                />
-            </Card>
-        </div>
+            <PastMatchesList
+                matches={matches}
+                getParticipantName={getParticipantName}
+            />
+
+            <StandingsTable
+                participants={participants}
+                standings={standings}
+            />
+        </Card>
     );
 };
 
