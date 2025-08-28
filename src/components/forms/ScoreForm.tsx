@@ -29,7 +29,12 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
         handleSubmit,
         reset,
     } = useForm<FormValues>({
-        defaultValues: { homeParticipantId: "", awayParticipantId: "", homeParticipantScore: "", awayParticipantScore: "" },
+        defaultValues: {
+            homeParticipantId: "",
+            awayParticipantId: "",
+            homeParticipantScore: "",
+            awayParticipantScore: ""
+        },
     });
 
 
@@ -98,7 +103,9 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
                         name="homeParticipantScore"
                         control={control}
                         render={({ field }) => (
-                            <Input {...field} type="number" placeholder="Home Score" inputMode="numeric" />
+                            <Input {...field} type="number"
+                                placeholder="Home Score"
+                                inputMode="numeric" />
                         )}
                     />
                 </div>
@@ -107,7 +114,9 @@ const ScoreForm = ({ participants, tournamentId }: Props) => {
                         name="awayParticipantScore"
                         control={control}
                         render={({ field }) => (
-                            <Input {...field} type="number" placeholder="Away Score" inputMode="numeric" />
+                            <Input {...field} type="number"
+                                placeholder="Away Score"
+                                inputMode="numeric" />
                         )}
                     />
                 </div>
