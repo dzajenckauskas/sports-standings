@@ -9,15 +9,16 @@ import ScoreForm from './forms/ScoreForm';
 import { Button } from './shared/Button';
 import Card from './shared/Card';
 import { PlusIcon } from './shared/icons/PlusIcon';
+import { AppTheme } from '../theme/types';
 
 type Props = {
     title: string;
     tournamentId: string;
     showFormToggleButtons?: boolean;
-    primaryColor?: string;
+    theme: AppTheme
 };
 
-const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryColor }: Props) => {
+const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: Props) => {
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons)
     const [showScoreForm, setShowScoreForm] = useState(!showFormToggleButtons)
 
@@ -88,7 +89,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, primaryCol
 
     return (
 
-        <Card title={title} primaryColor={primaryColor}>
+        <Card title={title} primaryColor={theme.palette.primary.main}>
             {showFormToggleButtons &&
                 <div style={{
                     display: 'flex', width: '100%',

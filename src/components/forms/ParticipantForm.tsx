@@ -62,7 +62,7 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
                         fieldSize="sm"
                         placeHolder="Participant name"
                         {...nameField}
-                        ref={rhfRef}  // ✅ RHF ref attaches to the real <input/>
+                        ref={rhfRef}
                         error={error ?? errors.participantName?.message}
                         style={{ flex: 1 }}
                     />
