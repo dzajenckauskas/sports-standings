@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { RootState } from "../store";
 import { AppTheme } from "../theme/types";
 import { StandingsRowType } from "../utils/StandingsRowType";
@@ -94,7 +94,7 @@ const TournamentCard = ({
     }, [participants, matches]);
 
     const getParticipantName = (id: string) => participants?.find((p) => p.id === id)?.name;
-
+    const theme = useTheme()
     return (
         <FontScope>
             <Card title={t(`singularTitle`)} icon={titleIcon}>
@@ -107,7 +107,7 @@ const TournamentCard = ({
                         <Button
                             t={t}
                             variant="secondary"
-                            size="sm"
+                            size={theme.ui?.layout.buttonsSize}
                             active={showParticipantForm}
                             onClick={toggleParticipantForm}
                             startIcon={<PlusIcon size={20} />}
@@ -117,7 +117,7 @@ const TournamentCard = ({
                         <Button
                             t={t}
                             variant="secondary"
-                            size="sm"
+                            size={theme.ui?.layout.buttonsSize}
                             disabled={participants?.length === 0}
                             active={showScoreForm}
                             onClick={toggleScoreForm}

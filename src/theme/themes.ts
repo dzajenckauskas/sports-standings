@@ -25,7 +25,7 @@ export const cleanMinimal: AppTheme = {
             contrastText: "#fff",
         },
         background: {
-            default: "#f9fafb",
+            default: "#efefef",
             paper: "#ffffff",
         },
         tableHeader: {
@@ -48,8 +48,8 @@ export const cleanMinimal: AppTheme = {
     typography: {
         fontFamily: `'Inter','Roboto',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
         fontWeightRegular: 400,
-        fontWeightMedium: 500,
-        fontWeightBold: 700,
+        fontWeightMedium: 600,
+        fontWeightBold: 800,
         h1: {
             fontSize: "32px",
             fontWeight: 700
@@ -62,6 +62,10 @@ export const cleanMinimal: AppTheme = {
     shape: { borderRadius: 6 },
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
     ui: {
+        layout: {
+            buttonsSize: 'sm',
+            inputsSize: 'sm'
+        },
         standings: {
             showWinLossIcons: false,
             columns: [
@@ -123,8 +127,8 @@ export const sportyEnergetic: AppTheme = {
     typography: {
         fontFamily: `'Montserrat','Bebas Neue',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
         fontWeightRegular: 400,
-        fontWeightMedium: 500,
-        fontWeightBold: 700,
+        fontWeightMedium: 600,
+        fontWeightBold: 800,
         h1: {
             fontSize: "32px",
             fontWeight: 700
@@ -137,6 +141,10 @@ export const sportyEnergetic: AppTheme = {
     shape: { borderRadius: 6 },
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
     ui: {
+        layout: {
+            buttonsSize: 'sm',
+            inputsSize: 'sm'
+        },
         standings: {
             showWinLossIcons: false,
             columns: [
@@ -212,6 +220,10 @@ export const tableCentric: AppTheme = {
     shape: { borderRadius: 6 },
     shadows: { card: "0 4px 16px rgba(2,6,23,0.08)" },
     ui: {
+        layout: {
+            buttonsSize: 'md',
+            inputsSize: 'md'
+        },
         standings: {
             showWinLossIcons: true,
             columns: [

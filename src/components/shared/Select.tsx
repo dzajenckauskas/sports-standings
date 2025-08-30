@@ -39,7 +39,7 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
     }
 
     return {
-        bg: t.palette.background.paper,
+        bg: t.palette.background.default,
         text: t.palette.text.primary,
         border: t.palette.divider.dark,
         focusBorder: hasError ? error : primary,

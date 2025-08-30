@@ -1,3 +1,5 @@
+import { FieldSize } from "../utils/CommonTypes";
+
 export interface PaletteColor {
     main: string;
     light?: string;
@@ -55,6 +57,10 @@ export interface AppTheme {
         card: string;
     };
     ui?: {
+        layout: {
+            buttonsSize: FieldSize;
+            inputsSize: FieldSize;
+        },
         standings?: {
             showWinLossIcons?: boolean;
             columns: Array<{

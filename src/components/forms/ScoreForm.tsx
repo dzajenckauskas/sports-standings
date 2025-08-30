@@ -10,6 +10,7 @@ import { Option } from "../shared/Option";
 import { Select } from "../shared/Select";
 import { TType } from "../../types/TType";
 import { Typography } from "../shared/Typography";
+import { useTheme } from "styled-components";
 
 type Props = {
     participants: ParticipantType[];
@@ -116,7 +117,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
         );
         reset();
     };
-
+    const theme = useTheme()
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Typography variant="h3" weight="bold">{t('forms.score.title')}</Typography>
@@ -128,7 +129,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
                         <Select
                             {...field}
                             variant="light"
-                            fieldSize="sm"
+                            fieldSize={theme.ui?.layout.inputsSize}
                             placeholder={t(`forms.score.selectHomeParticipant`) ?? ''}
                             disabled={disabled}
                         >
@@ -151,7 +152,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
                         <Select
                             {...field}
                             variant="light"
-                            fieldSize="sm"
+                            fieldSize={theme.ui?.layout.inputsSize}
                             placeholder={t(`forms.score.selectAwayParticipant`) ?? ''}
                             disabled={disabled}
                         >
@@ -176,7 +177,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
                     render={({ field }) => (
                         <Input
                             {...field}
-                            fieldSize="sm"
+                            fieldSize={theme.ui?.layout.inputsSize}
                             type="text" // use text so we can fully control allowed chars
                             inputMode="numeric" // mobile keyboards show numbers only
                             pattern="[0-9]*"
@@ -198,7 +199,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
                     render={({ field }) => (
                         <Input
                             {...field}
-                            fieldSize="sm"
+                            fieldSize={theme.ui?.layout.inputsSize}
                             type="text"
                             inputMode="numeric"
                             pattern="[0-9]*"
@@ -218,7 +219,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
                 variant="secondary"
                 type="submit"
                 t={t}
-                size="sm"
+                size={theme.ui?.layout.inputsSize}
                 style={{ width: '100%' }}
                 disabled={
                     disabled || !homeParticipantId || !awayParticipantId ||

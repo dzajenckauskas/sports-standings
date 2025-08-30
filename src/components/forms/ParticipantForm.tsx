@@ -8,6 +8,7 @@ import { ParticipantType } from '../../utils/ParticipantType';
 import { Button } from '../shared/Button';
 import { Input } from '../shared/Input';
 import { Typography } from '../shared/Typography';
+import { useTheme } from 'styled-components';
 
 type ParticipantFormValues = { participantName: string; };
 
@@ -51,7 +52,7 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
     };
 
     const onSubmit = (data: ParticipantFormValues) => handleAddParticipant(data.participantName);
-
+    const theme = useTheme()
     const { ref: rhfRef, ...nameField } = register("participantName");
     return (
         <div>
@@ -59,7 +60,7 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div style={{ width: '100%', display: 'flex', gap: 8 }}>
                     <Input
-                        fieldSize="sm"
+                        fieldSize={theme.ui?.layout.inputsSize}
                         placeHolder={t(`forms.participant.placeholder`) ?? ''}
                         {...nameField}
                         ref={rhfRef}
@@ -68,7 +69,7 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
                     />
                     {/* <EmojiInput
                         t={t}
-                        fieldSize="sm"
+                        fieldSize={theme.ui?.layout.inputsSize}
                         placeHolder={t(`forms.participant.placeholder`) ?? ''}
                         {...nameField}
                         ref={rhfRef}
@@ -79,7 +80,7 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
                         t={t}
                         variant='secondary'
                         disabled={!watch("participantName")}
-                        type="submit" size="sm">
+                        type="submit" size={theme.ui?.layout.inputsSize}>
                         {t('actions.add')}
                     </Button>
                 </div>
