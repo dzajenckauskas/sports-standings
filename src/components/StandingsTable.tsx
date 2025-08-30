@@ -1,110 +1,132 @@
-import React from 'react'
-import { ParticipantType } from '../utils/ParticipantType';
-import { StandingsRowType } from '../utils/StandingsRowType';
+import React from "react";
+import styled from "styled-components";
+import { ParticipantType } from "../utils/ParticipantType";
+import { StandingsRowType } from "../utils/StandingsRowType";
 
 type Props = {
     participants?: ParticipantType[];
-    standings: StandingsRowType[]
-}
+    standings: StandingsRowType[];
+    maxHeight?: number | string; // optional: override scroll container height
+};
 
-const StandingsTable = ({ participants, standings }: Props) => {
+const Wrapper = styled.div(({ theme }) => ({
+    maxHeight: 300,
+    overflowY: "auto",
+    // border: `1px solid ${theme.palette.divider}`,
+    borderRadius: Math.max(2, theme.shape.borderRadius - 2),
+    background: theme.palette.background.paper,
+}));
+
+const Table = styled.table({
+    width: "100%",
+    borderCollapse: "collapse",
+});
+
+const TheadCell = styled.th<{ align?: "left" | "center" }>(
+    ({ theme, align = "left" }) => ({
+        position: "sticky",
+        top: 0,
+        zIndex: 1,
+        background: theme.palette.background.paper,
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        padding: "8px 12px",
+        fontWeight: theme.typography.fontWeightBold ?? 600,
+        fontSize: 13,
+        color: theme.palette.text.secondary,
+        textAlign: align,
+        "@media (max-width: 400px)": {
+            padding: "6px 8px",
+            fontSize: 13,
+        },
+    })
+);
+
+const Row = styled.tr(({ theme }) => ({
+    // // zebra
+    // "&:nth-of-type(odd) td": {
+    //     background: theme.palette.background.default,
+    // },
+    // remove border on last row
+    "&:last-of-type td": {
+        borderBottom: "none",
+    },
+}));
+
+const Cell = styled.td<{ align?: "left" | "center"; emphasize?: boolean }>(
+    ({ theme, align = "center", emphasize }) => ({
+        padding: "8px 12px",
+        fontSize: 14,
+        color: theme.palette.text.primary,
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        background: theme.palette.background.paper,
+        textAlign: align,
+        fontWeight: emphasize ? (theme.typography.fontWeightBold ?? 700) : 400,
+        minWidth: emphasize ? 56 : "auto",
+        "@media (max-width: 400px)": {
+            padding: "6px 8px",
+            fontSize: 13,
+        },
+    })
+);
+
+const EmptyState = styled.div(({ theme }) => ({
+    fontSize: 14,
+    padding: "8px 12px",
+    color: theme.palette.text.secondary,
+    fontStyle: "italic",
+}));
+
+const Title = styled.h3(({ theme }) => ({
+    margin: "0 0 8px",
+    fontSize: 16,
+    fontWeight: theme.typography.fontWeightBold ?? 700,
+    color: theme.palette.text.primary,
+    fontFamily: theme.typography.fontFamily,
+}));
+
+const StandingsTable: React.FC<Props> = ({
+    participants,
+    standings,
+    maxHeight,
+}) => {
     const hasData = Boolean(participants && participants.length > 0);
 
     return (
         <div>
-            <h3>Standings</h3>
+            <Title>Standings</Title>
 
-            <div
-                style={{
-                    maxHeight: 300,
-                    overflowY: "auto",
-                    // paddingRight: 6,
-                    border: "1px solid #e5e7eb",
-                    borderRadius: 6,
-                }}
-            >
+            <Wrapper style={maxHeight ? { maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight } : undefined}>
                 {hasData ? (
-                    <table className="standings" style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <Table>
                         <thead>
                             <tr>
-                                <th className="th-left">Participant</th>
-                                <th className="th-center">Games</th>
-                                <th className="th-center">Wins</th>
-                                <th className="th-center">Loses</th>
-                                <th className="th-center">Draws</th>
-                                <th className="th-center">Pts</th>
+                                <TheadCell align="left">Participant</TheadCell>
+                                <TheadCell align="center">Games</TheadCell>
+                                <TheadCell align="center">Wins</TheadCell>
+                                <TheadCell align="center">Loses</TheadCell>
+                                <TheadCell align="center">Draws</TheadCell>
+                                <TheadCell align="center">Pts</TheadCell>
                             </tr>
                         </thead>
                         <tbody>
-                            {standings.map((r, i) => (
-                                <tr key={r.id} className="row">
-                                    <td className="td-left">{r.name}</td>
-                                    <td className="td">{r.games}</td>
-                                    <td className="td">{r.wins}</td>
-                                    <td className="td">{r.losses}</td>
-                                    <td className="td">{r.draws}</td>
-                                    <td className="td td-points">{r.points}</td>
-                                </tr>
+                            {standings.map((r) => (
+                                <Row key={r.id}>
+                                    <Cell align="left">{r.name}</Cell>
+                                    <Cell>{r.games}</Cell>
+                                    <Cell>{r.wins}</Cell>
+                                    <Cell>{r.losses}</Cell>
+                                    <Cell>{r.draws}</Cell>
+                                    <Cell emphasize>{r.points}</Cell>
+                                </Row>
                             ))}
                         </tbody>
-                    </table>
+                    </Table>
                 ) : (
-                    <div style={{ fontSize: 14, padding: "8px 12px", color: "#6b7280" }}>
-                        <i>No participants yet.</i>
-                    </div>
+                    <EmptyState>No participants yet.</EmptyState>
                 )}
-            </div>
-
-            <style>{`
-        /* Sticky header to keep only body scrolling */
-        .standings thead th {
-          position: sticky;
-          top: 0;
-          z-index: 1;
-          background: #fff;
-          border-bottom: 1px solid #e5e7eb;
-        }
-
-        /* Header cells */
-        .th-left, .th-center {
-          padding: 8px 12px;
-          font-weight: 600;
-          font-size: 13px;
-          color: #374151;
-          text-align: left;
-        }
-        .th-center { text-align: center; }
-
-        /* Body cells */
-        .td, .td-left {
-          padding: 8px 12px;
-          font-size: 14px;
-          color: #111827;
-          border-bottom: 1px solid #e5e7eb;
-          background: #fff;
-        }
-        .td-left { text-align: left; }
-        .td { text-align: center; }
-
-        /* Zebra stripes */
-        .standings tbody .row:nth-child(odd) .td,
-        .standings tbody .row:nth-child(odd) .td-left {
-          background: #fafafa;
-        }
-
-        /* Points emphasis */
-        .td-points {
-          font-weight: 700;
-          min-width: 56px;
-        }
-
-        /* Compact on small screens */
-        @media (max-width: 400px) {
-          .th-left, .th-center, .td, .td-left { padding: 6px 8px; font-size: 13px; }
-        }
-      `}</style>
+            </Wrapper>
         </div>
-    )
-}
+    );
+};
 
-export default StandingsTable
+export default StandingsTable;
