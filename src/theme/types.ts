@@ -12,6 +12,8 @@ export interface Palette {
     error: PaletteColor;
     success: PaletteColor;
     warning: PaletteColor;
+    tableHeader: PaletteColor;
+    tableRow: PaletteColor;
     background: {
         default: string;
         paper: string;
@@ -21,7 +23,10 @@ export interface Palette {
         secondary: string;
         disabled?: string;
     };
-    divider: string;
+    divider: {
+        light: string;
+        dark: string;
+    };
 }
 
 export interface AppTheme {

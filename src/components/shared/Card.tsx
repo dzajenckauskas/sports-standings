@@ -1,5 +1,6 @@
 import React from "react";
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes, css, useTheme } from "styled-components";
+import { Typography } from "./Typography";
 
 type Props = {
   children: React.ReactNode;
@@ -13,14 +14,13 @@ type Props = {
   footer?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
-
   /** keep this for a fun quick spin on hover; default true */
   iconHoverSpin?: boolean;
 };
 
 const CardRoot = styled.div(({ theme }) => ({
   background: theme.palette.background.paper,
-  border: `1px solid ${theme.palette.divider}`,
+  border: `1px solid ${theme.palette.divider.dark}`,
   borderRadius: theme.shape.borderRadius + 2,
   boxShadow: theme.shadows.card,
   display: "flex",
@@ -49,16 +49,6 @@ const HeaderLeft = styled.div({
   minWidth: 0,
 });
 
-const Title = styled.h2(({ theme }) => ({
-  margin: 0,
-  fontSize: 24,
-  fontWeight: theme.typography.fontWeightBold ?? 700,
-  lineHeight: 1.1,
-  whiteSpace: "nowrap" as const,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  fontFamily: theme.typography.fontFamily,
-}));
 
 const Actions = styled.div({
   display: "flex",
@@ -82,7 +72,7 @@ const CardBody = styled.div<{ $scrollBody: boolean; $maxBodyHeight: string }>(
 
 const CardFooter = styled.div(({ theme }) => ({
   padding: "12px 16px",
-  borderTop: `1px solid ${theme.palette.divider}`,
+  borderTop: `1px solid ${theme.palette.divider.dark}`,
   background: theme.palette.background.default,
 }));
 
@@ -140,6 +130,8 @@ const Card: React.FC<Props> = ({
   style,
   iconHoverSpin = true,
 }) => {
+  const theme = useTheme();
+
   return (
     <CardRoot className={className} style={style}>
       <CardHeader $sticky={stickyHeader}>
@@ -153,9 +145,13 @@ const Card: React.FC<Props> = ({
               {icon}
             </IconWrap>
           )}
-          <Title title={title} style={{ paddingLeft: icon ? 6 : 0 }}>
+          <Typography variant="h2"
+            style={{
+              paddingLeft: icon ? 6 : 0,
+              color: theme.palette.primary.contrastText
+            }}>
             {title}
-          </Title>
+          </Typography>
         </HeaderLeft>
         {actions && <Actions>{actions}</Actions>}
       </CardHeader>

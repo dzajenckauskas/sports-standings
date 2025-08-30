@@ -7,6 +7,7 @@ import { TType } from '../../types/TType';
 import { ParticipantType } from '../../utils/ParticipantType';
 import { Button } from '../shared/Button';
 import { EmojiInput } from './EmojiInput';
+import { Typography } from '../shared/Typography';
 
 type ParticipantFormValues = { participantName: string; };
 
@@ -54,10 +55,9 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
     const { ref: rhfRef, ...nameField } = register("participantName");
     return (
         <div>
-            <h3>{t(`forms.participant.title`)}</h3>
+            <Typography variant="h3" weight="bold">{t('forms.participant.title')}</Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div style={{ width: '100%', display: 'flex', gap: 8 }}>
-
                     <EmojiInput
                         t={t}
                         fieldSize="sm"
@@ -67,10 +67,9 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
                         error={errors.participantName?.message}
                         style={{ flex: 1 }}
                     />
-
                     <Button
                         t={t}
-                        variant='primary'
+                        variant='secondary'
                         disabled={!watch("participantName")}
                         type="submit" size="sm">
                         {t('actions.add')}

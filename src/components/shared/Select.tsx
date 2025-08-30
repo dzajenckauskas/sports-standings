@@ -27,7 +27,7 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
         const isDarkMode = t.palette.mode === "dark";
         const bg = isDarkMode ? t.palette.background.paper : "#1a2d23";
         const text = isDarkMode ? t.palette.text.primary : "#fff";
-        const border = isDarkMode ? t.palette.divider : "rgba(255,255,255,0.2)";
+        const border = isDarkMode ? t.palette.divider.dark : "rgba(255,255,255,0.2)";
         return {
             bg,
             text,
@@ -41,7 +41,7 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
     return {
         bg: t.palette.background.paper,
         text: t.palette.text.primary,
-        border: t.palette.divider,
+        border: t.palette.divider.dark,
         focusBorder: hasError ? error : primary,
         focusRing: hasError ? error : primary,
         error,

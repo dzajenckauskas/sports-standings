@@ -6,11 +6,9 @@ export const cleanMinimal: AppTheme = {
         mode: "light",
         primary: {
             main: "#3d003e",
-            // main: "#0065f4",
             contrastText: "#fff",
         },
         secondary: {
-            // main: "#3d003e",
             main: "#0065f4",
             contrastText: "#fff",
         },
@@ -30,11 +28,22 @@ export const cleanMinimal: AppTheme = {
             default: "#f9fafb",
             paper: "#ffffff",
         },
+        tableHeader: {
+            main: "#f3f4f6",
+            contrastText: "#0f172a"
+        },
+        tableRow: {
+            main: "#fff",
+            contrastText: "#0f172a"
+        },
         text: {
             primary: "#0f172a",
             secondary: "#6b7280",
         },
-        divider: "#e5e7eb",
+        divider: {
+            light: "#e5e7eb",
+            dark: "#e5e7eb"
+        },
     },
     typography: {
         fontFamily: `'Inter','Roboto',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
@@ -62,11 +71,34 @@ export const sportyEnergetic: AppTheme = {
     name: "sportyEnergetic",
     palette: {
         mode: "dark",
-        primary: { main: "#003026", contrastText: "#fff" },
-        secondary: { main: "#ff5b00", contrastText: "#fff" },
-        error: { main: "#ff2335", contrastText: "#fff" },
-        success: { main: "#00b94f", contrastText: "#fff" },
-        warning: { main: "#f97316", contrastText: "#fff" },
+        primary: {
+            main: "#003026",
+            contrastText: "#fff"
+        },
+        secondary: {
+            main: "#ff5b00",
+            contrastText: "#fff"
+        },
+        error: {
+            main: "#ff2335",
+            contrastText: "#fff"
+        },
+        success: {
+            main: "#00b94f",
+            contrastText: "#fff"
+        },
+        warning: {
+            main: "#f97316",
+            contrastText: "#fff"
+        },
+        tableHeader: {
+            main: "#003026",
+            contrastText: "#fff"
+        },
+        tableRow: {
+            main: "#00211b",
+            contrastText: "#fff"
+        },
         background: {
             default: "#00211b",
             paper: "#003026",
@@ -75,7 +107,10 @@ export const sportyEnergetic: AppTheme = {
             primary: "#e6f3ee",
             secondary: "#93a3b5",
         },
-        divider: "#134e45",
+        divider: {
+            light: "#00211b",
+            dark: "#003026"
+        },
     },
     typography: {
         fontFamily: `'Montserrat','Bebas Neue',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
@@ -102,11 +137,34 @@ export const tableCentric: AppTheme = {
     name: "tableCentric",
     palette: {
         mode: "light",
-        primary: { main: "#00682d", contrastText: "#fff" },
-        secondary: { main: "#49005f", contrastText: "#fff" },
-        error: { main: "#ff2335", contrastText: "#fff" },
-        success: { main: "#00b94f", contrastText: "#fff" },
-        warning: { main: "#ff5b00", contrastText: "#fff" },
+        primary: {
+            main: "#00682d",
+            contrastText: "#fff"
+        },
+        secondary: {
+            main: "#49005f",
+            contrastText: "#fff"
+        },
+        error: {
+            main: "#ff2335",
+            contrastText: "#fff"
+        },
+        success: {
+            main: "#00b94f",
+            contrastText: "#fff"
+        },
+        warning: {
+            main: "#ff5b00",
+            contrastText: "#fff"
+        },
+        tableHeader: {
+            main: "#f3f4f6",
+            contrastText: "#0f172a"
+        },
+        tableRow: {
+            main: "#ffffff",
+            contrastText: "#0f172a"
+        },
         background: {
             default: "#f9fafb",
             paper: "#ffffff",
@@ -115,7 +173,10 @@ export const tableCentric: AppTheme = {
             primary: "#0f172a",
             secondary: "#475569",
         },
-        divider: "#e2e8f0",
+        divider: {
+            light: "#e2e8f0",
+            dark: "#e2e8f0"
+        },
     },
     typography: {
         fontFamily: `'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`,

@@ -5,6 +5,7 @@ import { StandingsRowType } from "../utils/StandingsRowType";
 import { CheckIcon } from "./shared/icons/CheckIcon";
 import { CrossIcon } from "./shared/icons/CrossIcon";
 import { TType } from "../types/TType";
+import { Typography } from "./shared/Typography";
 
 type Props = {
     participants?: ParticipantType[];
@@ -16,7 +17,7 @@ type Props = {
 const Wrapper = styled.div(({ theme }) => ({
     maxHeight: 300,
     overflowY: "auto",
-    borderRadius: Math.max(2, theme.shape.borderRadius - 2),
+    // borderRadius: Math.max(2, theme.shape.borderRadius - 2),
     background: theme.palette.background.paper,
 }));
 
@@ -30,12 +31,12 @@ const TheadCell = styled.th<{ align?: "left" | "center" }>(
         position: "sticky",
         top: 0,
         zIndex: 1,
-        background: theme.palette.background.paper,
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        background: theme.palette.tableHeader.main,
+        borderBottom: `1px solid ${theme.palette.divider.dark}`,
         padding: "8px 12px",
         fontWeight: theme.typography.fontWeightBold ?? 600,
         fontSize: 13,
-        color: theme.palette.text.secondary,
+        color: theme.palette.tableHeader.contrastText,
         textAlign: align,
         "@media (max-width: 400px)": {
             padding: "6px 8px",
@@ -44,17 +45,14 @@ const TheadCell = styled.th<{ align?: "left" | "center" }>(
     })
 );
 
-const Row = styled.tr(() => ({
-    "&:last-of-type td": { borderBottom: "none" },
-}));
 
 const Cell = styled.td<{ align?: "left" | "center"; emphasize?: boolean }>(
     ({ theme, align = "center", emphasize }) => ({
         padding: "8px 12px",
         fontSize: 14,
-        color: theme.palette.text.primary,
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        background: theme.palette.background.paper,
+        borderBottom: `1px solid ${theme.palette.divider.dark}`,
+        background: theme.palette.tableRow.main,
+        color: theme.palette.tableRow.contrastText,
         textAlign: align,
         fontWeight: emphasize ? (theme.typography.fontWeightBold ?? 700) : 400,
         minWidth: emphasize ? 56 : "auto",
@@ -72,13 +70,7 @@ const EmptyState = styled.div(({ theme }) => ({
     fontStyle: "italic",
 }));
 
-const Title = styled.h3(({ theme }) => ({
-    margin: "0 0 8px",
-    fontSize: 16,
-    fontWeight: theme.typography.fontWeightBold ?? 700,
-    color: theme.palette.text.primary,
-    fontFamily: theme.typography.fontFamily,
-}));
+
 
 const StatWithIcon = styled.span<{ $dim?: boolean; $color: string }>`
   display: inline-flex;
@@ -86,7 +78,6 @@ const StatWithIcon = styled.span<{ $dim?: boolean; $color: string }>`
   justify-content: center;
   gap: 6px;
   color: ${({ $color }) => $color};
-  opacity: ${({ $dim }) => ($dim ? 0.35 : 1)};
 `;
 
 const IconSlot = styled.span`
@@ -117,7 +108,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t
 
     return (
         <div>
-            <Title>{t('standings.title')}</Title>
+            <Typography variant="h3" weight="bold">{t('standings.title')}</Typography>
             <Wrapper
                 style={
                     maxHeight
@@ -143,7 +134,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t
                                 const lossesZero = r.losses === 0;
 
                                 return (
-                                    <Row key={r.id}>
+                                    <tr key={r.id}>
                                         <Cell align="left">{r.name}</Cell>
                                         {colSpec.map(c => {
                                             switch (c.key) {
@@ -183,7 +174,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t
                                                     return null;
                                             }
                                         })}
-                                    </Row>
+                                    </tr>
                                 );
                             })}
                         </tbody>

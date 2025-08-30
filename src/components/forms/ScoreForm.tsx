@@ -9,6 +9,7 @@ import { Input } from "../shared/Input";
 import { Option } from "../shared/Option";
 import { Select } from "../shared/Select";
 import { TType } from "../../types/TType";
+import { Typography } from "../shared/Typography";
 
 type Props = {
     participants: ParticipantType[];
@@ -118,7 +119,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <h3>{t('forms.score.title')}</h3>
+            <Typography variant="h3" weight="bold">{t('forms.score.title')}</Typography>
             <div style={{ display: "flex", marginBottom: 8, gap: 8, width: "100%" }}>
                 <Controller
                     name="homeParticipantId"
@@ -213,7 +214,9 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
                 />
             </div>
 
-            <Button type="submit"
+            <Button
+                variant="secondary"
+                type="submit"
                 t={t}
                 size="sm"
                 style={{ width: '100%' }}

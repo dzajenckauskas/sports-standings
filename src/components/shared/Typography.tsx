@@ -29,16 +29,21 @@ const variantStyles = {
         margin: 0,
     })),
     h2: css(({ theme }) => ({
-        fontSize: "1.5rem",
-        fontWeight: theme.typography.fontWeightBold,
-        lineHeight: 1.3,
         margin: 0,
+        fontSize: 24,
+        fontWeight: theme.typography.fontWeightBold ?? 700,
+        lineHeight: 1.1,
+        whiteSpace: "nowrap" as const,
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        fontFamily: theme.typography.fontFamily,
     })),
     h3: css(({ theme }) => ({
-        fontSize: "1.25rem",
+        fontSize: 13,
         fontWeight: theme.typography.fontWeightMedium,
         lineHeight: 1.4,
-        margin: 0,
+        margin: '4px 0 8px 0',
+
     })),
     h4: css(({ theme }) => ({
         fontSize: "1.125rem",

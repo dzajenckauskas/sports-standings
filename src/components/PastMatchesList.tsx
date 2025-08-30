@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MatchType } from "../utils/MatchType";
 import { TType } from "../types/TType";
+import { Typography } from "./shared/Typography";
 
 type Props = {
     getParticipantName: (id: string) => string | undefined;
@@ -10,18 +11,9 @@ type Props = {
     t: TType;
 };
 
-const Title = styled.h3(({ theme }) => ({
-    margin: "0 0 8px",
-    fontSize: 16,
-    fontWeight: theme.typography.fontWeightBold ?? 700,
-    color: theme.palette.text.primary,
-    fontFamily: theme.typography.fontFamily,
-}));
-
 const Wrapper = styled.div<{ $maxH?: string }>(({ theme, $maxH }) => ({
     maxHeight: $maxH ?? "300px",
     overflowY: "auto",
-    // border: `1px solid ${theme.palette.divider}`,
     borderRadius: Math.max(2, theme.shape.borderRadius - 2),
     background: theme.palette.background.paper,
 }));
@@ -38,17 +30,13 @@ const Item = styled.li(({ theme }) => ({
     alignItems: "center",
     padding: "8px 12px",
     background: theme.palette.background.paper,
-    borderBottom: `1px solid ${theme.palette.divider}`,
-
-    // // zebra
-    // "&:nth-of-type(odd)": {
-    //     background: theme.palette.background.default,
-    // },
+    borderBottom: `1px solid ${theme.palette.divider.light}`,
 
     // no divider on last row
     "&:last-of-type": {
         borderBottom: "none",
     },
+
 }));
 
 const Names = styled.div(({ theme }) => ({
@@ -88,8 +76,7 @@ const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeig
 
     return (
         <div>
-            <Title>{t('matches.title')}</Title>
-
+            <Typography variant="h3" weight="bold">{t('matches.title')}</Typography>
             <Wrapper
                 $maxH={
                     maxHeight
