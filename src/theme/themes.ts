@@ -50,6 +50,14 @@ export const cleanMinimal: AppTheme = {
         fontWeightRegular: 400,
         fontWeightMedium: 500,
         fontWeightBold: 700,
+        h1: {
+            fontSize: "32px",
+            fontWeight: 700
+        },
+        h2: {
+            fontSize: "24px",
+            fontWeight: 500
+        }
     },
     shape: { borderRadius: 6 },
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
@@ -117,6 +125,14 @@ export const sportyEnergetic: AppTheme = {
         fontWeightRegular: 400,
         fontWeightMedium: 500,
         fontWeightBold: 700,
+        h1: {
+            fontSize: "32px",
+            fontWeight: 700
+        },
+        h2: {
+            fontSize: "20px",
+            fontWeight: 400
+        }
     },
     shape: { borderRadius: 6 },
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
@@ -184,6 +200,14 @@ export const tableCentric: AppTheme = {
         fontWeightRegular: 400,
         fontWeightMedium: 500,
         fontWeightBold: 700,
+        h1: {
+            fontSize: "32px",
+            fontWeight: 700
+        },
+        h2: {
+            fontSize: "24px",
+            fontWeight: 800
+        }
     },
     shape: { borderRadius: 6 },
     shadows: { card: "0 4px 16px rgba(2,6,23,0.08)" },

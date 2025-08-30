@@ -10,13 +10,14 @@ function App() {
     <Grid gap={8} sm={1} md={3} lg={3} style={{ padding: '8px', rowGap: '8px' }}>
       <ThemeProvider theme={cleanMinimal}>
         <TournamentCard
-          namespace={'common'}
-          tournamentId="tournament"
+          namespace={'premier-league'}
+          tournamentId="premier-league"
+          hidePastMatches
         />
       </ThemeProvider>
       <ThemeProvider theme={sportyEnergetic}>
         <TournamentCard
-          namespace={'common'}
+          namespace={'eurobasket'}
           titleIcon={<BasketballIcon />}
           tournamentId="eurobasket"
           showFormToggleButtons
@@ -24,7 +25,8 @@ function App() {
       </ThemeProvider>
       <ThemeProvider theme={tableCentric}>
         <TournamentCard
-          namespace={'common'}
+          hidePastMatches
+          namespace={'wimbledon'}
           titleIcon={<TennisIcon />}
           tournamentId="wimbledon"
           showFormToggleButtons

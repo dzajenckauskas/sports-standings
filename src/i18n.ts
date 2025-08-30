@@ -6,6 +6,10 @@ i18n
     .use(HttpBackend) // 👈 add backend
     .use(initReactI18next)
     .init({
+        returnNull: false,        // prevents showing "null" when translation is missing
+        returnEmptyString: false, // prevents showing "" if translation is empty
+        saveMissing: false,
+        parseMissingKeyHandler: () => "", // don't show "forms.errors"
         lng: "en",
         fallbackLng: "en",
         ns: ["common"],        // namespaces you expect

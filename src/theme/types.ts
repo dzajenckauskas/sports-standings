@@ -39,6 +39,14 @@ export interface AppTheme {
         fontWeightRegular: number;
         fontWeightMedium: number;
         fontWeightBold: number;
+        h1: {
+            fontSize: string;
+            fontWeight: number | string;
+        };
+        h2: {
+            fontSize: string;
+            fontWeight: number | string;
+        };
     };
     shape: {
         borderRadius: number;

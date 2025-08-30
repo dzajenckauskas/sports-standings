@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 type Props = {
     tournamentId: string;
     showFormToggleButtons?: boolean;
+    hidePastMatches?: boolean;
     titleIcon?: React.ReactNode;
     namespace: string;
 };
@@ -31,6 +32,7 @@ const TournamentCard = ({
     showFormToggleButtons,
     titleIcon,
     namespace,
+    hidePastMatches
 }: Props) => {
     const { t } = useTranslation(namespace)
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons);
@@ -97,7 +99,11 @@ const TournamentCard = ({
         <FontScope>
             <Card title={t(`singularTitle`)} icon={titleIcon}>
                 {showFormToggleButtons && (
-                    <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+                    <div style={{
+                        display: "flex", width: "100%",
+                        justifyContent: "space-between",
+                        paddingBottom: 8
+                    }}>
                         <Button
                             t={t}
                             variant="secondary"
@@ -122,28 +128,39 @@ const TournamentCard = ({
                     </div>
                 )}
 
-                {showParticipantForm && (
-                    <ParticipantForm
-                        t={t}
-                        participants={participants}
-                        tournamentId={tournamentId}
-                    />
-                )}
+                <div style={{
+                    display: "flex", flexDirection: "column",
+                    gap: 8
+                }}>
 
-                {showScoreForm && (
-                    <ScoreForm
-                        t={t}
-                        disabled={participants?.length === 0}
-                        participants={participants}
-                        tournamentId={tournamentId}
-                    />
-                )}
+                    {showParticipantForm && (
+                        <ParticipantForm
+                            t={t}
+                            participants={participants}
+                            tournamentId={tournamentId}
+                        />
+                    )}
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 16, paddingTop: 24 }}>
-                    <PastMatchesList t={t}
-                        matches={matches}
-                        getParticipantName={getParticipantName}
-                    />
+                    {showScoreForm && (
+                        <ScoreForm
+                            t={t}
+                            disabled={participants?.length === 0}
+                            participants={participants}
+                            tournamentId={tournamentId}
+                        />
+                    )}
+                </div>
+
+                <div style={{
+                    display: "flex", flexDirection: "column",
+                    gap: 16,
+                    paddingTop: showFormToggleButtons ? 0 : 8
+                }}>
+                    {!hidePastMatches &&
+                        <PastMatchesList t={t}
+                            matches={matches}
+                            getParticipantName={getParticipantName}
+                        />}
                     <StandingsTable t={t}
                         participants={participants}
                         standings={standings}

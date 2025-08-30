@@ -30,8 +30,8 @@ const variantStyles = {
     })),
     h2: css(({ theme }) => ({
         margin: 0,
-        fontSize: 24,
-        fontWeight: theme.typography.fontWeightBold ?? 700,
+        fontSize: `${theme.typography.h2.fontSize} !important`,
+        fontWeight: `${theme.typography.h2.fontWeight} !important`,
         lineHeight: 1.1,
         whiteSpace: "nowrap" as const,
         overflow: "hidden",
@@ -39,7 +39,7 @@ const variantStyles = {
         fontFamily: theme.typography.fontFamily,
     })),
     h3: css(({ theme }) => ({
-        fontSize: 13,
+        fontSize: 14,
         fontWeight: theme.typography.fontWeightMedium,
         lineHeight: 1.4,
         margin: '4px 0 8px 0',

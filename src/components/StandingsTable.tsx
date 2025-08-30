@@ -17,7 +17,6 @@ type Props = {
 const Wrapper = styled.div(({ theme }) => ({
     maxHeight: 300,
     overflowY: "auto",
-    // borderRadius: Math.max(2, theme.shape.borderRadius - 2),
     background: theme.palette.background.paper,
 }));
 

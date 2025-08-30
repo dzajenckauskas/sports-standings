@@ -1,0 +1,45 @@
+{
+  "singularTitle": "Wimbledon",
+  "actions": {
+    "add": "Add",
+    "addParticipant": "Add Player",
+    "addScore": "Add Score"
+  },
+  "forms": {
+    "errors": {
+      "required": "Required",
+      "pairAlreadyPlayed": "These players have already played.",
+      "participantRequired": "Player name is required",
+      "participantNameTooShort": "Player name must be at least 2 characters",
+      "participantNameTaken": "This player already exists!"
+    },
+    "participant": {
+      "title": "Add Player",
+      "placeholder": "Player name"
+    },
+    "score": {
+      "title": "Add score",
+      "selectHomeParticipant": "Home player",
+      "selectAwayParticipant": "Away player",
+      "homeScore": "Home Score",
+      "awayScore": "Away Score"
+    }
+  },
+  "standings": {
+    "title": "",
+    "participant": "Player",
+    "empty": "No players yet.",
+    "columns": {
+      "games": "M",
+      "wins": "W",
+      "losses": "L",
+      "points": "Pts"
+    }
+  },
+  "matches": {
+    "title": "",
+    "empty": "No matches yet.",
+    "vs": "vs"
+  },
+  "pluralTitle": "Tournaments"
+}
