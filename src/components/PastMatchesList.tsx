@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useI18n } from "../i18n/i18n";
 import { MatchType } from "../utils/MatchType";
 
 type Props = {
@@ -83,10 +84,11 @@ const EmptyState = styled.div(({ theme }) => ({
 
 const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeight }) => {
     const hasData = !!matches && matches.length > 0;
+    const { t } = useI18n();
 
     return (
         <div>
-            <Title>Past matches</Title>
+            <Title>{t('matches.title')}</Title>
 
             <Wrapper
                 $maxH={
@@ -103,7 +105,7 @@ const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeig
                             <Item key={m.id}>
                                 <Names>
                                     <Name>{getParticipantName(m.homeParticipantId)}</Name>
-                                    <Vs>vs</Vs>
+                                    <Vs>{t('matches.vs')}</Vs>
                                     <Name>{getParticipantName(m.awayParticipantId)}</Name>
                                 </Names>
 
@@ -116,7 +118,7 @@ const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeig
                         ))}
                     </List>
                 ) : (
-                    <EmptyState>No matches yet.</EmptyState>
+                    <EmptyState>{t('matches.empty')}</EmptyState>
                 )}
             </Wrapper>
         </div>

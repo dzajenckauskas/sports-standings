@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
+import { useI18n } from "../i18n/i18n";
 import { ParticipantType } from "../utils/ParticipantType";
 import { StandingsRowType } from "../utils/StandingsRowType";
 import { CheckIcon } from "./shared/icons/CheckIcon";
@@ -97,15 +98,16 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
     const hasData = Boolean(participants && participants.length > 0);
     const theme = useTheme();
     const showIcons = (theme as any)?.ui?.standings?.showWinLossIcons ?? true;
+    const { t } = useI18n();
 
     // Column specification (typed to avoid implicit any in .map callbacks)
     type ColKey = "games" | "wins" | "losses" | "draws" | "points";
     type ColSpec = { key: ColKey; label: string };
     const defaultCols: ColSpec[] = [
-        { key: "games", label: "M" },
-        { key: "wins", label: "W" },
-        { key: "losses", label: "L" },
-        { key: "points", label: "Pts" },
+        { key: "games", label: t('standings.columns.games') },
+        { key: "wins", label: t('standings.columns.wins') },
+        { key: "losses", label: t('standings.columns.losses') },
+        { key: "points", label: t('standings.columns.points') },
     ];
     const themeCols = (theme as any)?.ui?.standings?.columns as ColSpec[] | undefined;
     const colSpec: ColSpec[] = Array.isArray(themeCols) ? themeCols : defaultCols;
@@ -115,7 +117,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
 
     return (
         <div>
-            <Title>Standings</Title>
+            <Title>{t('standings.title')}</Title>
             <Wrapper
                 style={
                     maxHeight
@@ -128,7 +130,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
                         <thead>
                             <tr>
                                 <TheadCell align="left">
-                                    {(theme as any)?.ui?.participantKind === 'player' ? 'Player' : 'Team'}
+                                    {t('standings.participant')}
                                 </TheadCell>
                                 {colSpec.map(c => (
                                     <TheadCell key={c.key} align="center">{c.label}</TheadCell>
@@ -187,7 +189,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
                         </tbody>
                     </Table>
                 ) : (
-                    <EmptyState>No participants yet.</EmptyState>
+                    <EmptyState>{t('standings.empty')}</EmptyState>
                 )}
             </Wrapper>
         </div>

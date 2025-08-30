@@ -1,9 +1,9 @@
-// components/TournamentCard.tsx
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { useTheme } from "styled-components";
 import styled from "styled-components";
+import { useI18n } from "../i18n/i18n";
 import { RootState } from "../store";
+import { AppTheme } from "../theme/types";
 import { StandingsRowType } from "../utils/StandingsRowType";
 import PastMatchesList from "./PastMatchesList";
 import StandingsTable from "./StandingsTable";
@@ -12,23 +12,27 @@ import ScoreForm from "./forms/ScoreForm";
 import { Button } from "./shared/Button";
 import Card from "./shared/Card";
 import { PlusIcon } from "./shared/icons/PlusIcon";
-import { AppTheme } from "../theme/types";
 
 type Props = {
-    title: string;
     tournamentId: string;
     showFormToggleButtons?: boolean;
     titleIcon?: React.ReactNode;
+    /** The i18n namespace for this card (e.g., "clean-minimal", "sporty-energetic") */
+    namespace: string;
 };
 
 /** Inherit the theme’s font for everything inside the card */
 const FontScope = styled.div(({ theme }) => ({
     fontFamily: (theme as AppTheme).typography?.fontFamily ?? "system-ui, sans-serif",
-    // optional: ensure buttons/inputs also inherit if they set their own font
     "*": { fontFamily: "inherit" },
 }));
 
-const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon }: Props) => {
+const TournamentCard = ({
+    tournamentId,
+    showFormToggleButtons,
+    titleIcon,
+    namespace,
+}: Props) => {
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons);
     const [showScoreForm, setShowScoreForm] = useState(!showFormToggleButtons);
 
@@ -60,15 +64,10 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
         for (const m of matches) {
             const home = base[m.homeParticipantId];
             const away = base[m.awayParticipantId];
-            if (!home || !away) continue; // ignore matches with participants not in this list
+            if (!home || !away) continue;
 
             home.games += 1;
             away.games += 1;
-
-            // Scoring system:
-            // - Win: 3 pts
-            // - Draw: 1 pt
-            // - Loss: 0 pts
 
             if (m.homeParticipantScore > m.awayParticipantScore) {
                 home.wins += 1;
@@ -85,7 +84,6 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                 away.points += 1;
             }
         }
-        // sort: points desc, wins desc, name asc
         return Object.values(base).sort((a, b) => {
             if (b.points !== a.points) return b.points - a.points;
             if (b.wins !== a.wins) return b.wins - a.wins;
@@ -95,20 +93,44 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
 
     const getParticipantName = (id: string) => participants?.find((p) => p.id === id)?.name;
 
-    const theme = useTheme() as AppTheme;
-    const noun = theme?.ui?.participantKind === 'player' ? 'Player' : 'Team';
+    const { t, loadNamespace, /* if available: */  /* and locale if needed */ locale } =
+        useI18n() as any;
 
+    // --- Preload the card's namespace (and ensure "common" exists) to avoid flicker
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        let mounted = true;
+        (async () => {
+            await Promise.all([
+                loadNamespace("common"),
+                namespace ? loadNamespace(namespace) : Promise.resolve(),
+            ]);
+            if (mounted) setReady(true);
+        })();
+        return () => {
+            mounted = false;
+        };
+        // include namespace/locale if you want to reload on change
+    }, [namespace, locale, loadNamespace]);
+
+    if (!ready) {
+        // Minimal skeleton; replace with your real shimmer/skeleton if you have one
+        return (
+            <FontScope>
+                <Card title=" " icon={titleIcon}>
+                    <div style={{ height: 120 }} />
+                </Card>
+            </FontScope>
+        );
+    }
+
+    // Prefer namespaced keys for card-specific strings;
+    // generic action keys can stay in "common"
     return (
         <FontScope>
-            <Card title={title} icon={titleIcon}>
+            <Card title={t(`${namespace}.singularTitle`)} icon={titleIcon}>
                 {showFormToggleButtons && (
-                    <div
-                        style={{
-                            display: "flex",
-                            width: "100%",
-                            justifyContent: "space-between",
-                        }}
-                    >
+                    <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
                         <Button
                             variant="secondary"
                             size="sm"
@@ -116,7 +138,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                             onClick={toggleParticipantForm}
                             startIcon={<PlusIcon size={20} />}
                         >
-                            {`Add ${noun}`}
+                            {t(`${namespace}.actions.addParticipant`) || t("actions.addParticipant")}
                         </Button>
                         <Button
                             variant="secondary"
@@ -126,7 +148,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                             onClick={toggleScoreForm}
                             startIcon={<PlusIcon size={20} />}
                         >
-                            Add Score
+                            {t(`${namespace}.actions.addScore`) || t("actions.addScore")}
                         </Button>
                     </div>
                 )}
@@ -142,12 +164,8 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                         tournamentId={tournamentId}
                     />
                 )}
-                <div style={{
-                    display: "flex",
-                    flexDirection: 'column',
-                    gap: 16,
-                    paddingTop: 24
-                }}>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 16, paddingTop: 24 }}>
                     <PastMatchesList matches={matches} getParticipantName={getParticipantName} />
                     <StandingsTable participants={participants} standings={standings} />
                 </div>

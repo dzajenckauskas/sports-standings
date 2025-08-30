@@ -1,0 +1,40 @@
+{
+  "singularTitle": "Tournament",
+  "actions": {
+    "add": "Add",
+    "addParticipant": "Add Team",
+    "addScore": "Add Score"
+  },
+  "forms": {
+    "participant": {
+      "title": "Add Team",
+      "placeholder": "Team name"
+    },
+    "score": {
+      "title": "Add score",
+      "selectHomeParticipant": "Home team",
+      "selectAwayParticipant": "Away team",
+      "homeScore": "Home Score",
+      "awayScore": "Away Score"
+    },
+    "errors": {
+      "required": "Required"
+    }
+  },
+  "standings": {
+    "title": "Standings",
+    "participant": "Team",
+    "empty": "No teams yet.",
+    "columns": {
+      "games": "M",
+      "wins": "W",
+      "losses": "L",
+      "points": "Pts"
+    }
+  },
+  "matches": {
+    "title": "Past matches",
+    "empty": "No matches yet.",
+    "vs": "vs"
+  }
+}

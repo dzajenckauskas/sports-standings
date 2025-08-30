@@ -1,0 +1,40 @@
+{
+  "singularTitle": "TEST",
+  "actions": {
+    "add": "Add",
+    "addParticipant": "Add Player",
+    "addScore": "Add Score"
+  },
+  "forms": {
+    "participant": {
+      "title": "Add Player",
+      "placeholder": "Player name"
+    },
+    "score": {
+      "title": "Add score",
+      "selectHomeParticipant": "Home player",
+      "selectAwayParticipant": "Away player",
+      "homeScore": "Home Score",
+      "awayScore": "Away Score"
+    },
+    "errors": {
+      "required": "Required"
+    }
+  },
+  "standings": {
+    "title": "Standings",
+    "participant": "Player",
+    "empty": "No players yet.",
+    "columns": {
+      "games": "M",
+      "wins": "W",
+      "losses": "L",
+      "points": "Pts"
+    }
+  },
+  "matches": {
+    "title": "Past matches",
+    "empty": "No matches yet.",
+    "vs": "vs"
+  }
+}

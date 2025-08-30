@@ -49,6 +49,5 @@ export interface AppTheme {
                 label: string; // e.g., P, M, W, L, D, Pts
             }>;
         };
-        participantKind?: "team" | "player";
     };
 }

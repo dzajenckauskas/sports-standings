@@ -17,9 +17,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 
 const sizeTokens: Record<Size, { h: number; fs: number; px: number; gap: number }> = {
-  sm: { h: 34, fs: 13, px: 8, gap: 6 },
-  md: { h: 40, fs: 14, px: 12, gap: 6 },
-  lg: { h: 48, fs: 15, px: 26, gap: 8 },
+  sm: { h: 34, fs: 13, px: 8, gap: 3 },
+  md: { h: 40, fs: 14, px: 12, gap: 3 },
+  lg: { h: 48, fs: 15, px: 26, gap: 4 },
 };
 
 const spin = keyframes`
@@ -31,7 +31,9 @@ const StyledButton = styled.button<{
   $variant: Variant;
   $size: Size;
   $active: boolean;
-}>(({ theme, $variant, $size }) => {
+  $hasEndIcon?: boolean;
+  $hasStartIcon?: boolean;
+}>(({ theme, $variant, $size, $hasEndIcon, $hasStartIcon }) => {
   const t = theme as AppTheme;
   const s = sizeTokens[$size];
 
@@ -51,6 +53,8 @@ const StyledButton = styled.button<{
     gap: s.gap,
     height: s.h,
     padding: `0 ${s.px}px`,
+    paddingLeft: $hasEndIcon ? `${s.px + 2}px` : `${s.px}px`,
+    paddingRight: $hasStartIcon ? `${s.px + 4}px` : `${s.px}px`,
     fontSize: s.fs,
     fontWeight: t.typography.fontWeightBold ?? 600,
     borderRadius: t.shape?.borderRadius ?? 6,
@@ -111,6 +115,8 @@ export const Button: React.FC<ButtonProps> = ({
       $variant={variant}
       $size={size}
       $active={!!active}
+      $hasStartIcon={!!startIcon}
+      $hasEndIcon={!!endIcon}
       disabled={loading || rest.disabled}
     >
       {loading ? (

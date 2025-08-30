@@ -1,0 +1,46 @@
+{
+  "actions": {
+    "addButton": "Pridėti",
+    "add": {
+      "team": "Pridėti komandą",
+      "player": "Pridėti žaidėją"
+    },
+    "addScore": "Pridėti rezultatą"
+  },
+  "forms": {
+    "participant": {
+      "title": {
+        "team": "Pridėti komandą",
+        "player": "Pridėti žaidėją"
+      },
+      "placeholder": {
+        "team": "Komandos pavadinimas",
+        "player": "Žaidėjo vardas"
+      }
+    },
+    "score": {
+      "title": "Pridėti rezultatą",
+      "selectHome": {
+        "team": "Pasirinkite namų komandą",
+        "player": "Pasirinkite namų žaidėją"
+      },
+      "selectAway": {
+        "team": "Pasirinkite svečių komandą",
+        "player": "Pasirinkite svečių žaidėją"
+      },
+      "homeScore": "Namų taškai",
+      "awayScore": "Sveč. taškai"
+    }
+  },
+  "standings": {
+    "title": "Turnyrinė lentelė",
+    "player": "Žaidėjas",
+    "team": "Komanda",
+    "empty": "Dalyvių kol kas nėra."
+  },
+  "matches": {
+    "title": "Praėję mačai",
+    "empty": "Dar nėra rungtynių.",
+    "vs": "prieš"
+  }
+}
