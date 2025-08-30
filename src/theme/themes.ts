@@ -45,6 +45,7 @@ export const cleanMinimal: AppTheme = {
     shape: { borderRadius: 6 },
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
     ui: {
+        participantKind: "team",
         standings: {
             showWinLossIcons: false,
             columns: [
@@ -86,6 +87,7 @@ export const sportyEnergetic: AppTheme = {
     shape: { borderRadius: 6 },
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
     ui: {
+        participantKind: "team",
         standings: {
             showWinLossIcons: false,
             columns: [
@@ -127,6 +129,7 @@ export const tableCentric: AppTheme = {
     shape: { borderRadius: 6 },
     shadows: { card: "0 4px 16px rgba(2,6,23,0.08)" },
     ui: {
+        participantKind: "player",
         standings: {
             showWinLossIcons: true,
             columns: [

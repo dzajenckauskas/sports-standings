@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
+import { useTheme } from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -20,6 +21,8 @@ type Props = {
 };
 
 const ParticipantForm = ({ tournamentId, participants }: Props) => {
+    const theme = useTheme() as any;
+    const noun = theme?.ui?.participantKind === 'player' ? 'player' : 'team';
     const [error, setError] = useState<string | undefined>();
     const dispatch = useDispatch();
     const {
@@ -54,13 +57,13 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
 
     return (
         <div>
-            <h3>Add participant</h3>
+            <h3>{`Add ${noun}`}</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div style={{ width: '100%', display: 'flex', gap: 8 }}>
 
                     <EmojiInput
                         fieldSize="sm"
-                        placeHolder="Participant name"
+                        placeHolder={`${noun[0].toUpperCase() + noun.slice(1)} name`}
                         {...nameField}
                         ref={rhfRef}
                         error={error ?? errors.participantName?.message}

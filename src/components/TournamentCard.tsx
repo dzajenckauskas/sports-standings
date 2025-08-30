@@ -1,6 +1,7 @@
 // components/TournamentCard.tsx
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import { useTheme } from "styled-components";
 import styled from "styled-components";
 import { RootState } from "../store";
 import { StandingsRowType } from "../utils/StandingsRowType";
@@ -94,6 +95,9 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
 
     const getParticipantName = (id: string) => participants?.find((p) => p.id === id)?.name;
 
+    const theme = useTheme() as AppTheme;
+    const noun = theme?.ui?.participantKind === 'player' ? 'Player' : 'Team';
+
     return (
         <FontScope>
             <Card title={title} icon={titleIcon}>
@@ -112,7 +116,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                             onClick={toggleParticipantForm}
                             startIcon={<PlusIcon size={20} />}
                         >
-                            Add Participant
+                            {`Add ${noun}`}
                         </Button>
                         <Button
                             variant="secondary"

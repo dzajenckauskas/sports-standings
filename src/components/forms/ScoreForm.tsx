@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { useTheme } from "styled-components";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
@@ -24,6 +25,8 @@ type FormValues = {
 
 const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     const dispatch = useDispatch<AppDispatch>();
+    const theme = useTheme() as any;
+    const nounLower = theme?.ui?.participantKind === 'player' ? 'player' : 'team';
     const matches = useSelector((state: RootState) =>
         state.scores.filter((m) => m.tournamentId === tournamentId)
     );
@@ -126,7 +129,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             {...field}
                             variant="light"
                             fieldSize="sm"
-                            placeholder="Select home participant"
+                            placeholder={`Home ${nounLower}`}
                             disabled={disabled}
                         >
                             {participants
@@ -149,7 +152,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             {...field}
                             variant="light"
                             fieldSize="sm"
-                            placeholder="Select away participant"
+                            placeholder={`Away ${nounLower}`}
                             disabled={disabled}
                         >
                             {participants

@@ -127,7 +127,9 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
                     <Table>
                         <thead>
                             <tr>
-                                <TheadCell align="left">Player</TheadCell>
+                                <TheadCell align="left">
+                                    {(theme as any)?.ui?.participantKind === 'player' ? 'Player' : 'Team'}
+                                </TheadCell>
                                 {colSpec.map(c => (
                                     <TheadCell key={c.key} align="center">{c.label}</TheadCell>
                                 ))}
