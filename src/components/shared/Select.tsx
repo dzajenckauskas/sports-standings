@@ -116,7 +116,7 @@ const StyledSelect = styled.select<{
 const Arrow = styled.svg(({ theme }) => {
     return {
         position: "absolute",
-        right: 10,
+        right: 6,
         top: "50%",
         transform: "translateY(-50%)",
         pointerEvents: "none",
@@ -169,8 +169,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
                     <Arrow
                         xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
+                        width="20"
+                        height="20"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                     >
