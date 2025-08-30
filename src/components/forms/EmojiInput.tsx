@@ -6,9 +6,7 @@ import { useTheme } from "styled-components";
 import { FieldSize, heights } from "../../types/CommonTypes";
 
 export type EmojiInputProps = React.ComponentProps<typeof Input> & {
-    /** px from the right edge for the adornment button (inside the input) */
     adornmentOffset?: number;
-    /** called whenever a user inserts an emoji */
     onEmojiSelect?: (emoji: string) => void;
     t: TType;
     emojiOptions?: string[];
@@ -85,9 +83,7 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
                     <EmojiPickerMini onSelect={insertAtCursor} emojiOptions={emojiOptions} />
                 </div>
 
-                {/* Make the button feel like part of the input; align popover */}
                 <style>{`
-          /* Tweak the mini picker's trigger to look like an input adornment */
           .emoji-input .emoji-btn {
             height: 100%;
             width: 36px;
@@ -105,13 +101,10 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
           .emoji-input .emoji-btn:hover { background: transparent !important; }
           .emoji-input .emoji-btn:focus { outline: none; box-shadow: none; }
 
-          /* Divider color on focus */
           .emoji-input:focus-within .emoji-btn { border-left-color: ${focusColor}; }
-          /* Error state should override focus */
+          
           .emoji-input.is-error .emoji-btn,
           .emoji-input.is-error:focus-within .emoji-btn { border-left-color: ${errorColor} !important; }
-
-         
         `}</style>
             </div>
         );

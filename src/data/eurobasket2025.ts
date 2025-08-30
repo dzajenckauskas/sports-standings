@@ -1,8 +1,4 @@
-export type Country = {
-  name: string;
-  code: string; // 3-letter sports code shown in the UI reference
-  flag: string; // emoji flag
-};
+import { Country } from "../types/CountryType";
 
 export const EUROBASKET_2025_COUNTRIES: Country[] = [
   { name: "Belgium", code: "BEL", flag: "🇧🇪" },
@@ -30,6 +26,4 @@ export const EUROBASKET_2025_COUNTRIES: Country[] = [
   { name: "Sweden", code: "SWE", flag: "🇸🇪" },
   { name: "Türkiye", code: "TUR", flag: "🇹🇷" },
 ];
-
-export const EUROBASKET_2025_FLAGS: string[] = EUROBASKET_2025_COUNTRIES.map(c => c.flag);
 
