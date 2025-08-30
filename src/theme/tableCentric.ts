@@ -21,10 +21,6 @@ export const tableCentric: AppTheme = {
             main: "#00b94f",
             contrastText: "#fff"
         },
-        warning: {
-            main: "#ff5b00",
-            contrastText: "#fff"
-        },
         tableHeader: {
             main: "#f3f4f6",
             contrastText: "#0f172a"
@@ -91,10 +87,10 @@ export const tableCentric: AppTheme = {
         standings: {
             showWinLossIcons: true,
             columns: [
-                { key: "games", label: "M" },
-                { key: "wins", label: "W" },
-                { key: "losses", label: "L" },
-                { key: "points", label: "Pts" },
+                { key: "games" },
+                { key: "wins" },
+                { key: "losses" },
+                { key: "points" },
             ],
         },
     },

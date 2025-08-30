@@ -20,10 +20,6 @@ export const cleanMinimal: AppTheme = {
             main: "#00b94f",
             contrastText: "#fff",
         },
-        warning: {
-            main: "#ff5b00",
-            contrastText: "#fff",
-        },
         background: {
             default: "#efefef",
             paper: "#ffffff",
@@ -89,11 +85,11 @@ export const cleanMinimal: AppTheme = {
         standings: {
             showWinLossIcons: false,
             columns: [
-                { key: "games", label: "P" },
-                { key: "wins", label: "W" },
-                { key: "draws", label: "D" },
-                { key: "losses", label: "L" },
-                { key: "points", label: "Pts" },
+                { key: "games" },
+                { key: "wins" },
+                { key: "draws" },
+                { key: "losses" },
+                { key: "points" },
             ],
         },
     },

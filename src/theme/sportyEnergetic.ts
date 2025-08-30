@@ -21,10 +21,6 @@ export const sportyEnergetic: AppTheme = {
             main: "#00b94f",
             contrastText: "#fff"
         },
-        warning: {
-            main: "#f97316",
-            contrastText: "#fff"
-        },
         tableHeader: {
             main: "#003026",
             contrastText: "#fff"
@@ -90,10 +86,10 @@ export const sportyEnergetic: AppTheme = {
         standings: {
             showWinLossIcons: false,
             columns: [
-                { key: "wins", label: "W" },
-                { key: "losses", label: "L" },
-                { key: "draws", label: "D" },
-                { key: "points", label: "Pts" },
+                { key: "wins" },
+                { key: "losses" },
+                { key: "draws" },
+                { key: "points" },
             ],
         },
     },

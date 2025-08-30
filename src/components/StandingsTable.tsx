@@ -115,7 +115,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t
                                     {t('standings.participant')}
                                 </TheadCell>
                                 {colSpec.map(c => (
-                                    <TheadCell key={c.key} align="center">{c.label}</TheadCell>
+                                    <TheadCell key={c.key} align="center">{`${t(`standings.columns.${c.key}`)}`}</TheadCell>
                                 ))}
                             </tr>
                         </thead>

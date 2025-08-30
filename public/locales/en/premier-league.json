@@ -30,8 +30,9 @@
     "participant": "Team",
     "empty": "No teams yet.",
     "columns": {
-      "games": "M",
+      "games": "P",
       "wins": "W",
+      "draws": "D",
       "losses": "L",
       "points": "Pts"
     }

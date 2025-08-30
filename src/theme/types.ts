@@ -13,7 +13,6 @@ export interface Palette {
     secondary: PaletteColor;
     error: PaletteColor;
     success: PaletteColor;
-    warning: PaletteColor;
     tableHeader: PaletteColor;
     tableRow: PaletteColor;
     background: {
@@ -85,7 +84,6 @@ export interface AppTheme {
             showWinLossIcons?: boolean;
             columns: Array<{
                 key: "games" | "wins" | "losses" | "draws" | "points";
-                label: string; // e.g., P, M, W, L, D, Pts
             }>;
         };
     };

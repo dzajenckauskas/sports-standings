@@ -32,6 +32,7 @@
     "columns": {
       "games": "M",
       "wins": "W",
+      "draws": "D",
       "losses": "L",
       "points": "Pts"
     }
