@@ -1,18 +1,19 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { ParticipantType } from "../utils/ParticipantType";
 import { StandingsRowType } from "../utils/StandingsRowType";
+import { CheckIcon } from "./shared/icons/CheckIcon";
+import { CrossIcon } from "./shared/icons/CrossIcon";
 
 type Props = {
     participants?: ParticipantType[];
     standings: StandingsRowType[];
-    maxHeight?: number | string; // optional: override scroll container height
+    maxHeight?: number | string;
 };
 
 const Wrapper = styled.div(({ theme }) => ({
     maxHeight: 300,
     overflowY: "auto",
-    // border: `1px solid ${theme.palette.divider}`,
     borderRadius: Math.max(2, theme.shape.borderRadius - 2),
     background: theme.palette.background.paper,
 }));
@@ -41,15 +42,8 @@ const TheadCell = styled.th<{ align?: "left" | "center" }>(
     })
 );
 
-const Row = styled.tr(({ theme }) => ({
-    // // zebra
-    // "&:nth-of-type(odd) td": {
-    //     background: theme.palette.background.default,
-    // },
-    // remove border on last row
-    "&:last-of-type td": {
-        borderBottom: "none",
-    },
+const Row = styled.tr(() => ({
+    "&:last-of-type td": { borderBottom: "none" },
 }));
 
 const Cell = styled.td<{ align?: "left" | "center"; emphasize?: boolean }>(
@@ -84,41 +78,78 @@ const Title = styled.h3(({ theme }) => ({
     fontFamily: theme.typography.fontFamily,
 }));
 
-const StandingsTable: React.FC<Props> = ({
-    participants,
-    standings,
-    maxHeight,
-}) => {
+const StatWithIcon = styled.span<{ $dim?: boolean; $color: string }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: ${({ $color }) => $color};
+  opacity: ${({ $dim }) => ($dim ? 0.35 : 1)};
+`;
+
+const IconSlot = styled.span`
+  display: inline-flex;
+  line-height: 0;
+`;
+
+
+const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight }) => {
     const hasData = Boolean(participants && participants.length > 0);
+    const theme = useTheme();
+
+    const success = (theme.palette as any).success?.main ?? "#16a34a"; // fallback green
+    const error = (theme.palette as any).error?.main ?? "#dc2626";     // fallback red
 
     return (
         <div>
             <Title>Standings</Title>
-
-            <Wrapper style={maxHeight ? { maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight } : undefined}>
+            <Wrapper
+                style={
+                    maxHeight
+                        ? { maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight }
+                        : undefined
+                }
+            >
                 {hasData ? (
                     <Table>
                         <thead>
                             <tr>
-                                <TheadCell align="left">Participant</TheadCell>
-                                <TheadCell align="center">Games</TheadCell>
-                                <TheadCell align="center">Wins</TheadCell>
-                                <TheadCell align="center">Loses</TheadCell>
-                                <TheadCell align="center">Draws</TheadCell>
+                                <TheadCell align="left">Player</TheadCell>
+                                <TheadCell align="center">M</TheadCell>
+                                <TheadCell align="center">W</TheadCell>
+                                <TheadCell align="center">L</TheadCell>
                                 <TheadCell align="center">Pts</TheadCell>
                             </tr>
                         </thead>
                         <tbody>
-                            {standings.map((r) => (
-                                <Row key={r.id}>
-                                    <Cell align="left">{r.name}</Cell>
-                                    <Cell>{r.games}</Cell>
-                                    <Cell>{r.wins}</Cell>
-                                    <Cell>{r.losses}</Cell>
-                                    <Cell>{r.draws}</Cell>
-                                    <Cell emphasize>{r.points}</Cell>
-                                </Row>
-                            ))}
+                            {standings.map((r) => {
+                                const winsZero = r.wins === 0;
+                                const lossesZero = r.losses === 0;
+
+                                return (
+                                    <Row key={r.id}>
+                                        <Cell align="left">{r.name}</Cell>
+                                        <Cell>{r.games}</Cell>
+                                        <Cell>
+                                            <StatWithIcon $dim={winsZero} $color={success}>
+                                                <span style={{ color: theme.palette.text.primary }}>{r.wins}</span>
+                                                <IconSlot>
+                                                    <CheckIcon />
+                                                </IconSlot>
+                                            </StatWithIcon>
+                                        </Cell>
+                                        <Cell>
+                                            <StatWithIcon $dim={lossesZero} $color={error}>
+                                                <span style={{ color: theme.palette.text.primary }}>{r.losses}</span>
+                                                <IconSlot>
+                                                    <CrossIcon />
+                                                </IconSlot>
+                                            </StatWithIcon>
+                                        </Cell>
+                                        <Cell emphasize>{r.points}</Cell>
+                                    </Row>
+                                );
+                            })}
                         </tbody>
                     </Table>
                 ) : (
