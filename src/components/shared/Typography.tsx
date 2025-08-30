@@ -62,7 +62,7 @@ const variantStyles = {
         lineHeight: 1.5,
     })),
     caption: css(({ theme }) => ({
-        fontSize: "0.75rem",
+        fontSize: 12,
         fontWeight: theme.typography.fontWeightRegular,
         lineHeight: 1.4,
     })),

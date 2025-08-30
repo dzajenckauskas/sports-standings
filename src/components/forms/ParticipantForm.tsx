@@ -6,7 +6,7 @@ import { addParticipant } from '../../features/participantSlice';
 import { TType } from '../../types/TType';
 import { ParticipantType } from '../../utils/ParticipantType';
 import { Button } from '../shared/Button';
-import { EmojiInput } from './EmojiInput';
+import { Input } from '../shared/Input';
 import { Typography } from '../shared/Typography';
 
 type ParticipantFormValues = { participantName: string; };
@@ -58,8 +58,7 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
             <Typography variant="h3" weight="bold">{t('forms.participant.title')}</Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div style={{ width: '100%', display: 'flex', gap: 8 }}>
-                    <EmojiInput
-                        t={t}
+                    <Input
                         fieldSize="sm"
                         placeHolder={t(`forms.participant.placeholder`) ?? ''}
                         {...nameField}
@@ -67,6 +66,15 @@ const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
                         error={errors.participantName?.message}
                         style={{ flex: 1 }}
                     />
+                    {/* <EmojiInput
+                        t={t}
+                        fieldSize="sm"
+                        placeHolder={t(`forms.participant.placeholder`) ?? ''}
+                        {...nameField}
+                        ref={rhfRef}
+                        error={errors.participantName?.message}
+                        style={{ flex: 1 }}
+                    /> */}
                     <Button
                         t={t}
                         variant='secondary'

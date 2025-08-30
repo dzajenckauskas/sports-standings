@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
+import { TType } from "../types/TType";
 import { ParticipantType } from "../utils/ParticipantType";
 import { StandingsRowType } from "../utils/StandingsRowType";
 import { CheckIcon } from "./shared/icons/CheckIcon";
 import { CrossIcon } from "./shared/icons/CrossIcon";
-import { TType } from "../types/TType";
 import { Typography } from "./shared/Typography";
 
 type Props = {
@@ -61,14 +61,6 @@ const Cell = styled.td<{ align?: "left" | "center"; emphasize?: boolean }>(
         },
     })
 );
-
-const EmptyState = styled.div(({ theme }) => ({
-    fontSize: 14,
-    padding: "8px 12px",
-    color: theme.palette.text.secondary,
-    fontStyle: "italic",
-}));
-
 
 
 const StatWithIcon = styled.span<{ $dim?: boolean; $color: string }>`
@@ -179,7 +171,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t
                         </tbody>
                     </Table>
                 ) : (
-                    <EmptyState>{t('standings.empty')}</EmptyState>
+                    <Typography style={{ fontStyle: 'italic' }} variant="caption">{t('standings.empty')}</Typography>
                 )}
             </Wrapper>
         </div>

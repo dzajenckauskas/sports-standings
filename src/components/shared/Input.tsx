@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import type { AppTheme } from "../../theme/types";
-import ErrorMessage from "./ErrorMessage";
 import { FieldSize, Variant, heights } from "../../utils/CommonTypes";
+import ErrorMessage from "./ErrorMessage";
 
 interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {

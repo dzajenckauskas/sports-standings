@@ -64,13 +64,6 @@ const Score = styled.div(({ theme }) => ({
     color: theme.palette.text.primary,
 }));
 
-const EmptyState = styled.div(({ theme }) => ({
-    fontSize: 14,
-    padding: "8px 12px",
-    color: theme.palette.text.secondary,
-    fontStyle: "italic",
-}));
-
 const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeight, t }) => {
     const hasData = !!matches && matches.length > 0;
 
@@ -105,7 +98,7 @@ const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeig
                         ))}
                     </List>
                 ) : (
-                    <EmptyState>{t('matches.empty')}</EmptyState>
+                    <Typography style={{ fontStyle: 'italic' }} variant="caption">{t('matches.empty')}</Typography>
                 )}
             </Wrapper>
         </div>
