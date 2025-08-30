@@ -7,7 +7,6 @@ import { addParticipant } from '../../features/participantSlice';
 import { ParticipantType } from '../../utils/ParticipantType';
 import { Button } from '../shared/Button';
 import { EmojiInput } from './EmojiInput';
-import { AppTheme } from '../../theme/types';
 
 type ParticipantFormValues = { participantName: string; };
 
@@ -18,10 +17,9 @@ const validationSchema = yup.object().shape({
 type Props = {
     tournamentId: string;
     participants: ParticipantType[];
-    theme: AppTheme;
 };
 
-const ParticipantForm = ({ tournamentId, participants, theme }: Props) => {
+const ParticipantForm = ({ tournamentId, participants }: Props) => {
     const [error, setError] = useState<string | undefined>();
     const dispatch = useDispatch();
     const {
@@ -69,7 +67,7 @@ const ParticipantForm = ({ tournamentId, participants, theme }: Props) => {
                         style={{ flex: 1 }}
                     />
 
-                    <Button theme={theme}
+                    <Button
                         variant='primary'
                         disabled={!watch("participantName")} type="submit" size="sm">
                         Add

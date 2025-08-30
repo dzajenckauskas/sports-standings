@@ -1,4 +1,6 @@
+// components/shared/Button.tsx
 import React from "react";
+import styled, { keyframes } from "styled-components";
 import { AppTheme } from "../../theme/types";
 
 type Variant = "primary" | "secondary" | "danger";
@@ -12,8 +14,86 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: Size;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-  theme: AppTheme;
 }
+
+
+const sizeTokens: Record<Size, { h: number; fs: number; px: number; gap: number }> = {
+  sm: { h: 34, fs: 13, px: 8, gap: 6 },
+  md: { h: 40, fs: 14, px: 12, gap: 6 },
+  lg: { h: 48, fs: 15, px: 26, gap: 8 },
+};
+
+const spin = keyframes`
+  to { transform: rotate(360deg); }
+`;
+
+
+const StyledButton = styled.button<{
+  $variant: Variant;
+  $size: Size;
+  $active: boolean;
+}>(({ theme, $variant, $size, $active }) => {
+  const t = theme as AppTheme;
+  const s = sizeTokens[$size];
+
+  const paletteMap = {
+    primary: t.palette.primary,
+    secondary: t.palette.secondary,
+    danger: t.palette.error,
+  };
+
+  const c = paletteMap[$variant];
+
+  return {
+    appearance: "none",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: s.gap,
+    height: s.h,
+    padding: `0 ${s.px}px`,
+    fontSize: s.fs,
+    fontWeight: t.typography.fontWeightBold ?? 600,
+    borderRadius: t.shape?.borderRadius ?? 6,
+    border: "none",
+    cursor: "pointer",
+    transition: "background .2s ease, opacity .2s ease, transform .1s ease",
+    background: c.main,
+    color: c.contrastText ?? "#fff",
+
+    "&:hover:not(:disabled):not(.is-active)": {
+      background: c.light ?? c.main,
+    },
+    "&:active:not(:disabled), &.is-active": {
+      transform: "scale(0.97)",
+      background: c.dark ?? c.main,
+    },
+    "&:disabled": {
+      opacity: 0.6,
+      cursor: "not-allowed",
+    },
+  };
+});
+
+const Spinner = styled.span`
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: ${spin} 0.6s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 1.2s;
+  }
+`;
+
+const IconWrap = styled.span`
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+`;
+
 
 export const Button: React.FC<ButtonProps> = ({
   children,
@@ -23,91 +103,26 @@ export const Button: React.FC<ButtonProps> = ({
   size = "md",
   startIcon,
   endIcon,
-  theme,
   ...rest
 }) => {
-  const sizes: Record<Size, string> = {
-    sm: "btn-sm",
-    md: "btn-md",
-    lg: "btn-lg",
-  };
-
   return (
-    <>
-      <button
-        disabled={loading || rest.disabled}
-        {...rest}
-        className={`btn ${sizes[size]} btn-${variant} ${active ? "btn-active" : ""}`}
-      >
-        {loading ? (
-          <span className="btn-spinner" />
-        ) : (
-          <>
-            {startIcon && <span className="btn-icon">{startIcon}</span>}
-            {children}
-            {endIcon && <span className="btn-icon">{endIcon}</span>}
-          </>
-        )}
-      </button>
-      <style>{`
-  .btn {
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: background 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
-  }
-
-  .btn-sm { height: 34px; font-size: 13px; padding: 0 8px; }
-  .btn-md { height: 40px; font-size: 14px; padding: 0 12px; }
-  .btn-lg { height: 48px; font-size: 15px; padding: 0 26px; }
-
-  /* Variants */
-  .btn-primary { background: ${theme.palette.primary.main}; color: #fff; }
-  .btn-secondary { background: ${theme.palette.secondary.main}; color: #fff; }
-  .btn-danger { background: ${theme.palette.error.main}; color: #fff; }
-
-  /* Hover */
-  .btn-primary:hover:not(:disabled):not(.btn-active) { background: ${theme.palette.primary.light}; }
-  .btn-secondary:hover:not(:disabled):not(.btn-active) { background:${theme.palette.secondary.light}; }
-  .btn-danger:hover:not(:disabled):not(.btn-active) { background: ${theme.palette.error.light}; }
-
-  /* Active (pressed OR marked active) */
-  .btn:active:not(:disabled) {
-    transform: scale(0.97);
-  }
-  .btn-primary.btn-active { background: ${theme.palette.primary.dark}; }   /* darker blue */
-  .btn-secondary.btn-active { background:${theme.palette.secondary.dark}; } /* darker gray */
-  .btn-danger.btn-active { background:${theme.palette.error.dark}; }    /* darker red */
-
-  /* Disabled */
-  .btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  /* Spinner for loading state */
-  .btn-spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255,255,255,0.6);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  .btn-icon {
-    display: inline-flex;
-    align-items: center;
-  }
-`}</style>
-    </>
+    <StyledButton
+      {...rest}
+      className={active ? "is-active" : rest.className}
+      $variant={variant}
+      $size={size}
+      $active={!!active}
+      disabled={loading || rest.disabled}
+    >
+      {loading ? (
+        <Spinner aria-hidden="true" />
+      ) : (
+        <>
+          {startIcon && <IconWrap>{startIcon}</IconWrap>}
+          {children}
+          {endIcon && <IconWrap>{endIcon}</IconWrap>}
+        </>
+      )}
+    </StyledButton>
   );
 };

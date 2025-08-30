@@ -9,16 +9,14 @@ import ScoreForm from './forms/ScoreForm';
 import { Button } from './shared/Button';
 import Card from './shared/Card';
 import { PlusIcon } from './shared/icons/PlusIcon';
-import { AppTheme } from '../theme/types';
 
 type Props = {
     title: string;
     tournamentId: string;
     showFormToggleButtons?: boolean;
-    theme: AppTheme
 };
 
-const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: Props) => {
+const TournamentCard = ({ title, tournamentId, showFormToggleButtons }: Props) => {
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons)
     const [showScoreForm, setShowScoreForm] = useState(!showFormToggleButtons)
 
@@ -91,8 +89,6 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: P
 
         <Card
             title={title}
-            primaryColor={theme.palette.primary.main}
-            style={{ fontFamily: theme.typography.fontFamily }}
         >
             {showFormToggleButtons &&
                 <div style={{
@@ -100,7 +96,6 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: P
                     justifyContent: 'space-between'
                 }}>
                     <Button
-                        theme={theme}
                         variant='secondary'
                         size='sm'
                         active={showParticipantForm}
@@ -109,7 +104,6 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: P
                         {'Add Participant'}
                     </Button>
                     <Button
-                        theme={theme}
                         variant='secondary'
                         size='sm' disabled={participants?.length === 0} active={showScoreForm}
                         onClick={toggleScoreForm}
@@ -118,10 +112,10 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: P
                     </Button>
                 </div>}
             {showParticipantForm &&
-                <ParticipantForm theme={theme} participants={participants}
+                <ParticipantForm participants={participants}
                     tournamentId={tournamentId} />}
             {showScoreForm &&
-                <ScoreForm theme={theme} disabled={participants?.length === 0}
+                <ScoreForm disabled={participants?.length === 0}
                     participants={participants} tournamentId={tournamentId} />}
 
             <PastMatchesList

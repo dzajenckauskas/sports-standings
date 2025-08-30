@@ -6,15 +6,13 @@ import { AppDispatch, RootState } from "../../store";
 import { ParticipantType } from "../../utils/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
-import { Select } from "../shared/Select";
 import { Option } from "../shared/Option";
-import { AppTheme } from "../../theme/types";
+import { Select } from "../shared/Select";
 
 type Props = {
     participants: ParticipantType[];
     tournamentId: string;
     disabled?: boolean;
-    theme: AppTheme;
 };
 
 type FormValues = {
@@ -24,7 +22,7 @@ type FormValues = {
     awayParticipantScore: number | string;
 };
 
-const ScoreForm = ({ participants, tournamentId, disabled, theme }: Props) => {
+const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
     const dispatch = useDispatch<AppDispatch>();
     const matches = useSelector((state: RootState) =>
         state.scores.filter((m) => m.tournamentId === tournamentId)
@@ -214,7 +212,6 @@ const ScoreForm = ({ participants, tournamentId, disabled, theme }: Props) => {
             </div>
 
             <Button type="submit"
-                theme={theme}
                 size="sm"
                 style={{ width: '100%' }}
                 disabled={

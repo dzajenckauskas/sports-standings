@@ -5,11 +5,13 @@ export const cleanMinimal: AppTheme = {
     palette: {
         mode: "light",
         primary: {
-            main: "#3d003e",
+            // main: "#3d003e",
+            main: "#0065f4",
             contrastText: "#fff",
         },
         secondary: {
-            main: "#0065f4",
+            main: "#3d003e",
+            // main: "#0065f4",
             contrastText: "#fff",
         },
         error: {
@@ -38,7 +40,7 @@ export const cleanMinimal: AppTheme = {
         fontFamily: `'Inter','Roboto',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
         fontWeightBold: 600,
     },
-    shape: { borderRadius: 12 },
+    shape: { borderRadius: 4 },
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
 };
 
@@ -46,8 +48,8 @@ export const sportyEnergetic: AppTheme = {
     name: "sportyEnergetic",
     palette: {
         mode: "dark",
-        primary: { main: "#003026", contrastText: "#0a0f0a" },
-        secondary: { main: "#ff5b00", contrastText: "#0b1a13" },
+        primary: { main: "#003026", contrastText: "#fff" },
+        secondary: { main: "#ff5b00", contrastText: "#fff" },
         error: { main: "#ff2335", contrastText: "#fff" },
         success: { main: "#00b94f", contrastText: "#fff" },
         warning: { main: "#f97316", contrastText: "#fff" },
@@ -65,7 +67,7 @@ export const sportyEnergetic: AppTheme = {
         fontFamily: `'Montserrat','Bebas Neue',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
         fontWeightBold: 700,
     },
-    shape: { borderRadius: 14 },
+    shape: { borderRadius: 4 },
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
 };
 
@@ -93,6 +95,6 @@ export const tableCentric: AppTheme = {
         fontFamilyMono: `'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`,
         fontWeightBold: 700,
     },
-    shape: { borderRadius: 12 },
+    shape: { borderRadius: 4 },
     shadows: { card: "0 4px 16px rgba(2,6,23,0.08)" },
 };
