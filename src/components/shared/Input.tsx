@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import type { AppTheme } from "../../theme/types";
-import { FieldSize, Variant, heights } from "../../utils/CommonTypes";
+import { FieldSize, Variant, heights } from "../../types/CommonTypes";
 import ErrorMessage from "./ErrorMessage";
 
 interface InputProps
@@ -42,11 +42,11 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
 
   // light
   return {
-    bg: t.palette.background.paper,
-    text: t.palette.text.primary,
-    border: t.palette.divider.dark,
-    focusBorder: hasError ? error : primary,
-    focusRing: hasError ? error : primary,
+    bg: t.ui?.layout.input.bgColor,
+    text: t.ui?.layout.input.color,
+    border: t.ui?.layout.input.borderColor,
+    focusBorder: hasError ? error : t.ui?.layout.input.focusBorderColor,
+    focusRing: hasError ? error : t.ui?.layout.input.focusBorderColor,
     error,
   };
 };
@@ -86,7 +86,7 @@ const StyledInput = styled.input<{
     transition:
       "border-color .2s ease, box-shadow .2s ease, background .2s ease, transform .1s ease",
 
-    "::placeholder": { opacity: 0.7 },
+    "::placeholder": { opacity: 0.9 },
 
     "&:hover:not(:disabled)": {
       borderColor: $hasError ? c.error : c.focusBorder,

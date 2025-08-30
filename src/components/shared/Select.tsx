@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import type { AppTheme } from "../../theme/types";
-import { FieldSize, Variant, heights } from "../../utils/CommonTypes";
+import { FieldSize, Variant, heights } from "../../types/CommonTypes";
 
 interface SelectProps
     extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "size"> {
@@ -39,11 +39,11 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
     }
 
     return {
-        bg: t.palette.background.default,
-        text: t.palette.text.primary,
-        border: t.palette.divider.dark,
-        focusBorder: hasError ? error : primary,
-        focusRing: hasError ? error : primary,
+        bg: t.ui?.layout.select.bgColor,
+        text: t.ui?.layout.select.color,
+        border: t.ui?.layout.select.borderColor,
+        focusBorder: hasError ? error : t.ui?.layout.select.focusBorderColor,
+        focusRing: hasError ? error : t.ui?.layout.select.focusBorderColor,
         error,
     };
 };
@@ -84,6 +84,7 @@ const StyledSelect = styled.select<{
         background: c.bg,
         color: c.text,
         outline: "none",
+        cursor: 'pointer',
         appearance: "none",
         transition: "border-color .2s ease, box-shadow .2s ease, transform .1s ease",
 
@@ -112,18 +113,20 @@ const StyledSelect = styled.select<{
     };
 });
 
-const Arrow = styled.svg({
-    position: "absolute",
-    right: 10,
-    top: "50%",
-    transform: "translateY(-50%)",
-    pointerEvents: "none",
-    color: "#555",
-    transition: "transform 0.2s ease",
+const Arrow = styled.svg(({ theme }) => {
+    return {
+        position: "absolute",
+        right: 10,
+        top: "50%",
+        transform: "translateY(-50%)",
+        pointerEvents: "none",
+        color: theme?.ui?.layout.select?.borderColor,
+        transition: "transform 0.2s ease",
 
-    [`${StyledSelect}:focus + &`]: {
-        transform: "translateY(-50%) rotate(180deg)",
-    },
+        [`${StyledSelect}:focus + &`]: {
+            transform: "translateY(-50%) rotate(180deg)",
+        },
+    }
 });
 
 

@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 import { TType } from "../types/TType";
-import { ParticipantType } from "../utils/ParticipantType";
-import { StandingsRowType } from "../utils/StandingsRowType";
+import { ParticipantType } from "../types/ParticipantType";
+import { StandingsRowType } from "../types/StandingsRowType";
 import { CheckIcon } from "./shared/icons/CheckIcon";
 import { CrossIcon } from "./shared/icons/CrossIcon";
 import { Typography } from "./shared/Typography";

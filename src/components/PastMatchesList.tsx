@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { MatchType } from "../utils/MatchType";
+import { MatchType } from "../types/MatchType";
 import { TType } from "../types/TType";
 import { Typography } from "./shared/Typography";
 

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { addParticipant } from '../../features/participantSlice';
 import { TType } from '../../types/TType';
-import { ParticipantType } from '../../utils/ParticipantType';
+import { ParticipantType } from '../../types/ParticipantType';
 import { Button } from '../shared/Button';
 import { Input } from '../shared/Input';
 import { Typography } from '../shared/Typography';

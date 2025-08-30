@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
 import { AppDispatch, RootState } from "../../store";
-import { ParticipantType } from "../../utils/ParticipantType";
+import { ParticipantType } from "../../types/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import { Option } from "../shared/Option";

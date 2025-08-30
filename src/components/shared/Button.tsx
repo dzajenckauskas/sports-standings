@@ -19,7 +19,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 
 const sizeTokens: Record<Size, { h: number; fs: number; px: number; gap: number }> = {
-  sm: { h: 28, fs: 13, px: 8, gap: 3 },
+  sm: { h: 30, fs: 13, px: 8, gap: 3 },
   md: { h: 36, fs: 14, px: 10, gap: 3 },
   lg: { h: 42, fs: 15, px: 26, gap: 4 },
 };
@@ -58,6 +58,7 @@ const StyledButton = styled.button<{
     paddingLeft: $hasEndIcon ? `${s.px + 2}px` : `${s.px}px`,
     paddingRight: $hasStartIcon ? `${s.px + 4}px` : `${s.px}px`,
     fontSize: s.fs,
+    minWidth: 60,
     fontWeight: t.typography.fontWeightMedium ?? 600,
     borderRadius: t.shape?.borderRadius ?? 6,
     border: "none",

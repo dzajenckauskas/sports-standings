@@ -1,9 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import TournamentCard from "./components/TournamentCard";
 import { Grid } from "./components/shared/Grid";
-import { cleanMinimal, sportyEnergetic, tableCentric } from "./theme/themes";
 import BasketballIcon from "./components/shared/icons/BasketballIcon";
 import TennisIcon from "./components/shared/icons/TennisIcon";
+import { cleanMinimal } from "./theme/cleanMinimal";
+import { sportyEnergetic } from "./theme/sportyEnergetic";
+import { tableCentric } from "./theme/tableCentric";
 
 function App() {
   return (

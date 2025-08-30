@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MatchType } from '../utils/MatchType';
+import { MatchType } from '../types/MatchType';
 
 type ScoresState = MatchType[];
 

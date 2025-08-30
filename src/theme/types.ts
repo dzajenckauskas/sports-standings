@@ -1,4 +1,4 @@
-import { FieldSize } from "../utils/CommonTypes";
+import { ButtonVariant, FieldSize } from "../types/CommonTypes";
 
 export interface PaletteColor {
     main: string;
@@ -58,8 +58,28 @@ export interface AppTheme {
     };
     ui?: {
         layout: {
+            input: {
+                bgColor: string;
+                color: string;
+                borderColor: string;
+                focusBorderColor: string;
+            },
+            select: {
+                bgColor: string;
+                color: string;
+                borderColor: string;
+                focusBorderColor: string;
+            },
             buttonsSize: FieldSize;
             inputsSize: FieldSize;
+        },
+        toggleButtons: {
+            addParticipant: {
+                variant: ButtonVariant;
+            },
+            addScore: {
+                variant: ButtonVariant;
+            },
         },
         standings?: {
             showWinLossIcons?: boolean;

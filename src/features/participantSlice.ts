@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ParticipantType } from '../utils/ParticipantType';
+import { ParticipantType } from '../types/ParticipantType';
 
 const initialState: ParticipantType[] = [];
 

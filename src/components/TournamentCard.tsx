@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled, { useTheme } from "styled-components";
 import { RootState } from "../store";
 import { AppTheme } from "../theme/types";
-import { StandingsRowType } from "../utils/StandingsRowType";
+import { StandingsRowType } from "../types/StandingsRowType";
 import PastMatchesList from "./PastMatchesList";
 import StandingsTable from "./StandingsTable";
 import ParticipantForm from "./forms/ParticipantForm";
@@ -106,7 +106,7 @@ const TournamentCard = ({
                     }}>
                         <Button
                             t={t}
-                            variant="secondary"
+                            variant={theme.ui?.toggleButtons.addParticipant.variant}
                             size={theme.ui?.layout.buttonsSize}
                             active={showParticipantForm}
                             onClick={toggleParticipantForm}
@@ -116,7 +116,7 @@ const TournamentCard = ({
                         </Button>
                         <Button
                             t={t}
-                            variant="secondary"
+                            variant={theme.ui?.toggleButtons.addScore.variant}
                             size={theme.ui?.layout.buttonsSize}
                             disabled={participants?.length === 0}
                             active={showScoreForm}
@@ -154,7 +154,7 @@ const TournamentCard = ({
                 <div style={{
                     display: "flex", flexDirection: "column",
                     gap: 16,
-                    paddingTop: showFormToggleButtons ? 0 : 8
+                    paddingTop: showFormToggleButtons ? 6 : 8
                 }}>
                     {!hidePastMatches &&
                         <PastMatchesList t={t}
