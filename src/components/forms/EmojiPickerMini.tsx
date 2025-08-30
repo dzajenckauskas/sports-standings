@@ -1,37 +1,18 @@
-// components/shared/EmojiPickerMini.tsx
 import React from "react";
-import { EUROBASKET_2025_FLAGS } from "../../data/eurobasket2025";
 
 
 type Props = {
     onSelect: (emoji: string) => void;
-    recentKey?: string; // localStorage key for recent emojis
-    emojis?: string[];  // override list (e.g., final qualified teams)
-    title?: string;     // optional section title
+    emojiOptions?: string[];
+    title?: string;
 };
 
-export const EmojiPickerMini: React.FC<Props> = ({ onSelect, recentKey = "recentEmojis", emojis, title }) => {
+export const EmojiPickerMini: React.FC<Props> = ({ onSelect, emojiOptions, title }) => {
     const [open, setOpen] = React.useState(false);
-    const [recent, setRecent] = React.useState<string[]>([]);
     const wrapRef = React.useRef<HTMLDivElement | null>(null);
-    const items = emojis ?? EUROBASKET_2025_FLAGS;
-
-    React.useEffect(() => {
-        try {
-            const raw = localStorage.getItem(recentKey);
-            if (raw) setRecent(JSON.parse(raw));
-        } catch { }
-    }, [recentKey]);
-
-    const addRecent = (e: string) => {
-        const next = [e, ...recent.filter(x => x !== e)].slice(0, 10);
-        setRecent(next);
-        try { localStorage.setItem(recentKey, JSON.stringify(next)); } catch { }
-    };
 
     const pick = (e: string) => {
         onSelect(e);
-        addRecent(e);
         setOpen(false);
     };
 
@@ -68,21 +49,9 @@ export const EmojiPickerMini: React.FC<Props> = ({ onSelect, recentKey = "recent
 
             {open && (
                 <div className="emoji-pop">
-                    {/* {recent.length > 0 && (
-                        <>
-                            <div className="emoji-section-title">Recent</div>
-                            <div className="emoji-grid">
-                                {recent.map(e => (
-                                    <button key={`r-${e}`} type="button" className="emoji-item" onClick={() => pick(e)}>{e}</button>
-                                ))}
-                            </div>
-                            <div className="emoji-divider" />
-                        </>
-                    )} */}
-
-                    <div className="emoji-section-title">{title ?? "EuroBasket 2025 Teams"}</div>
+                    <div className="emoji-section-title">{title}</div>
                     <div className="emoji-grid">
-                        {items.map(e => (
+                        {emojiOptions?.map(e => (
                             <button key={e} type="button" className="emoji-item" onClick={() => pick(e)}>{e}</button>
                         ))}
                     </div>

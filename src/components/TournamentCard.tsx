@@ -22,6 +22,7 @@ type Props = {
     namespace: string;
     participantInputType: ParticipantInputType;
     participantOptions?: ParticipantOptionType[];
+    emojiOptions?: string[];
 };
 
 /** Inherit the theme’s font for everything inside the card */
@@ -31,6 +32,7 @@ const FontScope = styled.div(({ theme }) => ({
 }));
 
 const TournamentCard = ({
+    emojiOptions,
     tournamentId,
     showFormToggleButtons,
     titleIcon,
@@ -140,6 +142,7 @@ const TournamentCard = ({
 
                     {showParticipantForm && (
                         <ParticipantForm
+                            emojiOptions={emojiOptions}
                             participantOptions={participantOptions}
                             participantInputType={participantInputType}
                             t={t}

@@ -21,10 +21,11 @@ type Props = {
     t: TType;
     participantInputType: ParticipantInputType;
     participantOptions?: ParticipantOptionType[];
+    emojiOptions?: string[]
 };
 
 const ParticipantForm = (
-    { tournamentId, participants, t, participantInputType, participantOptions }: Props
+    { tournamentId, participants, t, participantInputType, participantOptions, emojiOptions }: Props
 ) => {
     const validationSchema = yup.object().shape({
         participantName: yup.string()
@@ -67,57 +68,83 @@ const ParticipantForm = (
         console.log('invalid', data, getValues())
     }
     const { ref: rhfRef, ...nameField } = register("participantName");
+
+    const renderInput = () => {
+        switch (participantInputType) {
+            case "emoji":
+                if (Array.isArray(emojiOptions) && emojiOptions.length > 0) {
+                    return (
+                        <EmojiInput
+                            t={t}
+                            emojiOptions={emojiOptions}
+                            fieldSize={theme.ui?.layout.inputsSize}
+                            placeHolder={t("forms.participant.placeholder") ?? ""}
+                            {...nameField}
+                            ref={rhfRef}
+                            error={errors.participantName?.message}
+                            style={{ flex: 1 }}
+                        />
+                    );
+                }
+                break;
+
+            case "select":
+                if (Array.isArray(participantOptions) && participantOptions.length > 0) {
+                    return (
+                        <Select
+                            variant="light"
+                            fieldSize={theme.ui?.layout.inputsSize}
+                            error={errors.participantName?.message}
+                            value={watch("participantName") ?? ""}
+                            onChange={(e) => {
+                                setValue("participantName", e.target.value, {
+                                    shouldValidate: true,
+                                    shouldDirty: true,
+                                });
+                            }}
+                        >
+                            <>
+                                <Option disabled value="">
+                                    {t("forms.participant.placeholder") ?? ""}
+                                </Option>
+                                {participantOptions
+                                    ?.filter(
+                                        (v) =>
+                                            !participants.some((pp) =>
+                                                pp.name.toLowerCase().includes(v.name.toLowerCase())
+                                            )
+                                    )
+                                    ?.map((p) => (
+                                        <Option key={p.code ?? p.name} value={`${p.flag ?? ""}${p.name}`}>
+                                            {p.flag ?? ""}
+                                            {p.name}
+                                        </Option>
+                                    ))}
+                            </>
+                        </Select>
+                    );
+                }
+                break;
+
+            default:
+                return (
+                    <Input
+                        fieldSize={theme.ui?.layout.inputsSize}
+                        placeholder={t("forms.participant.placeholder") ?? ""}
+                        {...nameField}
+                        ref={rhfRef}
+                        error={errors.participantName?.message}
+                        style={{ flex: 1, minWidth: 100 }}
+                    />
+                );
+        }
+    }
     return (
         <div>
             <Typography variant="h3" weight="bold">{t('forms.participant.title')}</Typography>
             <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                 <div style={{ width: '100%', display: 'flex', gap: 8 }}>
-                    {participantInputType === "text" &&
-                        <Input
-                            fieldSize={theme.ui?.layout.inputsSize}
-                            placeholder={t(`forms.participant.placeholder`) ?? ''}
-                            {...nameField}
-                            ref={rhfRef}
-                            error={errors.participantName?.message}
-                            style={{ flex: 1, minWidth: 100 }}
-                        />}
-                    {(participantInputType === "select" && !!participantOptions) &&
-                        <Select
-                            variant="light"
-                            fieldSize={theme.ui?.layout.inputsSize}
-                            error={errors.participantName?.message}
-                            value={watch('participantName') ?? ''}
-                            onChange={(e) => {
-                                setValue('participantName', e.target.value, { shouldValidate: true, shouldDirty: true });
-                            }}
-                        >
-                            <>
-                                <Option disabled value={""}>
-                                    {t(`forms.participant.placeholder`) ?? ''}
-                                </Option>
-                                {participantOptions
-                                    ?.filter(v =>
-                                        !participants.some(pp =>
-                                            pp.name.toLowerCase().includes(v.name.toLowerCase())
-                                        )
-                                    )
-                                    ?.map((p) => (
-                                        <Option key={p.code ?? p.name} value={`${p.flag ?? ''}${p.name}`}>
-                                            {p.flag ?? ''}{p.name}
-                                        </Option>
-                                    ))}
-                            </>
-                        </Select>}
-                    {participantInputType === "emoji" &&
-                        <EmojiInput
-                            t={t}
-                            fieldSize={theme.ui?.layout.inputsSize}
-                            placeHolder={t(`forms.participant.placeholder`) ?? ''}
-                            {...nameField}
-                            ref={rhfRef}
-                            error={errors.participantName?.message}
-                            style={{ flex: 1 }}
-                        />}
+                    {renderInput()}
                     <Button
                         t={t}
                         variant='secondary'

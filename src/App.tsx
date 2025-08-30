@@ -6,7 +6,7 @@ import TennisIcon from "./components/shared/icons/TennisIcon";
 import { cleanMinimal } from "./theme/cleanMinimal";
 import { sportyEnergetic } from "./theme/sportyEnergetic";
 import { tableCentric } from "./theme/tableCentric";
-import { EUROBASKET_2025_COUNTRIES } from "./data/eurobasket2025";
+import { EUROBASKET_2025_COUNTRIES, EUROBASKET_2025_FLAGS } from "./data/eurobasket2025";
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
       </ThemeProvider>
       <ThemeProvider theme={tableCentric}>
         <TournamentCard
+          emojiOptions={EUROBASKET_2025_FLAGS}
           participantInputType="emoji"
           hidePastMatches
           namespace={'wimbledon'}

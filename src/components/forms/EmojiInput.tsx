@@ -2,6 +2,8 @@ import React, { useImperativeHandle, useRef } from "react";
 import { Input } from "../shared/Input";
 import { EmojiPickerMini } from "./EmojiPickerMini";
 import { TType } from "../../types/TType";
+import { useTheme } from "styled-components";
+import { FieldSize, heights } from "../../types/CommonTypes";
 
 export type EmojiInputProps = React.ComponentProps<typeof Input> & {
     /** px from the right edge for the adornment button (inside the input) */
@@ -9,10 +11,11 @@ export type EmojiInputProps = React.ComponentProps<typeof Input> & {
     /** called whenever a user inserts an emoji */
     onEmojiSelect?: (emoji: string) => void;
     t: TType;
+    emojiOptions?: string[];
 };
 
 export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
-    ({ style, adornmentOffset = 8, onEmojiSelect, t, ...rest }, ref) => {
+    ({ style, adornmentOffset = 8, onEmojiSelect, t, emojiOptions, ...rest }, ref) => {
         const innerRef = useRef<HTMLInputElement | null>(null);
 
         // Expose the real input DOM node to parent (e.g., RHF register ref)
@@ -46,9 +49,18 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
 
             onEmojiSelect?.(emoji);
         };
+        const theme = useTheme() as any;
+        const hasError = Boolean((rest as any)?.error);
+        const dividerColor = theme?.palette?.divider?.dark || "#e5e7eb";
+        const focusColor = theme?.palette?.primary?.main || "#2563eb";
+        const errorColor = theme?.palette?.error?.main || "#dc2626";
+
+        // Make adornment match the input height by using fieldSize + heights tokens
+        const resolvedSize: FieldSize = (rest.fieldSize as FieldSize) || theme.ui?.layout?.inputsSize || "md";
+        const adornmentH = heights[resolvedSize];
 
         return (
-            <div className="emoji-input" style={{ position: "relative", width: "100%" }}>
+            <div className={`emoji-input${hasError ? " is-error" : ""}`} style={{ position: "relative", width: "100%" }}>
                 {/* Main input (adds right-padding so text doesn’t go under the button) */}
                 <Input
                     {...rest}
@@ -63,14 +75,14 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
                         position: "absolute",
                         right: adornmentOffset,
                         top: 0,
-                        bottom: 0,
+                        transform: "none",
                         display: "flex",
-                        alignItems: "stretch",
-                        height: "100%",
+                        alignItems: "center",
+                        height: adornmentH,
                         zIndex: 9
                     }}
                 >
-                    <EmojiPickerMini onSelect={insertAtCursor} />
+                    <EmojiPickerMini onSelect={insertAtCursor} emojiOptions={emojiOptions} />
                 </div>
 
                 {/* Make the button feel like part of the input; align popover */}
@@ -81,8 +93,8 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
             width: 36px;
             border: none;
             background: transparent;
-            border-left: 1px solid #e5e7eb;
-            border-radius: 0 8px 8px 0;
+            border-left: 1px solid ${dividerColor};
+            border-radius: 0 7px 7px 0;
             cursor: pointer;
             font-size: 18px;
             display: inline-flex;
@@ -90,23 +102,16 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
             justify-content: center;
             transition: background .15s ease, border-color .2s ease;
           }
-          .emoji-input .emoji-btn:hover { background: transparent !important;}
-          /* Remove separate focus ring; rely on input's focus style */
+          .emoji-input .emoji-btn:hover { background: transparent !important; }
           .emoji-input .emoji-btn:focus { outline: none; box-shadow: none; }
 
-          /* When any child has focus, keep input focused look and sync seam color */
-          .emoji-input:focus-within .input {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
-          }
-          .emoji-input:focus-within .emoji-btn { border-left-color: #2563eb; }
+          /* Divider color on focus */
+          .emoji-input:focus-within .emoji-btn { border-left-color: ${focusColor}; }
+          /* Error state should override focus */
+          .emoji-input.is-error .emoji-btn,
+          .emoji-input.is-error:focus-within .emoji-btn { border-left-color: ${errorColor} !important; }
 
-          /* Position the emoji popover right under the button */
-          .emoji-input .emoji-pop {
-            top: calc(100% + 6px);
-            right: 0;
-            left: auto;
-          }
+         
         `}</style>
             </div>
         );
