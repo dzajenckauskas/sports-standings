@@ -3,7 +3,8 @@
   "actions": {
     "add": "Add",
     "addParticipant": "Add Player",
-    "addScore": "Add Score"
+    "addScore": "Add Score",
+    "search": "Search..."
   },
   "forms": {
     "errors": {
@@ -40,6 +41,9 @@
     "title": "",
     "empty": "No matches yet.",
     "vs": "vs"
+  },
+  "messages": {
+    "noResults": "No results"
   },
   "pluralTitle": "Tournaments"
 }

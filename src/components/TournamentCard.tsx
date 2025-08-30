@@ -13,6 +13,7 @@ import Card from "./shared/Card";
 import { PlusIcon } from "./shared/icons/PlusIcon";
 import { useTranslation } from "react-i18next";
 import { ParticipantInputType, ParticipantOptionType } from "../types/ParticipantType";
+import { EmojiType } from "../types/EmojiType";
 
 type Props = {
     tournamentId: string;
@@ -22,7 +23,7 @@ type Props = {
     namespace: string;
     participantInputType: ParticipantInputType;
     participantOptions?: ParticipantOptionType[];
-    emojiOptions?: string[];
+    emojiOptions?: EmojiType[];
 };
 
 /** Inherit the theme’s font for everything inside the card */

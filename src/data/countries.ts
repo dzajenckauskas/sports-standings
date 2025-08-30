@@ -1,4 +1,5 @@
 import { Country } from "../types/CountryType";
+import { EmojiType } from "../types/EmojiType";
 
 export const COUNTRIES: Country[] = [
   { name: "Afghanistan", code: "AFG", flag: "🇦🇫" },
@@ -252,4 +253,6 @@ export const COUNTRIES: Country[] = [
   { name: "Åland Islands", code: "ALA", flag: "🇦🇽" }
 ]
 
-export const COUNTRIES_FLAGS: string[] = COUNTRIES.map(c => c.flag);
+export const COUNTRIES_FLAGS: EmojiType[] = COUNTRIES.map(c => {
+  return { emoji: c.flag, name: c.name }
+});

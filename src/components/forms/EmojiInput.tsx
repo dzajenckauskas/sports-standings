@@ -4,12 +4,13 @@ import { EmojiPickerMini } from "./EmojiPickerMini";
 import { TType } from "../../types/TType";
 import { useTheme } from "styled-components";
 import { FieldSize, heights } from "../../types/CommonTypes";
+import { EmojiType } from "../../types/EmojiType";
 
 export type EmojiInputProps = React.ComponentProps<typeof Input> & {
     adornmentOffset?: number;
     onEmojiSelect?: (emoji: string) => void;
     t: TType;
-    emojiOptions?: string[];
+    emojiOptions?: EmojiType[];
 };
 
 export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
@@ -80,7 +81,10 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
                         zIndex: 9
                     }}
                 >
-                    <EmojiPickerMini onSelect={insertAtCursor} emojiOptions={emojiOptions} />
+                    <EmojiPickerMini t={t}
+                        onSelect={insertAtCursor}
+                        emojiOptions={emojiOptions}
+                    />
                 </div>
 
                 <style>{`

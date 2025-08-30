@@ -12,6 +12,7 @@ import { Option } from "../shared/Option";
 import { Select } from '../shared/Select';
 import { Typography } from '../shared/Typography';
 import { EmojiInput } from './EmojiInput';
+import { EmojiType } from '../../types/EmojiType';
 
 type ParticipantFormValues = { participantName: string; };
 
@@ -21,7 +22,7 @@ type Props = {
     t: TType;
     participantInputType: ParticipantInputType;
     participantOptions?: ParticipantOptionType[];
-    emojiOptions?: string[]
+    emojiOptions?: EmojiType[]
 };
 
 const ParticipantForm = (
