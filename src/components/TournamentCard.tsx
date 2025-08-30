@@ -12,6 +12,7 @@ import { Button } from "./shared/Button";
 import Card from "./shared/Card";
 import { PlusIcon } from "./shared/icons/PlusIcon";
 import { useTranslation } from "react-i18next";
+import { ParticipantInputType, ParticipantOptionType } from "../types/ParticipantType";
 
 type Props = {
     tournamentId: string;
@@ -19,6 +20,8 @@ type Props = {
     hidePastMatches?: boolean;
     titleIcon?: React.ReactNode;
     namespace: string;
+    participantInputType: ParticipantInputType;
+    participantOptions?: ParticipantOptionType[];
 };
 
 /** Inherit the theme’s font for everything inside the card */
@@ -32,7 +35,9 @@ const TournamentCard = ({
     showFormToggleButtons,
     titleIcon,
     namespace,
-    hidePastMatches
+    hidePastMatches,
+    participantInputType,
+    participantOptions
 }: Props) => {
     const { t } = useTranslation(namespace)
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons);
@@ -135,6 +140,8 @@ const TournamentCard = ({
 
                     {showParticipantForm && (
                         <ParticipantForm
+                            participantOptions={participantOptions}
+                            participantInputType={participantInputType}
                             t={t}
                             participants={participants}
                             tournamentId={tournamentId}

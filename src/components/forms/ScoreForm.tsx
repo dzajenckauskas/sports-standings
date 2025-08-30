@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, SubmitErrorHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
 import { AppDispatch, RootState } from "../../store";
@@ -65,6 +65,7 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
         watch,
         setValue,
         setError,
+        getValues,
         clearErrors
     } = useForm<FormValues>({
         defaultValues: {
@@ -118,8 +119,11 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
         reset();
     };
     const theme = useTheme()
+    const onInvalid: SubmitErrorHandler<FormValues> = (data) => {
+        console.log('invalid', data, getValues())
+    }
     return (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
             <Typography variant="h3" weight="bold">{t('forms.score.title')}</Typography>
             <div style={{ display: "flex", marginBottom: 8, gap: 8, width: "100%" }}>
                 <Controller
