@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
@@ -28,33 +28,8 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
         formState: { errors },
         reset,
         watch,
-        setValue,
     } = useForm<ParticipantFormValues>({ resolver: yupResolver(validationSchema) });
 
-    const participantName = watch('participantName');
-
-    // Get RHF's ref for the field, then compose it with our own to keep a DOM handle.
-    const inputRef = useRef<HTMLInputElement | null>(null);
-
-    const composeRef = (el: HTMLInputElement | null) => {
-        // pass to RHF
-        rhfRef(el);
-        // keep our own reference for cursor ops
-        inputRef.current = el;
-    };
-
-    const insertAtCursor = (emoji: string) => {
-        const el = inputRef.current;
-        if (!el) return;
-        const start = el.selectionStart ?? el.value.length;
-        const end = el.selectionEnd ?? el.value.length;
-        const before = el.value.slice(0, start);
-        const after = el.value.slice(end);
-        const next = `${before}${emoji} ${after}`;
-        setValue('participantName', next, { shouldDirty: true, shouldValidate: true });
-        const pos = start + emoji.length + 1;
-        requestAnimationFrame(() => { el.setSelectionRange(pos, pos); el.focus(); });
-    };
 
     const handleAddParticipant = (name: string) => {
         setError(undefined);

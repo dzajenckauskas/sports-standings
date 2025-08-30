@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
@@ -28,7 +28,11 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
         state.scores.filter((m) => m.tournamentId === tournamentId)
     );
 
-    // create pair sets "A|B"
+    // Precompute a fast-lookup of games already played.
+    // For each match we store an order-independent key in a Set: "A|B" where A and B
+    // are participant IDs sorted alphabetically. This way (home=A, away=B) and (home=B, away=A)
+    // map to the same key. Lookup is O(1) and the whole structure is rebuilt only when
+    // `matches` changes.
     const playedPairs = useMemo(() => {
         const s = new Set<string>();
         for (const m of matches) {
@@ -39,11 +43,16 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
         return s;
     }, [matches]);
 
-    const hasPlayed = (a?: string, b?: string) => {
+    // Memoized helper: checks whether two participants have already
+    // played each other in this tournament. It normalizes the pair
+    // order (A|B === B|A) by sorting IDs, then looks up that key in
+    // the precomputed set `playedPairs`. Memoized with `useCallback`
+    // so effects/select filters depending on it get a stable reference.
+    const hasPlayed = useCallback((a?: string, b?: string) => {
         if (!a || !b) return false;
         const key = [a, b].sort().join("|");
         return playedPairs.has(key);
-    };
+    }, [playedPairs]);
 
     const {
         control,
