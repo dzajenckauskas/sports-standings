@@ -41,4 +41,7 @@ export interface AppTheme {
     shadows: {
         card: string;
     };
+    ui?: {
+        showWinLossIcons?: boolean;
+    };
 }

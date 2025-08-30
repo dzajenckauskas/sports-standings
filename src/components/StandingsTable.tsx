@@ -96,6 +96,7 @@ const IconSlot = styled.span`
 const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight }) => {
     const hasData = Boolean(participants && participants.length > 0);
     const theme = useTheme();
+    const showIcons = (theme as any)?.ui?.showWinLossIcons ?? true;
 
     const success = (theme.palette as any).success?.main ?? "#16a34a"; // fallback green
     const error = (theme.palette as any).error?.main ?? "#dc2626";     // fallback red
@@ -133,17 +134,21 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
                                         <Cell>
                                             <StatWithIcon $dim={winsZero} $color={success}>
                                                 <span style={{ color: theme.palette.text.primary }}>{r.wins}</span>
-                                                <IconSlot>
-                                                    <CheckIcon />
-                                                </IconSlot>
+                                                {showIcons && (
+                                                    <IconSlot>
+                                                        <CheckIcon />
+                                                    </IconSlot>
+                                                )}
                                             </StatWithIcon>
                                         </Cell>
                                         <Cell>
                                             <StatWithIcon $dim={lossesZero} $color={error}>
                                                 <span style={{ color: theme.palette.text.primary }}>{r.losses}</span>
-                                                <IconSlot>
-                                                    <CrossIcon />
-                                                </IconSlot>
+                                                {showIcons && (
+                                                    <IconSlot>
+                                                        <CrossIcon />
+                                                    </IconSlot>
+                                                )}
                                             </StatWithIcon>
                                         </Cell>
                                         <Cell emphasize>{r.points}</Cell>
