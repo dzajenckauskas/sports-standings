@@ -52,7 +52,7 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
                 <Input
                     {...rest}
                     ref={innerRef}
-                    style={{ paddingRight: 50, width: "100%", ...(style || {}) }}
+                    style={{ width: "100%", ...(style || {}) }}
                 />
 
                 {/* End-adornment: emoji button inside the input */}

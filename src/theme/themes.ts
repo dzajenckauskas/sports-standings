@@ -5,13 +5,13 @@ export const cleanMinimal: AppTheme = {
     palette: {
         mode: "light",
         primary: {
-            // main: "#3d003e",
-            main: "#0065f4",
+            main: "#3d003e",
+            // main: "#0065f4",
             contrastText: "#fff",
         },
         secondary: {
-            main: "#3d003e",
-            // main: "#0065f4",
+            // main: "#3d003e",
+            main: "#0065f4",
             contrastText: "#fff",
         },
         error: {
