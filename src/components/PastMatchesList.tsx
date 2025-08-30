@@ -14,7 +14,7 @@ const PastMatchesList = ({ getParticipantName, matches }: Props) => {
                     maxHeight: 300,
                     flex: 1,
                     overflowY: "auto",
-                    paddingRight: 6,
+                    // paddingRight: 6,
                     border: "1px solid #e5e7eb",
                     borderRadius: 6,
                 }}

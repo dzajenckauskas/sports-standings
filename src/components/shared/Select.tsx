@@ -1,4 +1,3 @@
-// components/shared/Select.tsx
 import React from "react";
 import styled from "styled-components";
 import type { AppTheme } from "../../theme/types";
@@ -13,7 +12,6 @@ interface SelectProps
     placeholder?: string;    // renders as disabled first option
 }
 
-/* ---------------- Helpers ---------------- */
 
 const sizeToken = (size: FieldSize) => {
     const h = heights[size];
@@ -50,7 +48,6 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
     };
 };
 
-/* ---------------- Styled ---------------- */
 
 const Container = styled.div({
     width: "100%",
@@ -96,7 +93,7 @@ const StyledSelect = styled.select<{
 
         "&:focus": {
             borderColor: $hasError ? c.error : c.focusBorder,
-            boxShadow: `0 0 0 3px color-mix(in srgb, ${c.focusRing} 30%, transparent)`,
+            // boxShadow: `0 0 0 3px color-mix(in srgb, ${c.focusRing} 30%, transparent)`,
         },
 
         "&:disabled": {
@@ -129,7 +126,6 @@ const Arrow = styled.svg({
     },
 });
 
-/* ---------------- Component ---------------- */
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     (

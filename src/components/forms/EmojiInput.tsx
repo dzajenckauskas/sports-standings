@@ -1,4 +1,3 @@
-// components/shared/EmojiInput.tsx
 import React, { useImperativeHandle, useRef } from "react";
 import { Input } from "../shared/Input";
 import { EmojiPickerMini } from "./EmojiPickerMini";

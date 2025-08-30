@@ -17,6 +17,7 @@ type Props = {
     title: string;
     tournamentId: string;
     showFormToggleButtons?: boolean;
+    titleIcon?: React.ReactNode;
 };
 
 /** Inherit the theme’s font for everything inside the card */
@@ -26,7 +27,7 @@ const FontScope = styled.div(({ theme }) => ({
     "*": { fontFamily: "inherit" },
 }));
 
-const TournamentCard = ({ title, tournamentId, showFormToggleButtons }: Props) => {
+const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon }: Props) => {
     const [showParticipantForm, setShowParticipantForm] = useState(!showFormToggleButtons);
     const [showScoreForm, setShowScoreForm] = useState(!showFormToggleButtons);
 
@@ -95,7 +96,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons }: Props) =
 
     return (
         <FontScope>
-            <Card title={title}>
+            <Card title={title} icon={titleIcon}>
                 {showFormToggleButtons && (
                     <div
                         style={{

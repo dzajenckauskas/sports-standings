@@ -2,6 +2,8 @@ import { ThemeProvider } from "styled-components";
 import TournamentCard from "./components/TournamentCard";
 import { Grid } from "./components/shared/Grid";
 import { cleanMinimal, sportyEnergetic, tableCentric } from "./theme/themes";
+import BasketballIcon from "./components/shared/icons/BasketballIcon";
+import TennisIcon from "./components/shared/icons/TennisIcon";
 
 function App() {
   return (
@@ -13,14 +15,17 @@ function App() {
         />
       </ThemeProvider>
       <ThemeProvider theme={sportyEnergetic}>
+
         <TournamentCard
-          title="Eurobasket"
+          titleIcon={<BasketballIcon />}
+          title="EUROBASKET"
           tournamentId="eurobasket"
           showFormToggleButtons
         />
       </ThemeProvider>
       <ThemeProvider theme={tableCentric}>
         <TournamentCard
+          titleIcon={<TennisIcon />}
           title="Wimbledon"
           tournamentId="wimbledon"
           showFormToggleButtons

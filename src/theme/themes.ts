@@ -40,7 +40,7 @@ export const cleanMinimal: AppTheme = {
         fontFamily: `'Inter','Roboto',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
         fontWeightBold: 600,
     },
-    shape: { borderRadius: 4 },
+    shape: { borderRadius: 6 },
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
 };
 
@@ -67,7 +67,7 @@ export const sportyEnergetic: AppTheme = {
         fontFamily: `'Montserrat','Bebas Neue',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
         fontWeightBold: 700,
     },
-    shape: { borderRadius: 4 },
+    shape: { borderRadius: 6 },
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
 };
 
@@ -95,6 +95,6 @@ export const tableCentric: AppTheme = {
         fontFamilyMono: `'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`,
         fontWeightBold: 700,
     },
-    shape: { borderRadius: 4 },
+    shape: { borderRadius: 6 },
     shadows: { card: "0 4px 16px rgba(2,6,23,0.08)" },
 };

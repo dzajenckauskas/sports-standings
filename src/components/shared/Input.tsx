@@ -1,4 +1,3 @@
-// components/shared/Input.tsx
 import React from "react";
 import styled from "styled-components";
 import type { AppTheme } from "../../theme/types";
@@ -95,7 +94,7 @@ const StyledInput = styled.input<{
 
     "&:focus": {
       borderColor: $hasError ? c.error : c.focusBorder,
-      boxShadow: `0 0 0 3px color-mix(in srgb, ${c.focusRing} 30%, transparent)`,
+      // boxShadow: `0 0 0 3px color-mix(in srgb, ${c.focusRing} 30%, transparent)`,
     },
 
     "&:disabled": {

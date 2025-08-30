@@ -1,167 +1,131 @@
 import React from "react";
+import styled from "styled-components";
 
 type Props = {
-    children: React.ReactNode;
-    title: string;
-    primaryColor?: string;
-    icon?: React.ReactNode;
-    actions?: React.ReactNode;         // right-side header actions
-    stickyHeader?: boolean;            // keep header fixed when body scrolls
-    scrollBody?: boolean;              // scroll only body content
-    maxBodyHeight?: number | string;   // used when scrollBody is true (e.g., "60vh" or 320)
-    footer?: React.ReactNode;          // optional footer area
-    className?: string;
-    style?: React.CSSProperties;
+  children: React.ReactNode;
+  title: string;
+  primaryColor?: string;         // optional override for header accent
+  icon?: React.ReactNode;
+  actions?: React.ReactNode;     // right-side header actions
+  stickyHeader?: boolean;        // keep header fixed when body scrolls
+  scrollBody?: boolean;          // scroll only body content
+  maxBodyHeight?: number | string; // used when scrollBody is true
+  footer?: React.ReactNode;      // optional footer
+  className?: string;
+  style?: React.CSSProperties;
 };
 
+/* ------------ styled parts ------------ */
+
+const CardRoot = styled.div(({ theme }) => ({
+  background: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius + 2,
+  boxShadow: theme.shadows.card,
+  display: "flex",
+  flexDirection: "column",
+  overflow: "hidden",
+  minWidth: 0,
+}));
+
+/** Accent is resolved in React and passed as $accent so we can make a gradient. */
+const CardHeader = styled.header<{
+  $sticky: boolean;
+}>(({ theme, $sticky }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: 8,
+  padding: "20px 16px",
+  color: theme.palette.primary.contrastText,
+  backgroundColor: theme.palette.primary.main,
+  position: $sticky ? "sticky" as const : "relative" as const,
+  top: $sticky ? 0 : "auto",
+  zIndex: $sticky ? 2 : "auto",
+}));
+
+const HeaderLeft = styled.div({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+  minWidth: 0,
+});
+
+const Title = styled.h2(({ theme }) => ({
+  margin: 0,
+  fontSize: 24,
+  fontWeight: theme.typography.fontWeightBold ?? 700,
+  lineHeight: 1.1,
+  whiteSpace: "nowrap" as const,
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  fontFamily: theme.typography.fontFamily,
+}));
+
+const Actions = styled.div({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+  flexShrink: 0,
+});
+
+const CardBody = styled.div<{ $scrollBody: boolean; $maxBodyHeight: string }>(
+  ({ $scrollBody, $maxBodyHeight, theme }) => ({
+    padding: 16,
+    ...($scrollBody
+      ? {
+        maxHeight: $maxBodyHeight,
+        overflowY: "auto",
+        // paddingRight: 6, // avoid scrollbar overlap
+        background: theme.palette.background.paper,
+      }
+      : null),
+  })
+);
+
+const CardFooter = styled.div(({ theme }) => ({
+  padding: "12px 16px",
+  borderTop: `1px solid ${theme.palette.divider}`,
+  background: theme.palette.background.default,
+}));
+
+
 const Card: React.FC<Props> = ({
-    children,
-    title,
-    icon,
-    actions,
-    primaryColor = "#2563eb", // default accent (blue)
-    stickyHeader = false,
-    scrollBody = false,
-    maxBodyHeight = "60vh",
-    footer,
-    className,
-    style,
+  children,
+  title,
+  icon,
+  actions,
+  stickyHeader = false,
+  scrollBody = false,
+  maxBodyHeight = "60vh",
+  footer,
+  className,
+  style,
 }) => {
-    return (
-        <div
-            className={`card ${className ?? ""}`}
-            style={
-                {
-                    "--card-accent": primaryColor,
-                    ...style,
-                } as React.CSSProperties
-            }
-        >
-            <header className={`card-header ${stickyHeader ? "card-header--sticky" : ""}`}>
-                <div className="card-header-left">
-                    {icon && <span className="card-icon">{icon}</span>}
-                    <h2 className="card-title" title={title}>
-                        {title}
-                    </h2>
-                </div>
-                {actions && <div className="card-actions">{actions}</div>}
-            </header>
+  return (
+    <CardRoot className={className} style={style}>
+      <CardHeader
+        $sticky={stickyHeader}
+      >
+        <HeaderLeft>
+          {icon && <span style={{ paddingRight: 6, position: 'relative', top: 2 }}>{icon}</span>}
+          <Title title={title}>{title}</Title>
+        </HeaderLeft>
+        {actions && <Actions>{actions}</Actions>}
+      </CardHeader>
 
-            <div
-                className="card-body"
-                style={
-                    scrollBody
-                        ? {
-                            maxHeight: typeof maxBodyHeight === "number" ? `${maxBodyHeight}px` : maxBodyHeight,
-                            overflowY: "auto",
-                            paddingRight: 6, // avoid scrollbar overlap
-                        }
-                        : undefined
-                }
-            >
-                {children}
-            </div>
-
-            {footer && <div className="card-footer">{footer}</div>}
-
-            <style>{`
-        .card {
-          border: 1px solid rgba(0,0,0,0.08);
-          border-radius: 10px;
-          overflow: hidden;
-          background: #fff;
-          box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
-          display: flex;
-          flex-direction: column;
-          min-width: 0;
+      <CardBody
+        $scrollBody={scrollBody}
+        $maxBodyHeight={
+          typeof maxBodyHeight === "number" ? `${maxBodyHeight}px` : String(maxBodyHeight)
         }
+      >
+        {children}
+      </CardBody>
 
-        .card-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 8px;
-          padding: 10px 12px;
-          color: #fff;
-          /* gradient using accent */
-          background: linear-gradient(
-            90deg,
-            var(--card-accent) 0%,
-            color-mix(in oklab, var(--card-accent) 85%, black) 100%
-          );
-        }
-
-        /* Fallback for browsers without color-mix */
-        @supports not (background: color-mix(in oklab, red 50%, white)) {
-          .card-header {
-            background: var(--card-accent);
-          }
-        }
-
-        .card-header--sticky {
-          position: sticky;
-          top: 0;
-          z-index: 2;
-        }
-
-        .card-header-left {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          min-width: 0; /* allow title to truncate */
-        }
-
-        .card-icon {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .card-title {
-          margin: 0;
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 1.1;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .card-actions {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          flex-shrink: 0;
-        }
-
-        .card-body {
-          padding: 16px;
-        }
-
-        .card-footer {
-          padding: 12px 16px;
-          border-top: 1px solid #eef2f7;
-          background: #fafafa;
-        }
-
-        /* Responsive tweaks */
-        @media (max-width: 480px) {
-          .card-header {
-            padding: 8px 10px;
-          }
-          .card-title {
-            font-size: 15px;
-          }
-          .card-body {
-            padding: 12px;
-          }
-          .card-footer {
-            padding: 10px 12px;
-          }
-        }
-      `}</style>
-        </div>
-    );
+      {footer && <CardFooter>{footer}</CardFooter>}
+    </CardRoot>
+  );
 };
 
 export default Card;

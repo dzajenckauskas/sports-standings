@@ -18,7 +18,7 @@ const StandingsTable = ({ participants, standings }: Props) => {
                 style={{
                     maxHeight: 300,
                     overflowY: "auto",
-                    paddingRight: 6,
+                    // paddingRight: 6,
                     border: "1px solid #e5e7eb",
                     borderRadius: 6,
                 }}
