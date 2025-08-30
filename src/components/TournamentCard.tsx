@@ -138,10 +138,14 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                         tournamentId={tournamentId}
                     />
                 )}
-
-                <PastMatchesList matches={matches} getParticipantName={getParticipantName} />
-
-                <StandingsTable participants={participants} standings={standings} />
+                <div style={{
+                    display: "flex",
+                    flexDirection: 'column',
+                    gap: 16
+                }}>
+                    <PastMatchesList matches={matches} getParticipantName={getParticipantName} />
+                    <StandingsTable participants={participants} standings={standings} />
+                </div>
             </Card>
         </FontScope>
     );
