@@ -31,7 +31,9 @@ export interface AppTheme {
         fontFamily: string;
         fontFamilyMono?: string;
         fontFamilyDisplay?: string;
-        fontWeightBold?: number;
+        fontWeightRegular: number;
+        fontWeightMedium: number;
+        fontWeightBold: number;
     };
     shape: {
         borderRadius: number;

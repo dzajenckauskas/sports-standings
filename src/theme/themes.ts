@@ -38,7 +38,9 @@ export const cleanMinimal: AppTheme = {
     },
     typography: {
         fontFamily: `'Inter','Roboto',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
-        fontWeightBold: 600,
+        fontWeightRegular: 400,
+        fontWeightMedium: 500,
+        fontWeightBold: 700,
     },
     shape: { borderRadius: 6 },
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
@@ -65,6 +67,8 @@ export const sportyEnergetic: AppTheme = {
     },
     typography: {
         fontFamily: `'Montserrat','Bebas Neue',system-ui,-apple-system,"Segoe UI",Arial,sans-serif`,
+        fontWeightRegular: 400,
+        fontWeightMedium: 500,
         fontWeightBold: 700,
     },
     shape: { borderRadius: 6 },
@@ -93,6 +97,8 @@ export const tableCentric: AppTheme = {
     typography: {
         fontFamily: `'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`,
         fontFamilyMono: `'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`,
+        fontWeightRegular: 400,
+        fontWeightMedium: 500,
         fontWeightBold: 700,
     },
     shape: { borderRadius: 6 },
