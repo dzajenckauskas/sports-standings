@@ -42,6 +42,12 @@ export interface AppTheme {
         card: string;
     };
     ui?: {
-        showWinLossIcons?: boolean;
+        standings?: {
+            showWinLossIcons?: boolean;
+            columns: Array<{
+                key: "games" | "wins" | "losses" | "draws" | "points";
+                label: string; // e.g., P, M, W, L, D, Pts
+            }>;
+        };
     };
 }

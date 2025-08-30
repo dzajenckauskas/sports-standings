@@ -44,7 +44,18 @@ export const cleanMinimal: AppTheme = {
     },
     shape: { borderRadius: 6 },
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
-    ui: { showWinLossIcons: false },
+    ui: {
+        standings: {
+            showWinLossIcons: false,
+            columns: [
+                { key: "games", label: "P" },
+                { key: "wins", label: "W" },
+                { key: "draws", label: "D" },
+                { key: "losses", label: "L" },
+                { key: "points", label: "Pts" },
+            ],
+        },
+    },
 };
 
 export const sportyEnergetic: AppTheme = {
@@ -74,7 +85,17 @@ export const sportyEnergetic: AppTheme = {
     },
     shape: { borderRadius: 6 },
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
-    ui: { showWinLossIcons: false },
+    ui: {
+        standings: {
+            showWinLossIcons: false,
+            columns: [
+                { key: "wins", label: "W" },
+                { key: "losses", label: "L" },
+                { key: "draws", label: "D" },
+                { key: "points", label: "Pts" },
+            ],
+        },
+    },
 };
 
 export const tableCentric: AppTheme = {
@@ -105,5 +126,15 @@ export const tableCentric: AppTheme = {
     },
     shape: { borderRadius: 6 },
     shadows: { card: "0 4px 16px rgba(2,6,23,0.08)" },
-    ui: { showWinLossIcons: true },
+    ui: {
+        standings: {
+            showWinLossIcons: true,
+            columns: [
+                { key: "games", label: "M" },
+                { key: "wins", label: "W" },
+                { key: "losses", label: "L" },
+                { key: "points", label: "Pts" },
+            ],
+        },
+    },
 };

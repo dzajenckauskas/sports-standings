@@ -96,7 +96,19 @@ const IconSlot = styled.span`
 const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight }) => {
     const hasData = Boolean(participants && participants.length > 0);
     const theme = useTheme();
-    const showIcons = (theme as any)?.ui?.showWinLossIcons ?? true;
+    const showIcons = (theme as any)?.ui?.standings?.showWinLossIcons ?? true;
+
+    // Column specification (typed to avoid implicit any in .map callbacks)
+    type ColKey = "games" | "wins" | "losses" | "draws" | "points";
+    type ColSpec = { key: ColKey; label: string };
+    const defaultCols: ColSpec[] = [
+        { key: "games", label: "M" },
+        { key: "wins", label: "W" },
+        { key: "losses", label: "L" },
+        { key: "points", label: "Pts" },
+    ];
+    const themeCols = (theme as any)?.ui?.standings?.columns as ColSpec[] | undefined;
+    const colSpec: ColSpec[] = Array.isArray(themeCols) ? themeCols : defaultCols;
 
     const success = (theme.palette as any).success?.main ?? "#16a34a"; // fallback green
     const error = (theme.palette as any).error?.main ?? "#dc2626";     // fallback red
@@ -116,10 +128,9 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
                         <thead>
                             <tr>
                                 <TheadCell align="left">Player</TheadCell>
-                                <TheadCell align="center">M</TheadCell>
-                                <TheadCell align="center">W</TheadCell>
-                                <TheadCell align="center">L</TheadCell>
-                                <TheadCell align="center">Pts</TheadCell>
+                                {colSpec.map(c => (
+                                    <TheadCell key={c.key} align="center">{c.label}</TheadCell>
+                                ))}
                             </tr>
                         </thead>
                         <tbody>
@@ -130,28 +141,44 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight })
                                 return (
                                     <Row key={r.id}>
                                         <Cell align="left">{r.name}</Cell>
-                                        <Cell>{r.games}</Cell>
-                                        <Cell>
-                                            <StatWithIcon $dim={winsZero} $color={success}>
-                                                <span style={{ color: theme.palette.text.primary }}>{r.wins}</span>
-                                                {showIcons && (
-                                                    <IconSlot>
-                                                        <CheckIcon />
-                                                    </IconSlot>
-                                                )}
-                                            </StatWithIcon>
-                                        </Cell>
-                                        <Cell>
-                                            <StatWithIcon $dim={lossesZero} $color={error}>
-                                                <span style={{ color: theme.palette.text.primary }}>{r.losses}</span>
-                                                {showIcons && (
-                                                    <IconSlot>
-                                                        <CrossIcon />
-                                                    </IconSlot>
-                                                )}
-                                            </StatWithIcon>
-                                        </Cell>
-                                        <Cell emphasize>{r.points}</Cell>
+                                        {colSpec.map(c => {
+                                            switch (c.key) {
+                                                case "games":
+                                                    return <Cell key={c.key}>{r.games}</Cell>;
+                                                case "wins":
+                                                    return (
+                                                        <Cell key={c.key}>
+                                                            <StatWithIcon $dim={winsZero} $color={success}>
+                                                                <span style={{ color: theme.palette.text.primary }}>{r.wins}</span>
+                                                                {showIcons && (
+                                                                    <IconSlot>
+                                                                        <CheckIcon />
+                                                                    </IconSlot>
+                                                                )}
+                                                            </StatWithIcon>
+                                                        </Cell>
+                                                    );
+                                                case "losses":
+                                                    return (
+                                                        <Cell key={c.key}>
+                                                            <StatWithIcon $dim={lossesZero} $color={error}>
+                                                                <span style={{ color: theme.palette.text.primary }}>{r.losses}</span>
+                                                                {showIcons && (
+                                                                    <IconSlot>
+                                                                        <CrossIcon />
+                                                                    </IconSlot>
+                                                                )}
+                                                            </StatWithIcon>
+                                                        </Cell>
+                                                    );
+                                                case "draws":
+                                                    return <Cell key={c.key}>{r.draws}</Cell>;
+                                                case "points":
+                                                    return <Cell key={c.key}>{r.points}</Cell>;
+                                                default:
+                                                    return null;
+                                            }
+                                        })}
                                     </Row>
                                 );
                             })}
