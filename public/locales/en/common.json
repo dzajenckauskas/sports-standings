@@ -6,6 +6,13 @@
     "addScore": "Add Score"
   },
   "forms": {
+    "errors": {
+      "required": "Required",
+      "pairAlreadyPlayed": "These teams have already played.",
+      "participantRequired": "Team name is required",
+      "participantNameTooShort": "Team name must be at least 2 characters",
+      "participantNameTaken": "This participant already exists!"
+    },
     "participant": {
       "title": "Add Team",
       "placeholder": "Team name"
@@ -16,9 +23,6 @@
       "selectAwayParticipant": "Away team",
       "homeScore": "Home Score",
       "awayScore": "Away Score"
-    },
-    "errors": {
-      "required": "Required"
     }
   },
   "standings": {

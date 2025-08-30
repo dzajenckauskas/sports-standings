@@ -88,19 +88,19 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
             setValue("awayParticipantId", "");
             setError("awayParticipantId", {
                 type: "manual",
-                message: "These teams have already played."
+                message: `${t('forms.errors.pairAlreadyPlayed')}`
             });
         } else {
             clearErrors("awayParticipantId");
         }
-    }, [homeParticipantId, awayParticipantId, hasPlayed, setValue, setError, clearErrors]);
+    }, [t, homeParticipantId, awayParticipantId, hasPlayed, setValue, setError, clearErrors]);
 
     const onSubmit = (data: FormValues) => {
         // prevent submitting a duplicate pair
         if (hasPlayed(data.homeParticipantId, data.awayParticipantId)) {
             setError("awayParticipantId", {
                 type: "manual",
-                message: "These teams have already played."
+                message: `${t('forms.errors.pairAlreadyPlayed')}`
             });
             return;
         }

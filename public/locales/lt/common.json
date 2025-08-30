@@ -10,6 +10,10 @@
     "addParticipant": "Pridėti dalyvį"
   },
   "forms": {
+    "errors": {
+      "required": "Required",
+      "pairAlreadyPlayed": "These teams have already played."
+    },
     "participant": {
       "title": {
         "team": "Pridėti komandą",
