@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { AppTheme } from "../../theme/types";
+import { TType } from "../../types/TType";
 
 type Variant = "primary" | "secondary" | "danger";
 type Size = "sm" | "md" | "lg";
@@ -13,6 +14,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: Size;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  t: TType;
 }
 
 
@@ -106,6 +108,7 @@ export const Button: React.FC<ButtonProps> = ({
   size = "md",
   startIcon,
   endIcon,
+  t,
   ...rest
 }) => {
   return (

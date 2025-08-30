@@ -2,18 +2,19 @@ import { useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
-import { useI18n } from "../../i18n/i18n";
 import { AppDispatch, RootState } from "../../store";
 import { ParticipantType } from "../../utils/ParticipantType";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import { Option } from "../shared/Option";
 import { Select } from "../shared/Select";
+import { TType } from "../../types/TType";
 
 type Props = {
     participants: ParticipantType[];
     tournamentId: string;
     disabled?: boolean;
+    t: TType;
 };
 
 type FormValues = {
@@ -23,12 +24,11 @@ type FormValues = {
     awayParticipantScore: number | string;
 };
 
-const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
+const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
     const dispatch = useDispatch<AppDispatch>();
     const matches = useSelector((state: RootState) =>
         state.scores.filter((m) => m.tournamentId === tournamentId)
     );
-    const { t } = useI18n();
 
     // Precompute a fast-lookup of games already played.
     // For each match we store an order-independent key in a Set: "A|B" where A and B
@@ -128,7 +128,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             {...field}
                             variant="light"
                             fieldSize="sm"
-                            placeholder={t(`forms.score.selectHomeParticipant`)}
+                            placeholder={t(`forms.score.selectHomeParticipant`) ?? ''}
                             disabled={disabled}
                         >
                             {participants
@@ -151,7 +151,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             {...field}
                             variant="light"
                             fieldSize="sm"
-                            placeholder={t(`forms.score.selectAwayParticipant`)}
+                            placeholder={t(`forms.score.selectAwayParticipant`) ?? ''}
                             disabled={disabled}
                         >
                             {participants
@@ -180,7 +180,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             inputMode="numeric" // mobile keyboards show numbers only
                             pattern="[0-9]*"
                             disabled={disabled || !homeParticipantId}
-                            placeHolder={t('forms.score.homeScore')}
+                            placeHolder={t('forms.score.homeScore') ?? ''}
                             onChange={(e) => {
                                 const raw = e.target.value;
                                 // only digits allowed
@@ -202,7 +202,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
                             inputMode="numeric"
                             pattern="[0-9]*"
                             disabled={disabled || !awayParticipantId}
-                            placeHolder={t('forms.score.awayScore')}
+                            placeHolder={t('forms.score.awayScore') ?? ''}
                             onChange={(e) => {
                                 const raw = e.target.value;
                                 const cleaned = raw.replace(/\D/g, "");
@@ -214,6 +214,7 @@ const ScoreForm = ({ participants, tournamentId, disabled }: Props) => {
             </div>
 
             <Button type="submit"
+                t={t}
                 size="sm"
                 style={{ width: '100%' }}
                 disabled={

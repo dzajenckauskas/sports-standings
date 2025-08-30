@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { useI18n } from "../i18n/i18n";
 import { MatchType } from "../utils/MatchType";
+import { TType } from "../types/TType";
 
 type Props = {
     getParticipantName: (id: string) => string | undefined;
     matches?: MatchType[];
     maxHeight?: number | string; // optional override
+    t: TType;
 };
 
 const Title = styled.h3(({ theme }) => ({
@@ -82,9 +83,8 @@ const EmptyState = styled.div(({ theme }) => ({
     fontStyle: "italic",
 }));
 
-const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeight }) => {
+const PastMatchesList: React.FC<Props> = ({ getParticipantName, matches, maxHeight, t }) => {
     const hasData = !!matches && matches.length > 0;
-    const { t } = useI18n();
 
     return (
         <div>

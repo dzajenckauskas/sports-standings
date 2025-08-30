@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { addParticipant } from '../../features/participantSlice';
-import { useI18n } from '../../i18n/i18n';
 import { ParticipantType } from '../../utils/ParticipantType';
 import { Button } from '../shared/Button';
 import { EmojiInput } from './EmojiInput';
+import { TType } from '../../types/TType';
 
 type ParticipantFormValues = { participantName: string; };
 
@@ -18,11 +18,10 @@ const validationSchema = yup.object().shape({
 type Props = {
     tournamentId: string;
     participants: ParticipantType[];
+    t: TType;
 };
 
-const ParticipantForm = ({ tournamentId, participants }: Props) => {
-    const { t } = useI18n();
-
+const ParticipantForm = ({ tournamentId, participants, t }: Props) => {
     const [error, setError] = useState<string | undefined>();
     const dispatch = useDispatch();
     const {
@@ -57,8 +56,9 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
                 <div style={{ width: '100%', display: 'flex', gap: 8 }}>
 
                     <EmojiInput
+                        t={t}
                         fieldSize="sm"
-                        placeHolder={t(`forms.participant.placeholder`)}
+                        placeHolder={t(`forms.participant.placeholder`) ?? ''}
                         {...nameField}
                         ref={rhfRef}
                         error={error ?? errors.participantName?.message}
@@ -66,6 +66,7 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
                     />
 
                     <Button
+                        t={t}
                         variant='primary'
                         disabled={!watch("participantName")}
                         type="submit" size="sm">

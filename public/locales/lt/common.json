@@ -1,11 +1,13 @@
 {
+  "singularTitle": "Turnyras",
   "actions": {
     "addButton": "Pridėti",
     "add": {
       "team": "Pridėti komandą",
       "player": "Pridėti žaidėją"
     },
-    "addScore": "Pridėti rezultatą"
+    "addScore": "Pridėti rezultatą",
+    "addParticipant": "Pridėti dalyvį"
   },
   "forms": {
     "participant": {
@@ -42,5 +44,6 @@
     "title": "Praėję mačai",
     "empty": "Dar nėra rungtynių.",
     "vs": "prieš"
-  }
+  },
+  "pluralTitle": "Turnyrai"
 }

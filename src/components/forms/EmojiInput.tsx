@@ -1,16 +1,18 @@
 import React, { useImperativeHandle, useRef } from "react";
 import { Input } from "../shared/Input";
 import { EmojiPickerMini } from "./EmojiPickerMini";
+import { TType } from "../../types/TType";
 
 export type EmojiInputProps = React.ComponentProps<typeof Input> & {
     /** px from the right edge for the adornment button (inside the input) */
     adornmentOffset?: number;
     /** called whenever a user inserts an emoji */
     onEmojiSelect?: (emoji: string) => void;
+    t: TType;
 };
 
 export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
-    ({ style, adornmentOffset = 8, onEmojiSelect, ...rest }, ref) => {
+    ({ style, adornmentOffset = 8, onEmojiSelect, t, ...rest }, ref) => {
         const innerRef = useRef<HTMLInputElement | null>(null);
 
         // Expose the real input DOM node to parent (e.g., RHF register ref)

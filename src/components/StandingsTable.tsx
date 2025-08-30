@@ -1,15 +1,16 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
-import { useI18n } from "../i18n/i18n";
 import { ParticipantType } from "../utils/ParticipantType";
 import { StandingsRowType } from "../utils/StandingsRowType";
 import { CheckIcon } from "./shared/icons/CheckIcon";
 import { CrossIcon } from "./shared/icons/CrossIcon";
+import { TType } from "../types/TType";
 
 type Props = {
     participants?: ParticipantType[];
     standings: StandingsRowType[];
     maxHeight?: number | string;
+    t: TType;
 };
 
 const Wrapper = styled.div(({ theme }) => ({
@@ -94,11 +95,10 @@ const IconSlot = styled.span`
 `;
 
 
-const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight }) => {
+const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t }) => {
     const hasData = Boolean(participants && participants.length > 0);
     const theme = useTheme();
     const showIcons = (theme as any)?.ui?.standings?.showWinLossIcons ?? true;
-    const { t } = useI18n();
 
     // Column specification (typed to avoid implicit any in .map callbacks)
     type ColKey = "games" | "wins" | "losses" | "draws" | "points";

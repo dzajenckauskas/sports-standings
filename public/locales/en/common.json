@@ -2,7 +2,7 @@
   "singularTitle": "Tournament",
   "actions": {
     "add": "Add",
-    "addParticipant": "Add Team",
+    "addParticipant": "Add Participant",
     "addScore": "Add Score"
   },
   "forms": {
@@ -36,5 +36,6 @@
     "title": "Past matches",
     "empty": "No matches yet.",
     "vs": "vs"
-  }
+  },
+  "pluralTitle": "Tournaments"
 }
