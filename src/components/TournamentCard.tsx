@@ -89,7 +89,11 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: P
 
     return (
 
-        <Card title={title} primaryColor={theme.palette.primary.main}>
+        <Card
+            title={title}
+            primaryColor={theme.palette.primary.main}
+            style={{ fontFamily: theme.typography.fontFamily }}
+        >
             {showFormToggleButtons &&
                 <div style={{
                     display: 'flex', width: '100%',
