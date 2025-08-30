@@ -100,6 +100,8 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: P
                     justifyContent: 'space-between'
                 }}>
                     <Button
+                        theme={theme}
+                        variant='secondary'
                         size='sm'
                         active={showParticipantForm}
                         onClick={toggleParticipantForm}
@@ -107,17 +109,19 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, theme }: P
                         {'Add Participant'}
                     </Button>
                     <Button
+                        theme={theme}
+                        variant='secondary'
                         size='sm' disabled={participants?.length === 0} active={showScoreForm}
                         onClick={toggleScoreForm}
                         startIcon={<PlusIcon size={16} />}>
-                        {'Add Scrore'}
+                        {'Add Score'}
                     </Button>
                 </div>}
             {showParticipantForm &&
-                <ParticipantForm participants={participants}
+                <ParticipantForm theme={theme} participants={participants}
                     tournamentId={tournamentId} />}
             {showScoreForm &&
-                <ScoreForm disabled={participants?.length === 0}
+                <ScoreForm theme={theme} disabled={participants?.length === 0}
                     participants={participants} tournamentId={tournamentId} />}
 
             <PastMatchesList

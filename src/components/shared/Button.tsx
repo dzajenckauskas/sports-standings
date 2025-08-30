@@ -1,4 +1,5 @@
 import React from "react";
+import { AppTheme } from "../../theme/types";
 
 type Variant = "primary" | "secondary" | "danger";
 type Size = "sm" | "md" | "lg";
@@ -11,6 +12,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: Size;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  theme: AppTheme;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -21,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   size = "md",
   startIcon,
   endIcon,
+  theme,
   ...rest
 }) => {
   const sizes: Record<Size, string> = {
@@ -64,22 +67,22 @@ export const Button: React.FC<ButtonProps> = ({
   .btn-lg { height: 48px; font-size: 15px; padding: 0 26px; }
 
   /* Variants */
-  .btn-primary { background: #2563eb; color: #fff; }
-  .btn-secondary { background: #6b7280; color: #fff; }
-  .btn-danger { background: #dc2626; color: #fff; }
+  .btn-primary { background: ${theme.palette.primary.main}; color: #fff; }
+  .btn-secondary { background: ${theme.palette.secondary.main}; color: #fff; }
+  .btn-danger { background: ${theme.palette.error.main}; color: #fff; }
 
   /* Hover */
-  .btn-primary:hover:not(:disabled):not(.btn-active) { background: #1d4ed8; }
-  .btn-secondary:hover:not(:disabled):not(.btn-active) { background: #4b5563; }
-  .btn-danger:hover:not(:disabled):not(.btn-active) { background: #b91c1c; }
+  .btn-primary:hover:not(:disabled):not(.btn-active) { background: ${theme.palette.primary.light}; }
+  .btn-secondary:hover:not(:disabled):not(.btn-active) { background:${theme.palette.secondary.light}; }
+  .btn-danger:hover:not(:disabled):not(.btn-active) { background: ${theme.palette.error.light}; }
 
   /* Active (pressed OR marked active) */
   .btn:active:not(:disabled) {
     transform: scale(0.97);
   }
-  .btn-primary.btn-active { background: #1e40af; }   /* darker blue */
-  .btn-secondary.btn-active { background: #374151; } /* darker gray */
-  .btn-danger.btn-active { background: #991b1b; }    /* darker red */
+  .btn-primary.btn-active { background: ${theme.palette.primary.dark}; }   /* darker blue */
+  .btn-secondary.btn-active { background:${theme.palette.secondary.dark}; } /* darker gray */
+  .btn-danger.btn-active { background:${theme.palette.error.dark}; }    /* darker red */
 
   /* Disabled */
   .btn:disabled {
