@@ -1,21 +1,22 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 type Props = {
   children: React.ReactNode;
   title: string;
-  primaryColor?: string;         // optional override for header accent
+  primaryColor?: string;
   icon?: React.ReactNode;
-  actions?: React.ReactNode;     // right-side header actions
-  stickyHeader?: boolean;        // keep header fixed when body scrolls
-  scrollBody?: boolean;          // scroll only body content
-  maxBodyHeight?: number | string; // used when scrollBody is true
-  footer?: React.ReactNode;      // optional footer
+  actions?: React.ReactNode;
+  stickyHeader?: boolean;
+  scrollBody?: boolean;
+  maxBodyHeight?: number | string;
+  footer?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
-};
 
-/* ------------ styled parts ------------ */
+  /** keep this for a fun quick spin on hover; default true */
+  iconHoverSpin?: boolean;
+};
 
 const CardRoot = styled.div(({ theme }) => ({
   background: theme.palette.background.paper,
@@ -28,10 +29,7 @@ const CardRoot = styled.div(({ theme }) => ({
   minWidth: 0,
 }));
 
-/** Accent is resolved in React and passed as $accent so we can make a gradient. */
-const CardHeader = styled.header<{
-  $sticky: boolean;
-}>(({ theme, $sticky }) => ({
+const CardHeader = styled.header<{ $sticky: boolean }>(({ theme, $sticky }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
@@ -39,7 +37,7 @@ const CardHeader = styled.header<{
   padding: "20px 16px",
   color: theme.palette.primary.contrastText,
   backgroundColor: theme.palette.primary.main,
-  position: $sticky ? "sticky" as const : "relative" as const,
+  position: $sticky ? ("sticky" as const) : ("relative" as const),
   top: $sticky ? 0 : "auto",
   zIndex: $sticky ? 2 : "auto",
 }));
@@ -76,7 +74,6 @@ const CardBody = styled.div<{ $scrollBody: boolean; $maxBodyHeight: string }>(
       ? {
         maxHeight: $maxBodyHeight,
         overflowY: "auto",
-        // paddingRight: 6, // avoid scrollbar overlap
         background: theme.palette.background.paper,
       }
       : null),
@@ -89,6 +86,46 @@ const CardFooter = styled.div(({ theme }) => ({
   background: theme.palette.background.default,
 }));
 
+/* --- animations --- */
+const slowSpin = keyframes`
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+`;
+
+const spinOnce = keyframes`
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+`;
+
+/** Always spins slowly; optional quick spin on hover */
+const IconWrap = styled.span<{ $hoverSpin: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  /* gentle continuous spin (~24s per rotation) */
+  animation: ${slowSpin} 24s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
+  ${({ $hoverSpin }) =>
+    $hoverSpin &&
+    css`
+      &:hover,
+      &:focus-visible {
+        animation: ${spinOnce} 700ms ease;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        &:hover,
+        &:focus-visible {
+          animation: none;
+        }
+      }
+    `}
+`;
 
 const Card: React.FC<Props> = ({
   children,
@@ -101,15 +138,24 @@ const Card: React.FC<Props> = ({
   footer,
   className,
   style,
+  iconHoverSpin = true,
 }) => {
   return (
     <CardRoot className={className} style={style}>
-      <CardHeader
-        $sticky={stickyHeader}
-      >
+      <CardHeader $sticky={stickyHeader}>
         <HeaderLeft>
-          {icon && <span style={{ paddingRight: 6, position: 'relative', top: 2 }}>{icon}</span>}
-          <Title title={title}>{title}</Title>
+          {icon && (
+            <IconWrap
+              $hoverSpin={iconHoverSpin}
+              tabIndex={0}
+              aria-hidden
+            >
+              {icon}
+            </IconWrap>
+          )}
+          <Title title={title} style={{ paddingLeft: icon ? 6 : 0 }}>
+            {title}
+          </Title>
         </HeaderLeft>
         {actions && <Actions>{actions}</Actions>}
       </CardHeader>

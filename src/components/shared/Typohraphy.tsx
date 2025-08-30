@@ -21,7 +21,6 @@ interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
     children: React.ReactNode;
 }
 
-/* -------- Variant styles -------- */
 const variantStyles = {
     h1: css(({ theme }) => ({
         fontSize: "2rem",
@@ -64,14 +63,12 @@ const variantStyles = {
     })),
 };
 
-/* -------- Weight map -------- */
 const weightMap: Record<Weight, number> = {
     regular: 400,
     medium: 500,
     bold: 700,
 };
 
-/* -------- Styled base -------- */
 const StyledTypography = styled.span<{
     $variant: Variant;
     $weight: Weight;
@@ -84,7 +81,6 @@ const StyledTypography = styled.span<{
   color: ${({ $color, theme }) => $color || theme.palette.text.primary};
 `;
 
-/* -------- Component -------- */
 export const Typography: React.FC<TypographyProps> = ({
     variant = "body1",
     weight = "regular",

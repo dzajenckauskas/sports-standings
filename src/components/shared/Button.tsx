@@ -31,7 +31,7 @@ const StyledButton = styled.button<{
   $variant: Variant;
   $size: Size;
   $active: boolean;
-}>(({ theme, $variant, $size, $active }) => {
+}>(({ theme, $variant, $size }) => {
   const t = theme as AppTheme;
   const s = sizeTokens[$size];
 
