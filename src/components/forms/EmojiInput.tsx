@@ -52,7 +52,7 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
                 <Input
                     {...rest}
                     ref={innerRef}
-                    style={{ paddingRight: 40, width: "100%", ...(style || {}) }}
+                    style={{ paddingRight: 50, width: "100%", ...(style || {}) }}
                 />
 
                 {/* End-adornment: emoji button inside the input */}
@@ -89,7 +89,7 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
             justify-content: center;
             transition: background .15s ease, border-color .2s ease;
           }
-          .emoji-input .emoji-btn:hover { background: #f3f4f6; border-left-color: #e5e7eb !important; }
+          .emoji-input .emoji-btn:hover { background: transparent !important;}
           /* Remove separate focus ring; rely on input's focus style */
           .emoji-input .emoji-btn:focus { outline: none; box-shadow: none; }
 
