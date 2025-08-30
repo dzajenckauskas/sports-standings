@@ -56,7 +56,7 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
         <div>
             <h3>Add participant</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div style={{ width: '100%', display: 'flex' }}>
+                <div style={{ width: '100%', display: 'flex', gap: 8 }}>
 
                     <EmojiInput
                         fieldSize="sm"
@@ -69,7 +69,8 @@ const ParticipantForm = ({ tournamentId, participants }: Props) => {
 
                     <Button
                         variant='primary'
-                        disabled={!watch("participantName")} type="submit" size="sm">
+                        disabled={!watch("participantName")}
+                        type="submit" size="sm">
                         Add
                     </Button>
                 </div>

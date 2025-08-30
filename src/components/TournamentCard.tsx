@@ -110,7 +110,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                             size="sm"
                             active={showParticipantForm}
                             onClick={toggleParticipantForm}
-                            startIcon={<PlusIcon size={16} />}
+                            startIcon={<PlusIcon size={20} />}
                         >
                             Add Participant
                         </Button>
@@ -120,7 +120,7 @@ const TournamentCard = ({ title, tournamentId, showFormToggleButtons, titleIcon 
                             disabled={participants?.length === 0}
                             active={showScoreForm}
                             onClick={toggleScoreForm}
-                            startIcon={<PlusIcon size={16} />}
+                            startIcon={<PlusIcon size={20} />}
                         >
                             Add Score
                         </Button>
