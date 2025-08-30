@@ -1,48 +1,40 @@
 {
   "singularTitle": "Turnyras",
   "actions": {
-    "addButton": "Pridėti",
-    "add": {
-      "team": "Pridėti komandą",
-      "player": "Pridėti žaidėją"
-    },
-    "addScore": "Pridėti rezultatą",
-    "addParticipant": "Pridėti dalyvį"
+    "add": "Pridėti",
+    "addParticipant": "Pridėti dalyvį",
+    "addScore": "Pridėti rezultatą"
   },
   "forms": {
     "errors": {
-      "required": "Required",
-      "pairAlreadyPlayed": "These teams have already played."
+      "required": "Privaloma",
+      "pairAlreadyPlayed": "Šios komandos jau žaidė.",
+      "participantRequired": "Komandos pavadinimas privalomas",
+      "participantNameTooShort": "Komandos pavadinimas turi būti bent 2 simbolių",
+      "participantNameTaken": "Toks dalyvis jau egzistuoja!"
     },
     "participant": {
-      "title": {
-        "team": "Pridėti komandą",
-        "player": "Pridėti žaidėją"
-      },
-      "placeholder": {
-        "team": "Komandos pavadinimas",
-        "player": "Žaidėjo vardas"
-      }
+      "title": "Pridėti komandą",
+      "placeholder": "Komandos pavadinimas"
     },
     "score": {
       "title": "Pridėti rezultatą",
-      "selectHome": {
-        "team": "Pasirinkite namų komandą",
-        "player": "Pasirinkite namų žaidėją"
-      },
-      "selectAway": {
-        "team": "Pasirinkite svečių komandą",
-        "player": "Pasirinkite svečių žaidėją"
-      },
+      "selectHomeParticipant": "Namų komanda",
+      "selectAwayParticipant": "Svečiai",
       "homeScore": "Namų taškai",
       "awayScore": "Sveč. taškai"
     }
   },
   "standings": {
     "title": "Turnyrinė lentelė",
-    "player": "Žaidėjas",
-    "team": "Komanda",
-    "empty": "Dalyvių kol kas nėra."
+    "participant": "Komanda",
+    "empty": "Komandų kol kas nėra.",
+    "columns": {
+      "games": "M",
+      "wins": "W",
+      "losses": "L",
+      "points": "Tšk"
+    }
   },
   "matches": {
     "title": "Praėję mačai",
