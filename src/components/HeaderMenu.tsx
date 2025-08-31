@@ -39,7 +39,7 @@ const HeaderMenu = ({ t, tournamentId }: Props) => {
                     color: theme.palette.text.primary,
                     width: 24, height: 32,
                     position: 'relative',
-                    left: 10,
+                    left: 4,
                     borderRadius: theme.shape.borderRadius,
                     display: 'inline-flex', alignItems: 'center',
                     justifyContent: 'center', cursor: 'pointer'
