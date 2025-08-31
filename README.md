@@ -1,98 +1,228 @@
-### TASK DESCRIPTION ###
-### Front-End Technical Challenge – Sports Standings App
+# Sports Standings
 
-### Goal
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6)]()
+[![React](https://img.shields.io/badge/framework-React-61DAFB)]()
 
-Build a Single Page Application (SPA) to manage sports tournaments. There should be three
-tables: Premier League, Eurobasket, Wimbledon. Users can add teams/players, input match results,
-and view a dynamically updated standings table.
+A small tournament app that lets you add participants, record matches, and view computed standings — themeable, localizable, and keyboard‑/screen‑reader friendly.
+
+---
+
+## 📑 Table of Contents
+
+- [Quick Start](#quick-start)
+- [Scripts](#scripts)
+- [Features](#features)
+- [How It’s Implemented](#how-its-implemented)
+- [Theming](#theming)
+- [i18n](#i18n)
+- [Accessibility](#accessibility)
+- [Project Structure](#project-structure)
+- [Scaling Ideas](#scaling-ideas)
+
+---
+
+## 🚀 Quick Start
 
 ### Requirements
+- Node 18+ and npm 9+
 
-## Functionality
-+ Users can add teams/players (start at 0 points).
-• Each team/player can play only once against any other.
-+ Scoring system:
-    - Win: 3 pts
-    - Draw: 1 pt
-    - Loss: 0 pts
-+ Standings table auto-updates and sorts by points.
-• Table shows: Matches Played (P/M), Wins (W), Draws (D), Losses (L), Points (Pts)
-+ Data must persist after refresh.
-+ Use React or React + Redux.
-• Must follow SPA principles.
-• Frequent commits. Host code on GitHub.
+### Install
+```bash
+npm install
+```
 
-## Designs
-1. Clean & Minimal
-• Layout: 3 columns – Add Team, Add Score, Standings Table
-• Style: Neutral colors (white, gray, blue), modern sans-serif (Inter, Roboto)
+### Start (dev server)
+```bash
+npm start
+```
+App runs at [http://localhost:3000](http://localhost:3000)
 
-2. Sporty & Energetic
-• Layout: 3 columns – Add buttons, Match Results, Standings
-• Style: Bold colors (green/orange), athletic fonts (Montserrat, Bebas Neue), flag icons
+### Build (production)
+```bash
+npm run build
+```
+Outputs to `build/`
 
-3. Table-Centric
-• Layout: 2 columns – Add buttons, Standings
-• Style: Cool neutrals, monospace font (Space Mono), icons for win/loss
+### Type check
+```bash
+npm run typecheck
+```
 
-- All designs must be responsive and support auto-scroll if many teams.
+### Lint
+```bash
+npm run lint
+# Auto‑fix
+npm run lint:fix
+```
 
-## Bonus
-• TypeScript
-• Mobile-first design
-• Modular component structure
+### Test
+```bash
+npm test
+```
 
-## Submission
-• Deploy the app (e.g. GitHub Pages, Vercel, Netlify).
-• Share the GitHub repo with setup instructions.
+---
 
+## 📜 Scripts
 
+- **start**: runs the dev server (react-scripts)
+- **build**: creates a production build
+- **test**: runs tests (Jest via react-scripts)
+- **typecheck**: TypeScript checking with `tsc --noEmit`
+- **lint**: ESLint on `.ts/.tsx`
+- **lint:fix**: ESLint with `--fix`
 
+---
 
-<!-- # Getting Started with Create React App
+## ✨ Features
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Participant entry (3 modes)
+- Text input  
+- Select from options (e.g., country lists)  
+- Emoji input with at‑caret insertion and popover  
 
-## Available Scripts
+### Matches + standings
+- Add matches; standings update automatically (points/wins/losses/draws)  
+- Duplicate pair protection (A vs B = B vs A)  
+- Sort by **points → wins → name**  
 
-In the project directory, you can run:
+### Theme‑driven UI
+- Color and layout tokens per theme (`cleanMinimal`, `sportyEnergetic`, `tableCentric`)  
+- Input/Select/Button sizes and styles controlled by theme tokens  
 
-### `npm start`
+### i18n
+- Dot‑path JSON in `public/locales/`  
+- Pre‑loads common namespace to avoid flicker  
+- Optional per‑template namespaces (e.g., `eurobasket.json`)  
+- Example locales: **en**, **lt**  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Data cleanup menu
+- Three‑dots “More” button in card header  
+- Options:  
+  - Clear matches data (per tournament)  
+  - Clear all tournament data (participants + matches)  
+- Each action asks for confirmation  
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Validation
+- Yup validation for forms (required, min length, “pair already played”)  
 
-### `npm test`
+### Accessibility
+- Selects have associated label or aria‑label  
+- Presentational header icon (non‑focusable, aria‑hidden)  
+- Styled props use transient ($) props to avoid DOM warnings  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## ⚙️ How It’s Implemented
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Forms and validation
+- `react-hook-form` + `yup` for typed, scale‑friendly forms  
+- ParticipantForm supports: **text | select | emoji**  
+- Select filters out already‑added participants  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Redux
+- Slices:  
+  - **participants**: add, remove by tournamentId  
+  - **scores**: add/update/remove match, remove by tournamentId  
+- Optimizations:  
+  - `shallowEqual` on filtered selectors  
+  - Derived sets (playedPairs) memoized via `useMemo`/`useCallback`  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Emoji input
+- Inline adornment button (right) with exact height matching the input  
+- Divider color syncs to theme focus; switches to error color when invalid  
+- Popover uses click‑away close; flips up when space is tight  
 
-### `npm run eject`
+### Standings
+- Localized headers (`standings.columns.*`)  
+- Columns and icon visibility are theme‑configurable  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎨 Theming
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Tokens live in `src/theme/*.ts` (see `tableCentric.ts` for refactor with color variables).  
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Palette highlights**
+- `background.default/paper`  
+- `text.primary/secondary`  
+- `primary/secondary/error/success`  
+- `tableHeader/tableRow`  
+- `input/select`: bgColor, color, borderColor, focusBorderColor  
 
-## Learn More
+**UI layout tokens (`AppTheme.ui`)**
+- `layout.buttonsSize / inputsSize`  
+- `select.fontSize`, `select.fontWeight`, `inputsSize`  
+- Input fine‑grained tokens: paddingX, radius, borderWidth, placeholderOpacity, focusRingWidth/focusRingAlpha, background  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Examples:  
+- Input/Select default sizes sourced from the theme  
+- Header toggle buttons’ variants/sizes from theme tokens  
 
-To learn React, check out the [React documentation](https://reactjs.org/). -->
+---
+
+## 🌍 i18n
+
+**Files**
+- `public/locales/{en|lt}/common.json`  
+- Add more namespaces like `public/locales/en/eurobasket.json`  
+
+**API**
+- `t('forms.participant.title')`  
+- `t('forms.score.selectHome.${kind}')`  
+- `t('actions.addScore')`  
+
+**Preloading**
+- `common.json` is preloaded before first render  
+- Additional namespaces can be merged at runtime  
+
+---
+
+## ♿ Accessibility
+
+- Selects have either:  
+  - `<label htmlFor="...">` + `id` on `<select>`  
+  - `aria-label` derived from placeholder when label is omitted  
+
+- Card header icon:  
+  - `aria-hidden="true"`, `tabIndex={-1}`, `role="presentation"`  
+  - Removed focus‑based animation  
+
+- Styled transient props ($align, $emphasize) avoid “unknown prop” warnings on th/td  
+
+---
+
+## 📂 Project Structure
+
+```
+src/components
+  TournamentCard.tsx — page shell, menu, forms, standings
+  forms/ — ParticipantForm, ScoreForm, EmojiInput, EmojiPickerMini
+  shared/ — Input, Select, Button, Card, Typography, Option, FormCard, icons
+
+src/features
+  Redux slices (participants, scores)
+
+src/theme
+  Tokens and theme presets (cleanMinimal, sportyEnergetic, tableCentric)
+
+public/locales
+  JSON translations
+```
+
+---
+
+## 🚀 Scaling Ideas
+
+- Dark/Light theme switcher  
+- Language switcher  
+- Import/Export tournament data  
+- Undo/Toast for destructive actions  
+- Memoized selectors (Reselect)  
+- Offline/PWA support  
+
+---
+
+## 📜 License
+MIT
