@@ -1,4 +1,4 @@
-import { AppTheme } from "./types";
+import { AppTheme } from "./ThemeTypes";
 
 export const tableCentric: AppTheme = {
     name: "tableCentric",
@@ -75,7 +75,7 @@ export const tableCentric: AppTheme = {
     shadows: { card: "0 4px 16px rgba(2,6,23,0.08)" },
     ui: {
         layout: {
-
+            showFormCardBackground: true,
             buttonsSize: 'md',
             inputsSize: 'md',
             toggleButtons: {

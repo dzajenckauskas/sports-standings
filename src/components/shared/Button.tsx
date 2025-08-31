@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { AppTheme } from "../../theme/types";
+import { AppTheme } from "../../theme/ThemeTypes";
 import { TType } from "../../types/TType";
 
 type Variant = "primary" | "secondary" | "danger";

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import type { AppTheme } from "../../theme/types";
+import type { AppTheme } from "../../theme/ThemeTypes";
 import { FieldSize, Variant, heights } from "../../types/CommonTypes";
 
 interface SelectProps

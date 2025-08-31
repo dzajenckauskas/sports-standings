@@ -72,6 +72,7 @@ export interface AppTheme {
     };
     ui?: {
         layout: {
+            showFormCardBackground: boolean;
             buttonsSize: FieldSize;
             inputsSize: FieldSize;
             toggleButtons: {

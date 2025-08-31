@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { shallowEqual, useSelector } from "react-redux";
 import styled, { useTheme } from "styled-components";
 import { RootState } from "../store";
-import { AppTheme } from "../theme/types";
+import { AppTheme } from "../theme/ThemeTypes";
 import { EmojiType } from "../types/EmojiType";
 import { ParticipantInputType, ParticipantOptionType } from "../types/ParticipantType";
 import { StandingsRowType } from "../types/StandingsRowType";

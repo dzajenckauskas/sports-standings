@@ -1,4 +1,4 @@
-import { AppTheme } from "./types";
+import { AppTheme } from "./ThemeTypes";
 
 export const cleanMinimal: AppTheme = {
     name: "cleanMinimal",
@@ -74,6 +74,7 @@ export const cleanMinimal: AppTheme = {
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
     ui: {
         layout: {
+            showFormCardBackground: true,
             buttonsSize: 'sm',
             inputsSize: 'sm',
             toggleButtons: {

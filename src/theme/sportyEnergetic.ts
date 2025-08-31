@@ -1,4 +1,4 @@
-import { AppTheme } from "./types";
+import { AppTheme } from "./ThemeTypes";
 
 
 export const sportyEnergetic: AppTheme = {
@@ -75,7 +75,7 @@ export const sportyEnergetic: AppTheme = {
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
     ui: {
         layout: {
-
+            showFormCardBackground: false,
             buttonsSize: 'sm',
             inputsSize: 'sm',
             toggleButtons: {

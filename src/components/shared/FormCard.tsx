@@ -14,7 +14,7 @@ const CardBody = styled.div(({ theme }) => ({
   flexDirection: "column",
   overflow: "hidden",
   minWidth: 0,
-  padding: '6px 12px 12px 12px',
+  padding: theme.ui?.layout.showFormCardBackground ? '6px 12px 12px 12px' : 0,
 
 }));
 
