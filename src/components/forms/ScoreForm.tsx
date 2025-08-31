@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { Controller, SubmitErrorHandler, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addMatch } from "../../features/scoreSlice";
 import { AppDispatch, RootState } from "../../store";
 import { ParticipantType } from "../../types/ParticipantType";
@@ -29,8 +29,9 @@ type FormValues = {
 
 const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
     const dispatch = useDispatch<AppDispatch>();
-    const matches = useSelector((state: RootState) =>
-        state.scores.filter((m) => m.tournamentId === tournamentId)
+    const matches = useSelector(
+        (state: RootState) => state.scores.filter((m) => m.tournamentId === tournamentId),
+        shallowEqual
     );
 
     // Precompute a fast-lookup of games already played.

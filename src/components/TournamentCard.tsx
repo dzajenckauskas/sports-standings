@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import styled, { useTheme } from "styled-components";
 import { RootState } from "../store";
 import { AppTheme } from "../theme/types";
@@ -49,12 +49,14 @@ const TournamentCard = ({
     const toggleParticipantForm = () => setShowParticipantForm((v) => !v);
     const toggleScoreForm = () => setShowScoreForm((v) => !v);
 
-    const participants = useSelector((state: RootState) =>
-        state.participants.filter((p) => p.tournamentId === tournamentId)
+    const participants = useSelector(
+        (state: RootState) => state.participants.filter((p) => p.tournamentId === tournamentId),
+        shallowEqual
     );
 
     const matches = useSelector(
-        (state: RootState) => state.scores?.filter((m) => m.tournamentId === tournamentId) ?? []
+        (state: RootState) => state.scores?.filter((m) => m.tournamentId === tournamentId) ?? [],
+        shallowEqual
     );
 
     const standings: StandingsRowType[] = useMemo(() => {
