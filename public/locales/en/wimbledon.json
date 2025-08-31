@@ -1,6 +1,10 @@
 {
   "singularTitle": "Wimbledon",
   "actions": {
+    "clearMatches": "Clear matches data",
+    "confirmClearMatches": "Clear matches data for this tournament?",
+    "confirmClearAll": "Clear matches data for this tournament?",
+    "clearAll": "Clear all tournament data",
     "add": "Add",
     "addParticipant": "Add Player",
     "addScore": "Add Score",

@@ -48,8 +48,11 @@ const scoresSlice = createSlice({
         removeMatch: (state, action: PayloadAction<string>) => {
             return state.filter(m => m.id !== action.payload);
         },
+        removeMatchesByTournamentId: (state, action: PayloadAction<string>) => {
+            return state.filter(m => m.tournamentId !== action.payload);
+        },
     },
 });
 
-export const { addMatch, updateMatch, removeMatch } = scoresSlice.actions;
+export const { addMatch, updateMatch, removeMatch, removeMatchesByTournamentId } = scoresSlice.actions;
 export default scoresSlice.reducer;

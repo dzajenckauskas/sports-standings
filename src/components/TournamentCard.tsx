@@ -1,9 +1,13 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { shallowEqual, useSelector } from "react-redux";
 import styled, { useTheme } from "styled-components";
 import { RootState } from "../store";
 import { AppTheme } from "../theme/types";
+import { EmojiType } from "../types/EmojiType";
+import { ParticipantInputType, ParticipantOptionType } from "../types/ParticipantType";
 import { StandingsRowType } from "../types/StandingsRowType";
+import HeaderMenu from "./HeaderMenu";
 import PastMatchesList from "./PastMatchesList";
 import StandingsTable from "./StandingsTable";
 import ParticipantForm from "./forms/ParticipantForm";
@@ -11,9 +15,6 @@ import ScoreForm from "./forms/ScoreForm";
 import { Button } from "./shared/Button";
 import Card from "./shared/Card";
 import { PlusIcon } from "./shared/icons/PlusIcon";
-import { useTranslation } from "react-i18next";
-import { ParticipantInputType, ParticipantOptionType } from "../types/ParticipantType";
-import { EmojiType } from "../types/EmojiType";
 
 type Props = {
     tournamentId: string;
@@ -105,9 +106,12 @@ const TournamentCard = ({
 
     const getParticipantName = (id: string) => participants?.find((p) => p.id === id)?.name;
     const theme = useTheme()
+
     return (
         <FontScope>
-            <Card title={t(`singularTitle`)} icon={titleIcon}>
+            <Card title={t(`singularTitle`)} icon={titleIcon} actions={(
+                <HeaderMenu tournamentId={tournamentId} t={t} />
+            )}>
                 {showFormToggleButtons && (
                     <div style={{
                         display: "flex", width: "100%",

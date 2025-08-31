@@ -18,8 +18,11 @@ const participantsSlice = createSlice({
                 state.push(action.payload);
             }
         },
+        removeParticipantsByTournamentId: (state, action: PayloadAction<string>) => {
+            return state.filter(p => p.tournamentId !== action.payload);
+        },
     },
 });
 
-export const { addParticipant } = participantsSlice.actions;
+export const { addParticipant, removeParticipantsByTournamentId } = participantsSlice.actions;
 export default participantsSlice.reducer;
