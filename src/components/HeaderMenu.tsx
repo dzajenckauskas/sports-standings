@@ -35,9 +35,14 @@ const HeaderMenu = ({ t, tournamentId }: Props) => {
                     background: "none",
                     outline: "none",
                     border: "none",
+                    padding: 0,
                     color: theme.palette.text.primary,
-                    width: 32, height: 32, borderRadius: theme.shape.borderRadius,
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                    width: 24, height: 32,
+                    position: 'relative',
+                    left: 10,
+                    borderRadius: theme.shape.borderRadius,
+                    display: 'inline-flex', alignItems: 'center',
+                    justifyContent: 'center', cursor: 'pointer'
                 }}
             >
                 <svg width="24" height="24" viewBox="0 0 24 24"

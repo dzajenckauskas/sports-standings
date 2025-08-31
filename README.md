@@ -9,6 +9,11 @@ A small tournament app that lets you add participants, record matches, and view 
 
 ---
 
+## 🔗 Live Demo
+👉 [https://standings.danzaj.lt/](https://standings.danzaj.lt/)
+
+---
+
 ## 📑 Table of Contents
 
 - [Quick Start](#quick-start)
