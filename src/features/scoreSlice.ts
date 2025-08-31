@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MatchType } from '../types/MatchType';
+import { makeId } from './makeId';
 
 type ScoresState = MatchType[];
 
@@ -28,7 +29,7 @@ const scoresSlice = createSlice({
             if (exists) return;
 
             state.push({
-                id: action.payload.id ?? crypto.randomUUID(),
+                id: action.payload.id ?? makeId(),
                 tournamentId,
                 homeParticipantId,
                 awayParticipantId,
