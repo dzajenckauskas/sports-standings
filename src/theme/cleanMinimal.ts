@@ -24,6 +24,21 @@ export const cleanMinimal: AppTheme = {
             default: "#efefef",
             paper: "#ffffff",
         },
+        formCard: {
+            background: '#f3f4f6',
+        },
+        input: {
+            bgColor: '#fff',
+            color: '#0f172a',
+            borderColor: '#afafafff',
+            focusBorderColor: '#3d003e'
+        },
+        select: {
+            bgColor: '#eaeaeaff',
+            color: '#0f172a',
+            borderColor: '#afafafff',
+            focusBorderColor: '#3d003e'
+        },
         tableHeader: {
             main: "#f3f4f6",
             contrastText: "#0f172a"
@@ -59,29 +74,18 @@ export const cleanMinimal: AppTheme = {
     shadows: { card: "0 6px 20px rgba(0,0,0,0.06)" },
     ui: {
         layout: {
-            input: {
-                bgColor: '#fff',
-                color: '#0f172a',
-                borderColor: '#afafafff',
-                focusBorderColor: '#3d003e'
-            },
-            select: {
-                bgColor: '#eaeaeaff',
-                color: '#0f172a',
-                borderColor: '#afafafff',
-                focusBorderColor: '#3d003e'
-            },
             buttonsSize: 'sm',
-            inputsSize: 'sm'
-        },
-        toggleButtons: {
-            addParticipant: {
-                variant: 'primary'
+            inputsSize: 'sm',
+            toggleButtons: {
+                addParticipant: {
+                    variant: 'primary'
+                },
+                addScore: {
+                    variant: 'primary'
+                },
             },
-            addScore: {
-                variant: 'primary'
-            },
         },
+
         standings: {
             showWinLossIcons: false,
             columns: [

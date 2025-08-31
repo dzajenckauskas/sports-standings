@@ -39,11 +39,11 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
     }
 
     return {
-        bg: t.ui?.layout.select.bgColor,
-        text: t.ui?.layout.select.color,
-        border: t.ui?.layout.select.borderColor,
-        focusBorder: hasError ? error : t.ui?.layout.select.focusBorderColor,
-        focusRing: hasError ? error : t.ui?.layout.select.focusBorderColor,
+        bg: t.palette.select.bgColor,
+        text: t.palette.select.color,
+        border: t.palette.select.borderColor,
+        focusBorder: hasError ? error : t.palette.select.focusBorderColor,
+        focusRing: hasError ? error : t.palette.select.focusBorderColor,
         error,
     };
 };
@@ -120,7 +120,7 @@ const Arrow = styled.svg(({ theme }) => {
         top: "50%",
         transform: "translateY(-50%)",
         pointerEvents: "none",
-        color: theme?.ui?.layout.select?.borderColor,
+        color: theme?.palette.select?.borderColor,
         transition: "transform 0.2s ease",
 
         [`${StyledSelect}:focus + &`]: {

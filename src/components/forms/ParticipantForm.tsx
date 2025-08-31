@@ -13,6 +13,7 @@ import { Select } from '../shared/Select';
 import { Typography } from '../shared/Typography';
 import { EmojiInput } from './EmojiInput';
 import { EmojiType } from '../../types/EmojiType';
+import FormCard from '../shared/FormCard';
 
 type ParticipantFormValues = { participantName: string; };
 
@@ -141,7 +142,7 @@ const ParticipantForm = (
         }
     }
     return (
-        <div>
+        <FormCard>
             <Typography variant="h3" weight="bold">{t('forms.participant.title')}</Typography>
             <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
                 <div style={{ width: '100%', display: 'flex', gap: 8 }}>
@@ -155,7 +156,7 @@ const ParticipantForm = (
                     </Button>
                 </div>
             </form>
-        </div>
+        </FormCard>
     );
 };
 

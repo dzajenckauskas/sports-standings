@@ -42,11 +42,11 @@ const getColors = (t: AppTheme, v: Variant, hasError: boolean) => {
 
   // light
   return {
-    bg: t.ui?.layout.input.bgColor,
-    text: t.ui?.layout.input.color,
-    border: t.ui?.layout.input.borderColor,
-    focusBorder: hasError ? error : t.ui?.layout.input.focusBorderColor,
-    focusRing: hasError ? error : t.ui?.layout.input.focusBorderColor,
+    bg: t.palette.input.bgColor,
+    text: t.palette.input.color,
+    border: t.palette.input.borderColor,
+    focusBorder: hasError ? error : t.palette.input.focusBorderColor,
+    focusRing: hasError ? error : t.palette.input.focusBorderColor,
     error,
   };
 };

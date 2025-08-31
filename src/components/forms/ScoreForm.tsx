@@ -11,6 +11,7 @@ import { Select } from "../shared/Select";
 import { TType } from "../../types/TType";
 import { Typography } from "../shared/Typography";
 import { useTheme } from "styled-components";
+import FormCard from "../shared/FormCard";
 
 type Props = {
     participants: ParticipantType[];
@@ -123,115 +124,118 @@ const ScoreForm = ({ participants, tournamentId, disabled, t }: Props) => {
         console.log('invalid', data, getValues())
     }
     return (
-        <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
-            <Typography variant="h3" weight="bold">{t('forms.score.title')}</Typography>
-            <div style={{ display: "flex", marginBottom: 8, gap: 8, width: "100%" }}>
-                <Controller
-                    name="homeParticipantId"
-                    control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field}
-                            variant="light"
-                            fieldSize={theme.ui?.layout.inputsSize}
-                            placeholder={t(`forms.score.selectHomeParticipant`) ?? ''}
-                            disabled={disabled}
-                        >
-                            {participants
-                                ?.filter((v) => v.id !== awayParticipantId)
-                                .filter((p) => (awayParticipantId ? !hasPlayed(p.id, awayParticipantId) : true))
-                                .map((p) => (
-                                    <Option key={p.id} value={p.id}>
-                                        {p.name}
-                                    </Option>
-                                ))}
-                        </Select>
-                    )}
-                />
+        <FormCard>
 
-                <Controller
-                    name="awayParticipantId"
-                    control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field}
-                            variant="light"
-                            fieldSize={theme.ui?.layout.inputsSize}
-                            placeholder={t(`forms.score.selectAwayParticipant`) ?? ''}
-                            disabled={disabled}
-                        >
-                            {participants
-                                ?.filter((p) => p.id !== homeParticipantId)
-                                .filter((p) => !hasPlayed(homeParticipantId, p.id))
-                                .map((p) => (
-                                    <Option key={p.id} value={p.id}>
-                                        {p.name}
-                                    </Option>
-                                ))}
-                        </Select>
-                    )}
-                />
-            </div>
-            <div style={{
-                display: "flex", marginBottom: 8, gap: 8, width: '100%'
-            }}>
-                <Controller
-                    name="homeParticipantScore"
-                    control={control}
-                    render={({ field }) => (
-                        <Input
-                            {...field}
-                            fieldSize={theme.ui?.layout.inputsSize}
-                            type="text" // use text so we can fully control allowed chars
-                            inputMode="numeric" // mobile keyboards show numbers only
-                            pattern="[0-9]*"
-                            disabled={disabled || !homeParticipantId}
-                            placeHolder={t('forms.score.homeScore') ?? ''}
-                            onChange={(e) => {
-                                const raw = e.target.value;
-                                // only digits allowed
-                                const cleaned = raw.replace(/\D/g, "");
-                                field.onChange(cleaned);
-                            }}
-                        />
-                    )}
-                />
+            <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
+                <Typography variant="h3" weight="bold">{t('forms.score.title')}</Typography>
+                <div style={{ display: "flex", marginBottom: 8, gap: 8, width: "100%" }}>
+                    <Controller
+                        name="homeParticipantId"
+                        control={control}
+                        render={({ field }) => (
+                            <Select
+                                {...field}
+                                variant="light"
+                                fieldSize={theme.ui?.layout.inputsSize}
+                                placeholder={t(`forms.score.selectHomeParticipant`) ?? ''}
+                                disabled={disabled}
+                            >
+                                {participants
+                                    ?.filter((v) => v.id !== awayParticipantId)
+                                    .filter((p) => (awayParticipantId ? !hasPlayed(p.id, awayParticipantId) : true))
+                                    .map((p) => (
+                                        <Option key={p.id} value={p.id}>
+                                            {p.name}
+                                        </Option>
+                                    ))}
+                            </Select>
+                        )}
+                    />
 
-                <Controller
-                    name="awayParticipantScore"
-                    control={control}
-                    render={({ field }) => (
-                        <Input
-                            {...field}
-                            fieldSize={theme.ui?.layout.inputsSize}
-                            type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            disabled={disabled || !awayParticipantId}
-                            placeHolder={t('forms.score.awayScore') ?? ''}
-                            onChange={(e) => {
-                                const raw = e.target.value;
-                                const cleaned = raw.replace(/\D/g, "");
-                                field.onChange(cleaned);
-                            }}
-                        />
-                    )}
-                />
-            </div>
+                    <Controller
+                        name="awayParticipantId"
+                        control={control}
+                        render={({ field }) => (
+                            <Select
+                                {...field}
+                                variant="light"
+                                fieldSize={theme.ui?.layout.inputsSize}
+                                placeholder={t(`forms.score.selectAwayParticipant`) ?? ''}
+                                disabled={disabled}
+                            >
+                                {participants
+                                    ?.filter((p) => p.id !== homeParticipantId)
+                                    .filter((p) => !hasPlayed(homeParticipantId, p.id))
+                                    .map((p) => (
+                                        <Option key={p.id} value={p.id}>
+                                            {p.name}
+                                        </Option>
+                                    ))}
+                            </Select>
+                        )}
+                    />
+                </div>
+                <div style={{
+                    display: "flex", marginBottom: 8, gap: 8, width: '100%'
+                }}>
+                    <Controller
+                        name="homeParticipantScore"
+                        control={control}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                fieldSize={theme.ui?.layout.inputsSize}
+                                type="text" // use text so we can fully control allowed chars
+                                inputMode="numeric" // mobile keyboards show numbers only
+                                pattern="[0-9]*"
+                                disabled={disabled || !homeParticipantId}
+                                placeHolder={t('forms.score.homeScore') ?? ''}
+                                onChange={(e) => {
+                                    const raw = e.target.value;
+                                    // only digits allowed
+                                    const cleaned = raw.replace(/\D/g, "");
+                                    field.onChange(cleaned);
+                                }}
+                            />
+                        )}
+                    />
 
-            <Button
-                variant="secondary"
-                type="submit"
-                t={t}
-                size={theme.ui?.layout.inputsSize}
-                style={{ width: '100%' }}
-                disabled={
-                    disabled || !homeParticipantId || !awayParticipantId ||
-                    !awayParticipantScore || !homeParticipantScore
-                }>
-                {t('actions.addScore')}
-            </Button>
-        </form>
+                    <Controller
+                        name="awayParticipantScore"
+                        control={control}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                fieldSize={theme.ui?.layout.inputsSize}
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                disabled={disabled || !awayParticipantId}
+                                placeHolder={t('forms.score.awayScore') ?? ''}
+                                onChange={(e) => {
+                                    const raw = e.target.value;
+                                    const cleaned = raw.replace(/\D/g, "");
+                                    field.onChange(cleaned);
+                                }}
+                            />
+                        )}
+                    />
+                </div>
+
+                <Button
+                    variant="secondary"
+                    type="submit"
+                    t={t}
+                    size={theme.ui?.layout.inputsSize}
+                    style={{ width: '100%' }}
+                    disabled={
+                        disabled || !homeParticipantId || !awayParticipantId ||
+                        !awayParticipantScore || !homeParticipantScore
+                    }>
+                    {t('actions.addScore')}
+                </Button>
+            </form>
+        </FormCard>
     );
 };
 

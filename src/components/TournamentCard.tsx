@@ -110,11 +110,11 @@ const TournamentCard = ({
                     <div style={{
                         display: "flex", width: "100%",
                         justifyContent: "space-between",
-                        paddingBottom: 8
+                        paddingBottom: 12
                     }}>
                         <Button
                             t={t}
-                            variant={theme.ui?.toggleButtons.addParticipant.variant}
+                            variant={theme.ui?.layout.toggleButtons.addParticipant.variant}
                             size={theme.ui?.layout.buttonsSize}
                             active={showParticipantForm}
                             onClick={toggleParticipantForm}
@@ -124,7 +124,7 @@ const TournamentCard = ({
                         </Button>
                         <Button
                             t={t}
-                            variant={theme.ui?.toggleButtons.addScore.variant}
+                            variant={theme.ui?.layout.toggleButtons.addScore.variant}
                             size={theme.ui?.layout.buttonsSize}
                             disabled={participants?.length === 0}
                             active={showScoreForm}

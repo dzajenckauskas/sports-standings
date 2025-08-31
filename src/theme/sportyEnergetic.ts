@@ -33,6 +33,21 @@ export const sportyEnergetic: AppTheme = {
             default: "#00211b",
             paper: "#003026",
         },
+        formCard: {
+            background: '#003026',
+        },
+        input: {
+            bgColor: '#00211b',
+            color: '#fff',
+            borderColor: '#00211b',
+            focusBorderColor: '#00211b'
+        },
+        select: {
+            bgColor: '#00211b',
+            color: '#fff',
+            borderColor: '#00211b',
+            focusBorderColor: '#00211b'
+        },
         text: {
             primary: "#e6f3ee",
             secondary: "#93a3b5",
@@ -60,29 +75,19 @@ export const sportyEnergetic: AppTheme = {
     shadows: { card: "0 10px 24px rgba(0,0,0,0.35)" },
     ui: {
         layout: {
-            input: {
-                bgColor: '#00211b',
-                color: '#fff',
-                borderColor: '#00211b',
-                focusBorderColor: '#00211b'
-            },
-            select: {
-                bgColor: '#00211b',
-                color: '#fff',
-                borderColor: '#00211b',
-                focusBorderColor: '#00211b'
-            },
+
             buttonsSize: 'sm',
-            inputsSize: 'sm'
-        },
-        toggleButtons: {
-            addParticipant: {
-                variant: 'secondary'
+            inputsSize: 'sm',
+            toggleButtons: {
+                addParticipant: {
+                    variant: 'secondary'
+                },
+                addScore: {
+                    variant: 'secondary'
+                },
             },
-            addScore: {
-                variant: 'secondary'
-            },
         },
+
         standings: {
             showWinLossIcons: false,
             columns: [

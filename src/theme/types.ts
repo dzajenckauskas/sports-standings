@@ -19,6 +19,21 @@ export interface Palette {
         default: string;
         paper: string;
     };
+    formCard: {
+        background: string;
+    };
+    input: {
+        bgColor: string;
+        color: string;
+        borderColor: string;
+        focusBorderColor: string;
+    },
+    select: {
+        bgColor: string;
+        color: string;
+        borderColor: string;
+        focusBorderColor: string;
+    };
     text: {
         primary: string;
         secondary: string;
@@ -57,27 +72,15 @@ export interface AppTheme {
     };
     ui?: {
         layout: {
-            input: {
-                bgColor: string;
-                color: string;
-                borderColor: string;
-                focusBorderColor: string;
-            },
-            select: {
-                bgColor: string;
-                color: string;
-                borderColor: string;
-                focusBorderColor: string;
-            },
             buttonsSize: FieldSize;
             inputsSize: FieldSize;
-        },
-        toggleButtons: {
-            addParticipant: {
-                variant: ButtonVariant;
-            },
-            addScore: {
-                variant: ButtonVariant;
+            toggleButtons: {
+                addParticipant: {
+                    variant: ButtonVariant;
+                },
+                addScore: {
+                    variant: ButtonVariant;
+                },
             },
         },
         standings?: {
