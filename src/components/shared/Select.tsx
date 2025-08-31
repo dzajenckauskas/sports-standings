@@ -145,8 +145,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     ) => {
         const { h, fs } = sizeToken(fieldSize);
         const reactId = React.useId();
-        const selectId = (rest as any).id ?? `select-${reactId}`;
-        const ariaLabel = (rest as any)["aria-label"] ?? (!label ? (placeholder || "Select") : undefined)
+        const selectId = (rest).id ?? `select-${reactId}`;
+        const ariaLabel = (rest)["aria-label"] ?? (!label ? (placeholder || "Select") : undefined)
 
         return (
             <Container>

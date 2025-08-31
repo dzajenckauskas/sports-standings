@@ -137,7 +137,7 @@ export const EmojiPickerMini: React.FC<Props> = ({
             document.removeEventListener(
                 "pointerdown",
                 onPointerDown,
-                { capture: true } as any
+                { capture: true }
             );
             document.removeEventListener("keydown", onKey);
             window.removeEventListener("resize", onReflow);

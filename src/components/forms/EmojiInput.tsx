@@ -48,8 +48,8 @@ export const EmojiInput = React.forwardRef<HTMLInputElement, EmojiInputProps>(
 
             onEmojiSelect?.(emoji);
         };
-        const theme = useTheme() as any;
-        const hasError = Boolean((rest as any)?.error);
+        const theme = useTheme();
+        const hasError = Boolean((rest)?.error);
         const dividerColor = theme?.palette?.divider?.dark || "#e5e7eb";
         const focusColor = theme?.palette?.primary?.main || "#2563eb";
         const errorColor = theme?.palette?.error?.main || "#dc2626";
