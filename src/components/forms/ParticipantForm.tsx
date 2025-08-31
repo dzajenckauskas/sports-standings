@@ -14,6 +14,7 @@ import { Typography } from '../shared/Typography';
 import { EmojiInput } from './EmojiInput';
 import { EmojiType } from '../../types/EmojiType';
 import FormCard from '../shared/FormCard';
+import { makeId } from '../../features/makeId';
 
 type ParticipantFormValues = { participantName: string; };
 
@@ -59,7 +60,8 @@ const ParticipantForm = (
             });
             return;
         }
-        const newParticipant: ParticipantType = { id: crypto.randomUUID(), name, tournamentId };
+        const id = makeId();
+        const newParticipant: ParticipantType = { id: id, name, tournamentId };
         dispatch(addParticipant(newParticipant));
         reset();
     };
