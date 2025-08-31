@@ -25,8 +25,8 @@ const Table = styled.table({
     borderCollapse: "collapse",
 });
 
-const TheadCell = styled.th<{ align?: "left" | "center" }>(
-    ({ theme, align = "left" }) => ({
+const TheadCell = styled.th<{ $align?: "left" | "center" }>(
+    ({ theme, $align = "left" }) => ({
         position: "sticky",
         top: 0,
         zIndex: 1,
@@ -36,7 +36,7 @@ const TheadCell = styled.th<{ align?: "left" | "center" }>(
         fontWeight: theme.typography.fontWeightBold ?? 600,
         fontSize: 13,
         color: theme.palette.tableHeader.contrastText,
-        textAlign: align,
+        textAlign: $align,
         "@media (max-width: 400px)": {
             padding: "6px 8px",
             fontSize: 13,
@@ -45,16 +45,16 @@ const TheadCell = styled.th<{ align?: "left" | "center" }>(
 );
 
 
-const Cell = styled.td<{ align?: "left" | "center"; emphasize?: boolean }>(
-    ({ theme, align = "center", emphasize }) => ({
+const Cell = styled.td<{ $align?: "left" | "center"; $emphasize?: boolean }>(
+    ({ theme, $align = "center", $emphasize }) => ({
         padding: "8px 12px",
         fontSize: 14,
         borderBottom: `1px solid ${theme.palette.divider.dark}`,
         background: theme.palette.tableRow.main,
         color: theme.palette.tableRow.contrastText,
-        textAlign: align,
-        fontWeight: emphasize ? (theme.typography.fontWeightBold ?? 700) : 400,
-        minWidth: emphasize ? 56 : "auto",
+        textAlign: $align,
+        fontWeight: $emphasize ? (theme.typography.fontWeightBold ?? 700) : 400,
+        minWidth: $emphasize ? 56 : "auto",
         "@media (max-width: 400px)": {
             padding: "6px 8px",
             fontSize: 13,
@@ -111,11 +111,11 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t
                     <Table>
                         <thead>
                             <tr>
-                                <TheadCell align="left">
+                                <TheadCell $align="left">
                                     {t('standings.participant')}
                                 </TheadCell>
                                 {colSpec.map(c => (
-                                    <TheadCell key={c.key} align="center">{`${t(`standings.columns.${c.key}`)}`}</TheadCell>
+                                    <TheadCell key={c.key} $align="center">{`${t(`standings.columns.${c.key}`)}`}</TheadCell>
                                 ))}
                             </tr>
                         </thead>
@@ -126,7 +126,7 @@ const StandingsTable: React.FC<Props> = ({ participants, standings, maxHeight, t
 
                                 return (
                                     <tr key={r.id}>
-                                        <Cell align="left">{r.name}</Cell>
+                                        <Cell $align="left">{r.name}</Cell>
                                         {colSpec.map(c => {
                                             switch (c.key) {
                                                 case "games":

@@ -87,7 +87,7 @@ const spinOnce = keyframes`
   to   { transform: rotate(360deg); }
 `;
 
-/** Always spins slowly; optional quick spin on hover */
+/** Always spins slowly; optional quick spin on hover (non-focusable/presentational) */
 const IconWrap = styled.span<{ $hoverSpin: boolean }>`
   display: inline-flex;
   align-items: center;
@@ -104,15 +104,11 @@ const IconWrap = styled.span<{ $hoverSpin: boolean }>`
   ${({ $hoverSpin }) =>
     $hoverSpin &&
     css`
-      &:hover,
-      &:focus-visible {
+      &:hover {
         animation: ${spinOnce} 700ms ease;
       }
       @media (prefers-reduced-motion: reduce) {
-        &:hover,
-        &:focus-visible {
-          animation: none;
-        }
+        &:hover { animation: none; }
       }
     `}
 `;
@@ -139,8 +135,9 @@ const Card: React.FC<Props> = ({
           {icon && (
             <IconWrap
               $hoverSpin={iconHoverSpin}
-              tabIndex={0}
-              aria-hidden
+              tabIndex={-1}
+              aria-hidden="true"
+              role="presentation"
             >
               {icon}
             </IconWrap>

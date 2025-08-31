@@ -144,19 +144,24 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         ref
     ) => {
         const { h, fs } = sizeToken(fieldSize);
+        const reactId = React.useId();
+        const selectId = (rest as any).id ?? `select-${reactId}`;
+        const ariaLabel = (rest as any)["aria-label"] ?? (!label ? (placeholder || "Select") : undefined)
 
         return (
             <Container>
-                {label && <Label>{label}</Label>}
+                {label && <Label htmlFor={selectId}>{label}</Label>}
 
                 <Wrapper>
                     <StyledSelect
                         ref={ref}
+                        id={selectId}
                         $h={h}
                         $fs={fs}
                         $variant={variant}
                         $hasError={!!error}
                         aria-invalid={!!error}
+                        aria-label={ariaLabel}
                         {...rest}
                     >
                         {placeholder && (
